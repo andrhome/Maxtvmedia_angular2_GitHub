@@ -1,1 +1,146 @@
-<h2>Parsels List</h2>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>Parsels List</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/">This is</a>
+            </li>
+            <li class="active">
+                <strong>Breadcrumb</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-sm-8">
+        <div class="title-action">
+
+        </div>
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="tabs-container">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#parcels-tabs-incoming">Incoming</a></li>
+            <li class=""><a data-toggle="tab" href="#parcels-tabs-outgoing">Outgoing</a></li>
+        </ul>
+        <div class="tab-content">
+            <div id="parcels-tabs-incoming" class="tab-pane active">
+                <div class="panel-body">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <div class="ibox-tools">
+                                <a href="#" class="btn btn-primary">Create an Incoming Parcel</a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Recepient</th>
+                                    <th>Received</th>
+                                    <th>Received from</th>
+                                    <th>Picked up</th>
+                                    <th>Pieces</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let parselItem of parselsList; let i = index;">
+                                    <td>{{i + 1}}</td>
+                                    <td>{{parselItem.recepient}}</td>
+                                    <td>{{parselItem.received}}</td>
+                                    <td>{{parselItem.receivedFrom}}</td>
+                                    <td>{{parselItem.pickedUp}}</td>
+                                    <td>{{parselItem.pieces}}</td>
+                                    <td>
+                                        <span class="label label-primary">{{parselItem.status}}</span>
+                                    </td>
+                                    <td>
+                                        <a href="#" class="btn btn-info"><i class="fa fa-paste"></i>Edit</a>
+                                        <div class="btn-group">
+                                            <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" aria-expanded="false">Action <span class="caret"></span></button>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#" data-id="" data-action="pick_up" data-title="" data-toggle="modal" data-target="#parcel_action_modal">Pick Up</a></li>
+                                                <li><a href="#" data-id="" data-action="return" data-title="" data-toggle="modal" data-target="#parcel_action_modal">Return</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="parcels-tabs-outgoing" class="tab-pane">
+                <div class="panel-body">
+                    <div class="ibox-title">
+                        <div class="ibox-tools">
+                            <a href="#" class="btn btn-primary">Create an Outgoing Parcel</a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Recepient</th>
+                                <th>Received</th>
+                                <th>Received from</th>
+                                <th>Picked up</th>
+                                <th>Pieces</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let parselItem of parselsList; let i = index;">
+                                <td>{{i + 1}}</td>
+                                <td>{{parselItem.recepient}}</td>
+                                <td>{{parselItem.received}}</td>
+                                <td>{{parselItem.receivedFrom}}</td>
+                                <td>{{parselItem.pickedUp}}</td>
+                                <td>{{parselItem.pieces}}</td>
+                                <td>
+                                    <span class="label label-primary">{{parselItem.status}}</span>
+                                </td>
+                                <td>
+                                    <a href="#" class="btn btn-info"><i class="fa fa-paste"></i>Edit</a>
+                                    <div class="btn-group">
+                                        <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" aria-expanded="false">Action <span class="caret"></span></button>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#" data-id="" data-action="pick_up" data-title="" data-toggle="modal" data-target="#parcel_action_modal">Pick Up</a></li>
+                                            <li><a href="#" data-id="" data-action="return" data-title="" data-toggle="modal" data-target="#parcel_action_modal">Return</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="parcel_action_modal" tabindex="-1" role="dialog" aria-labelledby="parcel_action_modal_label">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="parcel_action_modal_label"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="alert hide"></div>
+                <div class="custom-body"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary form-submit">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
