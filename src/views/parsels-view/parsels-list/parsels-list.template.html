@@ -10,11 +10,6 @@
             </li>
         </ol>
     </div>
-    <div class="col-sm-8">
-        <div class="title-action">
-
-        </div>
-    </div>
 </div>
 <div class="wrapper wrapper-content">
     <div class="tabs-container">
@@ -28,7 +23,8 @@
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
                             <div class="ibox-tools">
-                                <a href="#" class="btn btn-primary">Create an Incoming Parcel</a>
+                                <!--<a [routerLink]="'/create-incoming-parsel'" class="btn btn-primary">Create an Incoming Parcel</a>-->
+                                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#createIncominModal">Create an Incoming Parcel</a>
                             </div>
                         </div>
                         <div class="ibox-content">
@@ -45,28 +41,40 @@
                                     <th></th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody *ngIf="error">
+                                    <tr>
+                                        <td colspan="7">
+                                            <div class="alert alert-danger"><strong>Error:</strong> {{error}}</div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="!error">
                                     <tr *ngFor="let parselItem of parselsList; let i = index;">
-                                    <td>{{i + 1}}</td>
-                                    <td>{{parselItem.recepient}}</td>
-                                    <td>{{parselItem.received}}</td>
-                                    <td>{{parselItem.receivedFrom}}</td>
-                                    <td>{{parselItem.pickedUp}}</td>
-                                    <td>{{parselItem.pieces}}</td>
-                                    <td>
-                                        <span class="label label-primary">{{parselItem.status}}</span>
-                                    </td>
-                                    <td>
-                                        <a href="#" class="btn btn-info"><i class="fa fa-paste"></i>Edit</a>
-                                        <div class="btn-group">
-                                            <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" aria-expanded="false">Action <span class="caret"></span></button>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="#" data-id="" data-action="pick_up" data-title="" data-toggle="modal" data-target="#parcel_action_modal">Pick Up</a></li>
-                                                <li><a href="#" data-id="" data-action="return" data-title="" data-toggle="modal" data-target="#parcel_action_modal">Return</a></li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
+                                        <td>{{i + 1}}</td>
+                                        <td>{{parselItem.recepient}}</td>
+                                        <td>{{parselItem.received}}</td>
+                                        <td>{{parselItem.receivedFrom}}</td>
+                                        <td>{{parselItem.pickedUp}}</td>
+                                        <td>{{parselItem.pieces}}</td>
+                                        <td>
+                                            <template [ngIf]="parselItem.status == 'Picked up'">
+                                                <span class="label label-primary">{{parselItem.status}}</span>
+                                            </template>
+                                            <template [ngIf]="parselItem.status == 'Received'">
+                                                <span class="label label-info">{{parselItem.status}}</span>
+                                            </template>
+                                        </td>
+                                        <td>
+                                            <a href="#" class="btn btn-info"><i class="fa fa-paste"></i>Edit</a>
+                                            <div class="btn-group">
+                                                <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" aria-expanded="false">Action <span class="caret"></span></button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#" data-id="" data-action="pick_up" data-title="" data-toggle="modal" data-target="#parcel_action_modal">Pick Up</a></li>
+                                                    <li><a href="#" data-id="" data-action="return" data-title="" data-toggle="modal" data-target="#parcel_action_modal">Return</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -81,41 +89,59 @@
                         </div>
                     </div>
                     <div class="ibox-content">
+                        <!--<h1>NgIf Directive</h1>-->
+                        <!--<div *ngIf="conditions; then thenBlock else elseBlock">-->
+                            <!--<template #thenBlock>Then block</template>-->
+                            <!--<template #elseBlock>Else block</template>-->
+                        <!--</div>-->
+
                         <table class="table">
                             <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Recepient</th>
-                                <th>Received</th>
-                                <th>Received from</th>
-                                <th>Picked up</th>
-                                <th>Pieces</th>
-                                <th>Status</th>
-                                <th></th>
-                            </tr>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Recepient</th>
+                                    <th>Received</th>
+                                    <th>Received from</th>
+                                    <th>Picked up</th>
+                                    <th>Pieces</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
                             </thead>
-                            <tbody>
+                            <tbody *ngIf="error">
+                                <tr>
+                                    <td colspan="7">
+                                        <div class="alert alert-danger"><strong>Error:</strong> {{error}}</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody *ngIf="!error">
                                 <tr *ngFor="let parselItem of parselsList; let i = index;">
-                                <td>{{i + 1}}</td>
-                                <td>{{parselItem.recepient}}</td>
-                                <td>{{parselItem.received}}</td>
-                                <td>{{parselItem.receivedFrom}}</td>
-                                <td>{{parselItem.pickedUp}}</td>
-                                <td>{{parselItem.pieces}}</td>
-                                <td>
-                                    <span class="label label-primary">{{parselItem.status}}</span>
-                                </td>
-                                <td>
-                                    <a href="#" class="btn btn-info"><i class="fa fa-paste"></i>Edit</a>
-                                    <div class="btn-group">
-                                        <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" aria-expanded="false">Action <span class="caret"></span></button>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="#" data-id="" data-action="pick_up" data-title="" data-toggle="modal" data-target="#parcel_action_modal">Pick Up</a></li>
-                                            <li><a href="#" data-id="" data-action="return" data-title="" data-toggle="modal" data-target="#parcel_action_modal">Return</a></li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
+                                    <td>{{i + 1}}</td>
+                                    <td>{{parselItem.recepient}}</td>
+                                    <td>{{parselItem.received}}</td>
+                                    <td>{{parselItem.receivedFrom}}</td>
+                                    <td>{{parselItem.pickedUp}}</td>
+                                    <td>{{parselItem.pieces}}</td>
+                                    <td>
+                                        <template [ngIf]="parselItem.status == 'Picked up'">
+                                            <span class="label label-primary">{{parselItem.status}}</span>
+                                        </template>
+                                        <template [ngIf]="parselItem.status == 'Received'">
+                                            <span class="label label-info">{{parselItem.status}}</span>
+                                        </template>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-info"><i class="fa fa-paste"></i>Edit</button>
+                                        <div class="btn-group">
+                                            <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" aria-expanded="false">Action <span class="caret"></span></button>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#" data-id="" data-action="pick_up" data-title="" data-toggle="modal" data-target="#parcel_action_modal">Pick Up</a></li>
+                                                <li><a href="#" data-id="" data-action="return" data-title="" data-toggle="modal" data-target="#parcel_action_modal">Return</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -125,7 +151,115 @@
     </div>
 </div>
 
-<div class="modal fade" id="parcel_action_modal" tabindex="-1" role="dialog" aria-labelledby="parcel_action_modal_label">
+<!-- Create Incommin Parsel modal -->
+<div class="modal fade" id="createIncominModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="wrapper wrapper-content">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content">
+                            <form name="create_parcel" method="" class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label required" for="parcel-building">Building</label>
+                                    <div class="col-sm-10">
+                                        <select id="parcel-building" name="create_parcel[building]" class="form-control">
+                                            <option value="1">B1</option>
+                                            <option value="2">B2</option>
+                                            <option value="3">B3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label required" for="parcel-suite">Suite</label>
+                                    <div class="col-sm-10">
+                                        <select id="parcel-suite" name="create_parcel[suite]" class="form-control select2">
+                                            <option value="1">1000</option>
+                                            <option value="2">1001</option>
+                                            <option value="3">1002</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label required" for="parcel-resident">Recepient</label>
+                                    <div class="col-sm-10">
+                                        <select id="parcel-resident" name="create_parcel[resident]" class="form-control" [(ngModel)]="recepient">
+                                            <option value="Vin Diesel">Vin Diesel</option>
+                                            <option value="Jenifer Lopez">Jenifer Lopez</option>
+                                            <option value="Will Smith">Will Smith</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label required" for="create_parcel_parcelPostService">Delivered by</label>
+                                    <div class="col-sm-10">
+                                        <select id="create_parcel_parcelPostService" name="create_parcel[suite]" class="form-control" [(ngModel)]="deliveredby">
+                                            <option value="DHL">DHL</option>
+                                            <option value="SDN">SDN</option>
+                                            <option value="MVC">MVC</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="create_parcel_numberPieces">Pieces</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="create_parcel_numberPieces" name="create_parcel[numberPieces]" class="form-control" [(ngModel)]="pieces">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label required" for="create_parcel_parcelType">Parcel type</label>
+                                    <div class="col-sm-10">
+                                        <select id="create_parcel_parcelType" name="create_parcel[parcelType]" class="form-control">
+                                            <option value="1">Letter</option>
+                                            <option value="2">Package</option>
+                                            <option value="3">Medication</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="create_parcel_deliveryAddress">Delivery address</label>
+                                    <div class="col-sm-10">
+                                        <textarea id="create_parcel_deliveryAddress" name="create_parcel[deliveryAddress]" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="create_parcel_notes">Notes</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="create_parcel_notes" name="create_parcel[notes]" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="create_parcel_description">Description</label>
+                                    <div class="col-sm-10">
+                                        <textarea id="create_parcel_description" name="create_parcel[description]" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-10">
+                                        <button type="button"
+                                                id="create_parcel_submit"
+                                                name="create_parcel[submit]"
+                                                class="btn btn-primary btn"
+                                                data-dismiss="modal" aria-label="Close"
+                                                (click)="addIncomingParsel(recepient, deliveredby, pieces)">Save</button>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="create_parcel__token" name="create_parcel[_token]">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="parcel_action_modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">

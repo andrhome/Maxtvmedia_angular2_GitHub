@@ -1,12 +1,12 @@
 [
   {"recepient": "Ava Anderson", "received": "04.07.2017", "receivedFrom": "DHL", "pickedUp": "04.07.2017", "pieces": 1, "status": "Picked up"},
-  {"recepient": "Ava Anderson", "received": "04.07.2017", "receivedFrom": "DHL", "pickedUp": "04.07.2017", "pieces": 2, "status": "Picked up"},
+  {"recepient": "Ava Anderson", "received": "04.07.2017", "receivedFrom": "DHL", "pickedUp": "04.07.2017", "pieces": 2, "status": "Received"},
   {"recepient": "Ava Anderson", "received": "04.07.2017", "receivedFrom": "DHL", "pickedUp": "04.07.2017", "pieces": 4, "status": "Picked up"},
   {"recepient": "Ava Anderson", "received": "04.07.2017", "receivedFrom": "DHL", "pickedUp": "04.07.2017", "pieces": 3, "status": "Picked up"},
-  {"recepient": "Ava Anderson", "received": "04.07.2017", "receivedFrom": "DHL", "pickedUp": "04.07.2017", "pieces": 2, "status": "Picked up"},
-  {"recepient": "Ava Anderson", "received": "04.07.2017", "receivedFrom": "DHL", "pickedUp": "04.07.2017", "pieces": 1, "status": "Picked up"},
+  {"recepient": "Ava Anderson", "received": "04.07.2017", "receivedFrom": "DHL", "pickedUp": "04.07.2017", "pieces": 2, "status": "Received"},
+  {"recepient": "Ava Anderson", "received": "04.07.2017", "receivedFrom": "DHL", "pickedUp": "04.07.2017", "pieces": 1, "status": "Received"},
   {"recepient": "Ava Anderson", "received": "04.07.2017", "receivedFrom": "DHL", "pickedUp": "04.07.2017", "pieces": 5, "status": "Picked up"},
-  {"recepient": "Ava Anderson", "received": "04.07.2017", "receivedFrom": "DHL", "pickedUp": "04.07.2017", "pieces": 6, "status": "Picked up"},
+  {"recepient": "Ava Anderson", "received": "04.07.2017", "receivedFrom": "DHL", "pickedUp": "04.07.2017", "pieces": 6, "status": "Received"},
   {"recepient": "Ava Anderson", "received": "04.07.2017", "receivedFrom": "DHL", "pickedUp": "04.07.2017", "pieces": 1, "status": "Picked up"},
   {"recepient": "Ava Anderson", "received": "04.07.2017", "receivedFrom": "DHL", "pickedUp": "04.07.2017", "pieces": 3, "status": "Picked up"}
 ]

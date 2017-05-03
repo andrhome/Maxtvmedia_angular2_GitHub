@@ -1,20 +1,39 @@
-import { Component, OnInit } from '@angular/core';
-import { Response } from '@angular/http';
-import { GetHttpService } from "../services/get-http.service";
+import { Component, OnInit, OnChanges } from '@angular/core';
+import { ParselsListHttpService } from "./parsels-list-http.service";
 import { ParselsList } from "./parsels-list";
+// import { CreateIncomingParselComponent } from "./create-parsel/create-incoming-parsel.component";
 
 @Component({
     selector: 'parselsListView',
     templateUrl: 'parsels-list.template.html',
-    providers: [GetHttpService]
+    providers: [ParselsListHttpService]
 })
-export class ParselsListComponent implements OnInit {
+export class ParselsListComponent implements OnInit, OnChanges {
 
     parselsList: ParselsList[] = [];
+    error: any;
 
-    constructor(private http: GetHttpService) {}
+    constructor(private http: ParselsListHttpService) {}
 
     ngOnInit() {
-        this.http.getData('parsels-list.json').subscribe((data: Response) => this.parselsList = data.json());
+        this.http.getData().subscribe(
+                data => this.parselsList = data,
+                error => { this.error = error; console.log(error) }
+            );
+    }
+
+    ngOnChanges() {
+        console.log('Parsels List: ' + this.parselsList);
+    }
+
+    addIncomingParsel(recepient: string, deliveredby: string, pieces: [number, string]) {
+        this.parselsList.push(new ParselsList({
+                recepient: recepient,
+                received: "-",
+                receivedFrom: deliveredby,
+                pickedUp: "-",
+                pieces: pieces,
+                status: "Received"
+            }));
     }
 }
