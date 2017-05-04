@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { ParselsList } from "../parsels-list";
 
 declare var jQuery:any;
 
@@ -11,31 +12,20 @@ export class CreateIncomingParselComponent implements OnInit {
     ngOnInit() {
         jQuery(document).ready(function() {
             // Select2 init
-            jQuery('.select2').select2({allowClear: true});
+            // jQuery('.select2').select2({allowClear: true});
         });
     }
 
-
-
-
-    // @Input() recepient: string;
-    // @Input() deliveredBy: string;
-    // @Input() pieces: [number, string];
-    // @Input() receivedDate: string;
-    // @Input() receivedFrom: string;
-    // @Input() pickedUpDate: string;
-    // @Input() status: string;
-    //
-
-    // @Input() parselObject: Object;
-    //
-    // addIncomingParsel(recepient: string, deliveredBy: string, pieces: [number, string]) :void {
-    //     this.parselObject = {
-    //         recepient: recepient,
-    //         deliveredBy: deliveredBy,
-    //         pieces: pieces
-    //     };
-    //
-    //     console.log(this.parselObject);
+    // setCurentParsel(recepient: string, deliveredby: string, pieces: [number, string]) {
+    //     this.dataParsel.recepient = recepient;
+    //     this.dataParsel.deliveredby = deliveredby;
+    //     this.dataParsel.pieces = pieces;
     // }
+
+    @Input() dataParsel: ParselsList;
+
+    @Output() onChanged = new EventEmitter();
+    editIncomingFunc() {
+        this.onChanged.emit();
+    }
 }
