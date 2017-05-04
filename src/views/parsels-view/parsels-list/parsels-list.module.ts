@@ -5,7 +5,8 @@ import { FormsModule }   from '@angular/forms';
 import { ParselsListComponent } from "./parsels-list.component";
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-import { CreateIncomingParselComponent } from "./create-parsel/create-incoming-parsel.component";
+import { ListComponent } from '../../../components/list-component/list.component';
+import { AddingFormComponent } from '../../../components/adding-form-component/addin-form.component'
 
 @NgModule({
     imports: [
@@ -15,6 +16,10 @@ import { CreateIncomingParselComponent } from "./create-parsel/create-incoming-p
         HttpModule,
         RouterModule
     ],
-    declarations: [ParselsListComponent, CreateIncomingParselComponent]
+    declarations: [
+        ParselsListComponent,
+        ListComponent,
+        AddingFormComponent
+    ]
 })
 export class ParselsListModule {}

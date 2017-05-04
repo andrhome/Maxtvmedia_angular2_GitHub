@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
-import { ParselsList } from "../parsels-list";
+// import { ParselsList } from "../../../../assets/types/parsels-list";
 
 declare var jQuery:any;
 
@@ -8,24 +8,32 @@ declare var jQuery:any;
     templateUrl: 'create-parsel.template.html'
 })
 export class CreateIncomingParselComponent implements OnInit {
-
+    // @Input() editMode: boolean;
+    // @Input() dataParsel: ParselsList;
+    // @Output() onEdit = new EventEmitter();
+    // parsel: ParselsList = this.dataParsel ? this.dataParsel ;
+    // @Output() onAdd = new EventEmitter();
+    //
     ngOnInit() {
         jQuery(document).ready(function() {
             // Select2 init
             // jQuery('.select2').select2({allowClear: true});
         });
     }
-
-    // setCurentParsel(recepient: string, deliveredby: string, pieces: [number, string]) {
-    //     this.dataParsel.recepient = recepient;
-    //     this.dataParsel.deliveredby = deliveredby;
-    //     this.dataParsel.pieces = pieces;
+    //
+    // addIncomingFunc() {
+    //     console.log(this.parsel);
+    //     this.onAdd.emit(this.parsel);
+    //     // this.newParsel.id = 10;
+    //     // this.newParsel.recepient = recepient;
+    //     // this.newParsel.received = "-";
+    //     // this.newParsel.deliveredby = deliveredby;
+    //     // this.newParsel.pickedup = "-";
+    //     // this.newParsel.pieces = pieces;
+    //     // this.newParsel.status = "Received";
     // }
-
-    @Input() dataParsel: ParselsList;
-
-    @Output() onChanged = new EventEmitter();
-    editIncomingFunc() {
-        this.onChanged.emit();
-    }
+    //
+    // editIncomingFunc() {
+    //     this.onEdit.emit();
+    // }
 }

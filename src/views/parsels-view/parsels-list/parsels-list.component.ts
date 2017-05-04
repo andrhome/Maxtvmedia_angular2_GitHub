@@ -1,20 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { ParselsListHttpService } from "./parsels-list-http.service";
-import { ParselsList } from "./parsels-list";
+import { ParselType } from "../../../assets/types/parsel-type";
+import { AddingFormComponent } from '../../../components/adding-form-component/addin-form.component';
 
 @Component({
     selector: 'parselsListView',
     templateUrl: 'parsels-list.template.html',
-    providers: [ParselsListHttpService]
+    providers: [ParselsListHttpService, AddingFormComponent]
 })
 export class ParselsListComponent implements OnInit {
 
     constructor(private http: ParselsListHttpService) {}
 
-    parselsList: ParselsList[] = [];
+    parselsList: ParselType[] = [];
     error: any;
-    currentItem: ParselsList;
+    newParselItem: ParselType;
+    currentItem: ParselType;
     editParselId: number;
+    editMode: boolean = false;
+    popupMode: boolean = false;
+
+    ngOnInit() {
+        this.initParselsList();
+    }
 
     initParselsList: Function = function () {
         this.http.getData().subscribe(
@@ -23,33 +31,41 @@ export class ParselsListComponent implements OnInit {
         );
     };
 
-    ngOnInit() {
-        this.initParselsList();
+    showAddingPopup() {
+
     }
 
-    // Adding new parsel
-    // addIncomingParsel(recepient: string, deliveredby: string, pieces: [number, string]) {
-    //     let parselItem: ParselsList;
-    //     parselItem.recepient = recepient;
-    //     parselItem.received = "-";
-    //     parselItem.deliveredby = deliveredby;
-    //     parselItem.pickedup = "-";
-    //     parselItem.pieces = pieces;
-    //     parselItem.status = "Received";
+
+    // setNewParsel() {
+    //     this.newParselItem = null;
     // }
 
-    // Update current edit parsel
-    setCurrentEditParsel(index: number) {
-        this.currentItem = Object.assign({}, this.parselsList.find((item) => {
-            return item.id === index;
-        }));
-        this.editParselId = index;
-    }
-
-    // Save changes for current parsel
-    editIncominParsel() {
-        this.parselsList[this.editParselId - 1] = this.currentItem;
-        console.log('Current Item: ', this.currentItem);
-        console.log('ParselList obj: ', this.parselsList[this.editParselId - 1]);
-    }
+    // togglePopupMode() {
+    //     this.popupMode = true;
+    // }
+    //
+    // // Adding new parsel
+    // addIncomingParsel(item) {
+    //     this.popupMode = false;
+    //     // this.parselsList.push(item);
+    //     console.log(item);
+    // }
+    //
+    // // Update current edit parsel
+    // setCurrentEditParsel(index: number) {
+    //     this.editMode = true;
+    //
+    //     this.currentItem = Object.assign({}, this.parselsList.find((item) => {
+    //         return item.id === index;
+    //     }));
+    //     this.editParselId = index;
+    // }
+    //
+    // // Save changes for current parsel
+    // editIncominParsel() {
+    //     this.popupMode = false;
+    //     this.parselsList[this.editParselId - 1] = this.currentItem;
+    //     console.log('Current Item: ', this.currentItem);
+    //     console.log('ParselList obj: ', this.parselsList[this.editParselId - 1]);
+    // }
 }

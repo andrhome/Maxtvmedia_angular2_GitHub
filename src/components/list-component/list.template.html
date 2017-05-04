@@ -1,0 +1,49 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Recepient</th>
+        <th>Received</th>
+        <th>Delivered by</th>
+        <th>Picked up</th>
+        <th>Pieces</th>
+        <th>Status</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody *ngIf="error">
+    <tr>
+        <td colspan="7">
+            <div class="alert alert-danger"><strong>Error:</strong> {{error}}</div>
+        </td>
+    </tr>
+    </tbody>
+    <tbody *ngIf="!error">
+    <tr *ngFor="let item of dataList; let i = index;">
+        <td>{{i + 1}}</td>
+        <td>{{item.recepient}}</td>
+        <td>{{item.received}}</td>
+        <td>{{item.deliveredby}}</td>
+        <td>{{item.pickedup}}</td>
+        <td>{{item.pieces}}</td>
+        <td>
+            <template [ngIf]="item.status == 'Picked up'">
+                <span class="label label-primary">{{item.status}}</span>
+            </template>
+            <template [ngIf]="item.status == 'Received'">
+                <span class="label label-info">{{item.status}}</span>
+            </template>
+        </td>
+        <td>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#editIncominModal" (click)="setCurrentEditParsel(item.id)"><i class="fa fa-paste"></i>Edit</button>
+            <div class="btn-group">
+                <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" aria-expanded="false">Action <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="#" data-id="" data-action="pick_up" data-title="" data-toggle="modal" data-target="#parcel_action_modal">Pick Up</a></li>
+                    <li><a href="#" data-id="" data-action="return" data-title="" data-toggle="modal" data-target="#parcel_action_modal">Return</a></li>
+                </ul>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>

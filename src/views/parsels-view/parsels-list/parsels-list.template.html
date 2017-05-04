@@ -23,59 +23,11 @@
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
                             <div class="ibox-tools">
-                                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#createIncominModal">Create an Incoming Parcel</a>
+                                <button type="button" class="btn btn-primary" (click)="showAddingPopup()">Create an Incoming Parcel</button>
                             </div>
                         </div>
                         <div class="ibox-content">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Recepient</th>
-                                    <th>Received</th>
-                                    <th>Delivered by</th>
-                                    <th>Picked up</th>
-                                    <th>Pieces</th>
-                                    <th>Status</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody *ngIf="error">
-                                    <tr>
-                                        <td colspan="7">
-                                            <div class="alert alert-danger"><strong>Error:</strong> {{error}}</div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                                <tbody *ngIf="!error">
-                                    <tr *ngFor="let parselItem of parselsList; let i = index;">
-                                        <td>{{i + 1}}</td>
-                                        <td>{{parselItem.recepient}}</td>
-                                        <td>{{parselItem.received}}</td>
-                                        <td>{{parselItem.deliveredby}}</td>
-                                        <td>{{parselItem.pickedup}}</td>
-                                        <td>{{parselItem.pieces}}</td>
-                                        <td>
-                                            <template [ngIf]="parselItem.status == 'Picked up'">
-                                                <span class="label label-primary">{{parselItem.status}}</span>
-                                            </template>
-                                            <template [ngIf]="parselItem.status == 'Received'">
-                                                <span class="label label-info">{{parselItem.status}}</span>
-                                            </template>
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#editIncominModal" (click)="setCurrentEditParsel(parselItem.id)"><i class="fa fa-paste"></i>Edit</button>
-                                            <div class="btn-group">
-                                                <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" aria-expanded="false">Action <span class="caret"></span></button>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="#" data-id="" data-action="pick_up" data-title="" data-toggle="modal" data-target="#parcel_action_modal">Pick Up</a></li>
-                                                    <li><a href="#" data-id="" data-action="return" data-title="" data-toggle="modal" data-target="#parcel_action_modal">Return</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <list-comp [dataList]="parselsList"></list-comp>
                         </div>
                     </div>
                 </div>
@@ -94,55 +46,7 @@
                             <!--<template #elseBlock>Else block</template>-->
                         <!--</div>-->
 
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Recepient</th>
-                                    <th>Received</th>
-                                    <th>Delivered by</th>
-                                    <th>Picked up</th>
-                                    <th>Pieces</th>
-                                    <th>Status</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody *ngIf="error">
-                                <tr>
-                                    <td colspan="7">
-                                        <div class="alert alert-danger"><strong>Error:</strong> {{error}}</div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                            <tbody *ngIf="!error">
-                                <tr *ngFor="let parselItem of parselsList; let i = index;">
-                                    <td>{{i + 1}}</td>
-                                    <td>{{parselItem.recepient}}</td>
-                                    <td>{{parselItem.received}}</td>
-                                    <td>{{parselItem.deliveredby}}</td>
-                                    <td>{{parselItem.pickedup}}</td>
-                                    <td>{{parselItem.pieces}}</td>
-                                    <td>
-                                        <template [ngIf]="parselItem.status == 'Picked up'">
-                                            <span class="label label-primary">{{parselItem.status}}</span>
-                                        </template>
-                                        <template [ngIf]="parselItem.status == 'Received'">
-                                            <span class="label label-info">{{parselItem.status}}</span>
-                                        </template>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-info"><i class="fa fa-paste"></i>Edit</button>
-                                        <div class="btn-group">
-                                            <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" aria-expanded="false">Action <span class="caret"></span></button>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="#" data-id="" data-action="pick_up" data-title="" data-toggle="modal" data-target="#parcel_action_modal">Pick Up</a></li>
-                                                <li><a href="#" data-id="" data-action="return" data-title="" data-toggle="modal" data-target="#parcel_action_modal">Return</a></li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <list-comp [dataList]="parselsList"></list-comp>
                     </div>
                 </div>
             </div>
@@ -151,7 +55,7 @@
 </div>
 
 <!-- Create Incommin Parsel modal -->
-<create-incoming-parsel [dataParsel]="currentItem" (onChanged)="editIncominParsel()"></create-incoming-parsel>
+<adding-form></adding-form>
 
 <div class="modal fade" id="parcel_action_modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">

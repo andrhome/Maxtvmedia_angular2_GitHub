@@ -1,225 +1,104 @@
-<!-- Modal window for creating the new parsel -->
-<div class="modal fade" id="createIncominModal" *ngIf="!dataParsel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title"></h4>
-            </div>
-            <div class="modal-body">
-                <div class="wrapper wrapper-content">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-content">
-                            <form name="create_parcel" method="" class="form-horizontal">
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label required" for="parcel-building">Building</label>
-                                    <div class="col-sm-10">
-                                        <select id="parcel-building" name="create_parcel[building]" class="form-control">
-                                            <option value="1">B1</option>
-                                            <option value="2">B2</option>
-                                            <option value="3">B3</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label required" for="parcel-suite">Suite</label>
-                                    <div class="col-sm-10">
-                                        <select id="parcel-suite" name="create_parcel[suite]" class="form-control select2">
-                                            <option value="1">1000</option>
-                                            <option value="2">1001</option>
-                                            <option value="3">1002</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label required" for="parcel-resident">Recepient</label>
-                                    <div class="col-sm-10">
-                                        <select id="parcel-resident" name="create_parcel[resident]" class="form-control" [(ngModel)]="recepient">
-                                            <option value="Vin Diesel">Vin Diesel</option>
-                                            <option value="Jenifer Lopez">Jenifer Lopez</option>
-                                            <option value="Will Smith">Will Smith</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label required" for="create_parcel_parcelPostService">Delivered by</label>
-                                    <div class="col-sm-10">
-                                        <select id="create_parcel_parcelPostService" name="create_parcel[suite]" class="form-control" [(ngModel)]="deliveredby">
-                                            <option value="DHL">DHL</option>
-                                            <option value="SDN">SDN</option>
-                                            <option value="MVC">MVC</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="create_parcel_numberPieces">Pieces</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" id="create_parcel_numberPieces" name="create_parcel[numberPieces]" class="form-control" [(ngModel)]="pieces">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label required" for="create_parcel_parcelType">Parcel type</label>
-                                    <div class="col-sm-10">
-                                        <select id="create_parcel_parcelType" name="create_parcel[parcelType]" class="form-control">
-                                            <option value="1">Letter</option>
-                                            <option value="2">Package</option>
-                                            <option value="3">Medication</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="create_parcel_deliveryAddress">Delivery address</label>
-                                    <div class="col-sm-10">
-                                        <textarea id="create_parcel_deliveryAddress" name="create_parcel[deliveryAddress]" class="form-control"></textarea>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="create_parcel_notes">Notes</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" id="create_parcel_notes" name="create_parcel[notes]" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="create_parcel_description">Description</label>
-                                    <div class="col-sm-10">
-                                        <textarea id="create_parcel_description" name="create_parcel[description]" class="form-control"></textarea>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-2"></div>
-                                    <div class="col-sm-10">
-                                        <button type="button"
-                                                id="create_parcel_submit"
-                                                name="create_parcel[submit]"
-                                                class="btn btn-primary btn"
-                                                data-dismiss="modal" aria-label="Close"
-                                                (click)="addIncomingParsel(recepient, deliveredby, pieces)">Save</button>
-                                    </div>
-                                </div>
-                                <input type="hidden" id="create_parcel__token" name="create_parcel[_token]">
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<!--<div class="wrapper wrapper-content col-md-6">-->
+    <!--<div class="ibox float-e-margins">-->
+        <!--<div class="ibox-content">-->
+            <!--<form name="create_parcel" method="" class="form-horizontal">-->
+                <!--<div class="form-group">-->
+                    <!--<label class="col-sm-2 control-label required" for="parcel-building">Building</label>-->
+                    <!--<div class="col-sm-10">-->
+                        <!--<select id="parcel-building" name="create_parcel[building]" class="form-control">-->
+                            <!--<option value="1">B1</option>-->
+                            <!--<option value="2">B2</option>-->
+                            <!--<option value="3">B3</option>-->
+                        <!--</select>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<label class="col-sm-2 control-label required" for="parcel-suite">Suite</label>-->
+                    <!--<div class="col-sm-10">-->
+                        <!--<select id="parcel-suite" name="create_parcel[suite]" class="form-control select2">-->
+                            <!--<option value="1">1000</option>-->
+                            <!--<option value="2">1001</option>-->
+                            <!--<option value="3">1002</option>-->
+                        <!--</select>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<label class="col-sm-2 control-label required" for="parcel-resident">Recepient</label>-->
+                    <!--<div class="col-sm-10">-->
+                        <!--<select id="parcel-resident" name="create_parcel[resident]" class="form-control" [(ngModel)]="parsel.recepient">-->
+                            <!--<option value="Vin Diesel">Vin Diesel</option>-->
+                            <!--<option value="Jenifer Lopez">Jenifer Lopez</option>-->
+                            <!--<option value="Will Smith">Will Smith</option>-->
+                        <!--</select>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<label class="col-sm-2 control-label required" for="create_parcel_parcelPostService">Delivered by</label>-->
+                    <!--<div class="col-sm-10">-->
+                        <!--<select id="create_parcel_parcelPostService" name="create_parcel[suite]" class="form-control" [(ngModel)]="parsel.deliveredby">-->
+                            <!--<option value="DHL">DHL</option>-->
+                            <!--<option value="SDN">SDN</option>-->
+                            <!--<option value="MVC">MVC</option>-->
+                        <!--</select>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<label class="col-sm-2 control-label" for="create_parcel_numberPieces">Pieces</label>-->
+                    <!--<div class="col-sm-10">-->
+                        <!--<input type="text" id="create_parcel_numberPieces" name="create_parcel[numberPieces]" class="form-control" [(ngModel)]="parsel.pieces">-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<label class="col-sm-2 control-label required" for="create_parcel_parcelType">Parcel type</label>-->
+                    <!--<div class="col-sm-10">-->
+                        <!--<select id="create_parcel_parcelType" name="create_parcel[parcelType]" class="form-control">-->
+                            <!--<option value="1">Letter</option>-->
+                            <!--<option value="2">Package</option>-->
+                            <!--<option value="3">Medication</option>-->
+                        <!--</select>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<label class="col-sm-2 control-label" for="create_parcel_deliveryAddress">Delivery address</label>-->
+                    <!--<div class="col-sm-10">-->
+                        <!--<textarea id="create_parcel_deliveryAddress" name="create_parcel[deliveryAddress]" class="form-control"></textarea>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<label class="col-sm-2 control-label" for="create_parcel_notes">Notes</label>-->
+                    <!--<div class="col-sm-10">-->
+                        <!--<input type="text" id="create_parcel_notes" name="create_parcel[notes]" class="form-control">-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<label class="col-sm-2 control-label" for="create_parcel_description">Description</label>-->
+                    <!--<div class="col-sm-10">-->
+                        <!--<textarea id="create_parcel_description" name="create_parcel[description]" class="form-control"></textarea>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<div class="col-sm-2"></div>-->
+                    <!--<div class="col-sm-10">-->
+                        <!--<button *ngIf="!editMode"-->
+                                <!--type="button"-->
+                                <!--id="create_parcel_submit"-->
+                                <!--name="create_parcel[submit]"-->
+                                <!--class="btn btn-primary btn"-->
+                                <!--data-dismiss="modal" aria-label="Close"-->
+                                <!--(click)="addIncomingFunc()">Save</button>-->
 
-<!-- Modal window for editing the current parsel -->
-<div class="modal fade" id="editIncominModal" *ngIf="dataParsel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title"></h4>
-            </div>
-            <div class="modal-body">
-                <div class="wrapper wrapper-content">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-content">
-                            <form name="create_parcel" method="" class="form-horizontal">
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label required" for="parcel-building_edit">Building</label>
-                                    <div class="col-sm-10">
-                                        <select id="parcel-building_edit" name="create_parcel[building]" class="form-control">
-                                            <option value="1">B1</option>
-                                            <option value="2">B2</option>
-                                            <option value="3">B3</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label required" for="parcel-suite_edit">Suite</label>
-                                    <div class="col-sm-10">
-                                        <select id="parcel-suite_edit" name="create_parcel[suite]" class="form-control select2">
-                                            <option value="1">1000</option>
-                                            <option value="2">1001</option>
-                                            <option value="3">1002</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label required" for="parcel-resident_edit">Recepient</label>
-                                    <div class="col-sm-10">
-                                        <select id="parcel-resident_edit" name="create_parcel[resident]" class="form-control" [(ngModel)]="dataParsel.recepient">
-                                            <option value="Vin Diesel">Vin Diesel</option>
-                                            <option value="Jenifer Lopez">Jenifer Lopez</option>
-                                            <option value="Will Smith">Will Smith</option>
-                                            <option value="Ava Anderson1">Ava Anderson1</option>
-                                            <option value="Ava Anderson2">Ava Anderson2</option>
-                                            <option value="Ava Anderson3">Ava Anderson3</option>
-                                            <option value="Ava Anderson4">Ava Anderson4</option>
-                                            <option value="Ava Anderson5">Ava Anderson5</option>
-                                            <option value="Ava Anderson6">Ava Anderson6</option>
-                                            <option value="Ava Anderson7">Ava Anderson7</option>
-                                            <option value="Ava Anderson8">Ava Anderson8</option>
-                                            <option value="Ava Anderson9">Ava Anderson9</option>
-                                            <option value="Ava Anderson10">Ava Anderson10</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label required" for="create_parcel_parcelPostService_edit">Delivered by</label>
-                                    <div class="col-sm-10">
-                                        <select id="create_parcel_parcelPostService_edit" name="create_parcel[suite]" class="form-control" [(ngModel)]="dataParsel.deliveredby">
-                                            <option value="DHL">DHL</option>
-                                            <option value="SDN">SDN</option>
-                                            <option value="MVC">MVC</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="create_parcel_numberPieces_edit">Pieces</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" id="create_parcel_numberPieces_edit" name="create_parcel[numberPieces]" class="form-control" [(ngModel)]="dataParsel.pieces">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label required" for="create_parcel_parcelType_edit">Parcel type</label>
-                                    <div class="col-sm-10">
-                                        <select id="create_parcel_parcelType_edit" name="create_parcel[parcelType]" class="form-control">
-                                            <option value="1">Letter</option>
-                                            <option value="2">Package</option>
-                                            <option value="3">Medication</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="create_parcel_deliveryAddress_edit">Delivery address</label>
-                                    <div class="col-sm-10">
-                                        <textarea id="create_parcel_deliveryAddress_edit" name="create_parcel[deliveryAddress]" class="form-control"></textarea>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="create_parcel_notes_edit">Notes</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" id="create_parcel_notes_edit" name="create_parcel[notes]" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="create_parcel_description_edit">Description</label>
-                                    <div class="col-sm-10">
-                                        <textarea id="create_parcel_description_edit" name="create_parcel[description]" class="form-control"></textarea>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-2"></div>
-                                    <div class="col-sm-10">
-                                        <button type="button"
-                                                id="create_parcel_edit"
-                                                name="create_parcel[submit]"
-                                                class="btn btn-primary btn"
-                                                data-dismiss="modal" aria-label="Close"
-                                                (click)="editIncomingFunc()">Edit</button>
-                                    </div>
-                                </div>
-                                <input type="hidden" id="create_parcel__token_edit" name="create_parcel[_token]">
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                        <!--<button *ngIf="editMode"-->
+                                <!--type="button"-->
+                                <!--id="create_parcel_edit"-->
+                                <!--name="create_parcel[submit]"-->
+                                <!--class="btn btn-primary btn"-->
+                                <!--data-dismiss="modal" aria-label="Close"-->
+                                <!--(click)="editIncomingFunc()">Edit</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<input type="hidden" id="create_parcel__token" name="create_parcel[_token]">-->
+            <!--</form>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
