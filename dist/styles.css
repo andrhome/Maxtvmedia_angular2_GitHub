@@ -6241,7 +6241,6 @@ table.table-mail tr td {
   display: block;
   float: none;
   margin-top: 0;
-  position: relative;
   padding: 0;
   text-align: right;
 }
@@ -10752,6 +10751,8 @@ body.md-skin {
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 10;
+  padding: 30px;
 }
 
 /*# sourceMappingURL=main.map*/

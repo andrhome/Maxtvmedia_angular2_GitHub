@@ -115,17 +115,38 @@ webpackJsonp([2],{
 	};
 	var core_1 = __webpack_require__(3);
 	var parsel_type_1 = __webpack_require__(97);
+	var http_services_service_1 = __webpack_require__(423);
 	var AddingFormComponent = (function () {
-	    function AddingFormComponent() {
+	    function AddingFormComponent(http) {
+	        this.http = http;
 	        this.title = '';
 	        this.editMode = false;
 	        this.parselItem = new parsel_type_1.ParselType();
 	        this.onSubmit = new core_1.EventEmitter();
+	        this.buildings = [];
+	        this.suites = [];
+	        this.residents = [];
 	        this.isShow = false;
 	    }
 	    AddingFormComponent.prototype.show = function () {
+	        var _this = this;
 	        this.isShow = true;
+	        this.http.getBuilds().subscribe(function (data) {
+	            _this.buildings = data;
+	            _this.http.getSuites(_this.buildings[0].id).subscribe(function (data) {
+	                _this.suites = data;
+	                _this.http.getResidents().subscribe(function (data) {
+	                    _this.residents = data;
+	                    console.log('Residents: ', _this.residents);
+	                });
+	            });
+	        });
 	    };
+	    // getSuites() {
+	    //     this.http.getSuites().subscribe(
+	    //         data => { this.suites = data; console.log(data); }
+	    //     );
+	    // }
 	    AddingFormComponent.prototype.hide = function () {
 	        this.isShow = false;
 	    };
@@ -163,10 +184,10 @@ webpackJsonp([2],{
 	            selector: 'adding-form',
 	            template: __webpack_require__(355)
 	        }), 
-	        __metadata('design:paramtypes', [])
+	        __metadata('design:paramtypes', [(typeof (_c = typeof http_services_service_1.HttpService !== 'undefined' && http_services_service_1.HttpService) === 'function' && _c) || Object])
 	    ], AddingFormComponent);
 	    return AddingFormComponent;
-	    var _a, _b;
+	    var _a, _b, _c;
 	}());
 	exports.AddingFormComponent = AddingFormComponent;
 	
@@ -300,7 +321,7 @@ webpackJsonp([2],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(3);
-	var parsels_list_http_service_1 = __webpack_require__(170);
+	var http_services_service_1 = __webpack_require__(423);
 	var adding_form_component_1 = __webpack_require__(98);
 	var ParselsListComponent = (function () {
 	    function ParselsListComponent(http) {
@@ -308,7 +329,7 @@ webpackJsonp([2],{
 	        this.parselsList = [];
 	        this.initParselsList = function () {
 	            var _this = this;
-	            this.http.getData().subscribe(function (data) { _this.parselsList = data; console.log(data); }, function (error) { _this.error = error; console.error(error); });
+	            this.http.getDataList().subscribe(function (data) { _this.parselsList = data; console.log(data); }, function (error) { _this.error = error; console.error(error); });
 	        };
 	    }
 	    ParselsListComponent.prototype.ngOnInit = function () {
@@ -325,9 +346,9 @@ webpackJsonp([2],{
 	        core_1.Component({
 	            selector: 'parselsListView',
 	            template: __webpack_require__(363),
-	            providers: [parsels_list_http_service_1.ParselsListHttpService, adding_form_component_1.AddingFormComponent]
+	            providers: [http_services_service_1.HttpService, adding_form_component_1.AddingFormComponent]
 	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof parsels_list_http_service_1.ParselsListHttpService !== 'undefined' && parsels_list_http_service_1.ParselsListHttpService) === 'function' && _a) || Object])
+	        __metadata('design:paramtypes', [(typeof (_a = typeof http_services_service_1.HttpService !== 'undefined' && http_services_service_1.HttpService) === 'function' && _a) || Object])
 	    ], ParselsListComponent);
 	    return ParselsListComponent;
 	    var _a;
@@ -935,68 +956,6 @@ webpackJsonp([2],{
 
 /***/ }),
 
-/***/ 170:
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var http_1 = __webpack_require__(35);
-	var Observable_1 = __webpack_require__(9);
-	__webpack_require__(141);
-	__webpack_require__(371);
-	__webpack_require__(370);
-	var ParselsListHttpService = (function () {
-	    function ParselsListHttpService(http) {
-	        this.http = http;
-	    }
-	    ParselsListHttpService.prototype.createAuthorizationHeader = function (headers) {
-	        headers.append('Content-Type', 'application/json;charset=utf-8');
-	        headers.append('Authorization', 'Bearer MmM2YzIzYmU4NTFkMWVhMGNiZDEyNTllNzYxNzY0OWIxODg2OWEyNjg4ZjYwYzc2ZjFkMThmZTljMjVkYjQxNA');
-	    };
-	    ParselsListHttpService.prototype.getData = function () {
-	        var headers = new http_1.Headers();
-	        this.createAuthorizationHeader(headers);
-	        var options = new http_1.RequestOptions({ headers: headers });
-	        // 'http://maxtvmedia.requestumdemo.com/api/v1/parcels'
-	        return this.http.get('http://maxtvmedia.requestumdemo.com/api/v1/parcels.json', options)
-	            .map(function (resp) { return resp.json(); })
-	            .catch(function (error) {
-	            return Observable_1.Observable.throw(error);
-	        });
-	    };
-	    ParselsListHttpService.prototype.addItem = function (item) {
-	        var headers = new http_1.Headers();
-	        this.createAuthorizationHeader(headers);
-	        var options = new http_1.RequestOptions({ headers: headers });
-	        return this.http.post('http://maxtvmedia.requestumdemo.com/api/v1/parcels.json', {}, options)
-	            .map(function (resp) { return resp.json(); })
-	            .catch(function (error) {
-	            return Observable_1.Observable.throw(error);
-	        });
-	    };
-	    ParselsListHttpService.prototype.editItem = function () {
-	    };
-	    ParselsListHttpService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof http_1.Http !== 'undefined' && http_1.Http) === 'function' && _a) || Object])
-	    ], ParselsListHttpService);
-	    return ParselsListHttpService;
-	    var _a;
-	}());
-	exports.ParselsListHttpService = ParselsListHttpService;
-	
-
-/***/ }),
-
 /***/ 171:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1134,7 +1093,7 @@ webpackJsonp([2],{
 /***/ 355:
 /***/ (function(module, exports) {
 
-	module.exports = "<button type=\"button\" class=\"btn btn-primary\" (click)=\"show()\" [innerHTML]=\"title\"></button>\n\n<div class=\"ibox float-e-margins adding-form-wrapper\" *ngIf=\"isShow\">\n\t<div class=\"ibox-content\">\n\t\t<form name=\"create_parcel\" method=\"\" class=\"form-horizontal\">\n\t\t\t<div class=\"form-group\">\n\t\t\t\t<label class=\"col-sm-2 control-label required\" for=\"parcel-building\">Building</label>\n\t\t\t\t<div class=\"col-sm-10\">\n\t\t\t\t\t<select id=\"parcel-building\" name=\"create_parcel[building]\" class=\"form-control\">\n\t\t\t\t\t\t<option value=\"1\">B1</option>\n\t\t\t\t\t\t<option value=\"2\">B2</option>\n\t\t\t\t\t\t<option value=\"3\">B3</option>\n\t\t\t\t\t</select>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class=\"form-group\">\n\t\t\t\t<label class=\"col-sm-2 control-label required\" for=\"parcel-suite\">Suite</label>\n\t\t\t\t<div class=\"col-sm-10\">\n\t\t\t\t\t<select id=\"parcel-suite\" name=\"create_parcel[suite]\" class=\"form-control select2\">\n\t\t\t\t\t\t<option value=\"1\">1000</option>\n\t\t\t\t\t\t<option value=\"2\">1001</option>\n\t\t\t\t\t\t<option value=\"3\">1002</option>\n\t\t\t\t\t</select>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class=\"form-group\">\n\t\t\t\t<label class=\"col-sm-2 control-label required\" for=\"parcel-resident-name\">Recepient name</label>\n\t\t\t\t<div class=\"col-sm-10\">\n\t\t\t\t\t<input type=\"text\" id=\"parcel-resident-name\" name=\"create_parcel[resident-name]\" class=\"form-control\" [(ngModel)]=\"parselItem.firstName\"/>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class=\"form-group\">\n\t\t\t\t<label class=\"col-sm-2 control-label required\" for=\"parcel-resident-surname\">Recepient surename</label>\n\t\t\t\t<div class=\"col-sm-10\">\n\t\t\t\t\t<input type=\"text\" id=\"parcel-resident-surname\" name=\"create_parcel[resident-surname]\" class=\"form-control\" [(ngModel)]=\"parselItem.lastName\"/>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class=\"form-group\">\n\t\t\t\t<label class=\"col-sm-2 control-label required\" for=\"create_parcel_parcelPostService\">Delivered by</label>\n\t\t\t\t<div class=\"col-sm-10\">\n\t\t\t\t\t<select id=\"create_parcel_parcelPostService\" name=\"create_parcel[suite]\" class=\"form-control\">\n\t\t\t\t\t\t<option value=\"DHL\">DHL</option>\n\t\t\t\t\t\t<option value=\"SDN\">SDN</option>\n\t\t\t\t\t\t<option value=\"MVC\">MVC</option>\n\t\t\t\t\t</select>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class=\"form-group\">\n\t\t\t\t<label class=\"col-sm-2 control-label\" for=\"create_parcel_numberPieces\">Pieces</label>\n\t\t\t\t<div class=\"col-sm-10\">\n\t\t\t\t\t<input type=\"text\" id=\"create_parcel_numberPieces\" name=\"create_parcel[numberPieces]\" class=\"form-control\">\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class=\"form-group\">\n\t\t\t\t<label class=\"col-sm-2 control-label required\" for=\"create_parcel_parcelType\">Parcel type</label>\n\t\t\t\t<div class=\"col-sm-10\">\n\t\t\t\t\t<select id=\"create_parcel_parcelType\" name=\"create_parcel[parcelType]\" class=\"form-control\" [(ngModel)]=\"parselItem.parcelType\">\n\t\t\t\t\t\t<option value=\"1\">Letter</option>\n\t\t\t\t\t\t<option value=\"2\">Package</option>\n\t\t\t\t\t\t<option value=\"3\">Medication</option>\n\t\t\t\t\t</select>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class=\"form-group\">\n\t\t\t\t<label class=\"col-sm-2 control-label\" for=\"create_parcel_deliveryAddress\">Delivery address</label>\n\t\t\t\t<div class=\"col-sm-10\">\n\t\t\t\t\t<textarea id=\"create_parcel_deliveryAddress\" name=\"create_parcel[deliveryAddress]\" class=\"form-control\"></textarea>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class=\"form-group\">\n\t\t\t\t<label class=\"col-sm-2 control-label\" for=\"create_parcel_notes\">Notes</label>\n\t\t\t\t<div class=\"col-sm-10\">\n\t\t\t\t\t<input type=\"text\" id=\"create_parcel_notes\" name=\"create_parcel[notes]\" class=\"form-control\">\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class=\"form-group\">\n\t\t\t\t<label class=\"col-sm-2 control-label\" for=\"create_parcel_description\">Description</label>\n\t\t\t\t<div class=\"col-sm-10\">\n\t\t\t\t\t<textarea id=\"create_parcel_description\" name=\"create_parcel[description]\" class=\"form-control\"></textarea>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class=\"form-group\">\n\t\t\t\t<div class=\"col-sm-2\"></div>\n\t\t\t\t<div class=\"col-sm-10\">\n\t\t\t\t\t<button type=\"button\"\n\t\t\t\t\t\t\t\t\tname=\"create_parcel[submit]\"\n\t\t\t\t\t\t\t\t\tclass=\"btn btn-primary btn\"\n\t\t\t\t\t\t\t\t\t(click)=\"submit()\" [innerHTML]=\"editMode ? 'Edit' : 'Save'\">\n\t\t\t\t\t</button>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<input type=\"hidden\" id=\"create_parcel__token\" name=\"create_parcel[_token]\">\n\t\t</form>\n\t</div>\n</div>\n"
+	module.exports = "<button type=\"button\" class=\"btn btn-primary\" (click)=\"show()\" [innerHTML]=\"title\"></button>\n\n<div class=\"adding-form-wrapper clearfix\" *ngIf=\"isShow\">\n\t<div class=\"col-md-6\">\n\t\t<div class=\"ibox float-e-margins\">\n\t\t\t<div class=\"ibox-content\">\n\t\t\t\t<form name=\"create_parcel\" method=\"\" class=\"form-horizontal\">\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-sm-2 control-label required\" for=\"parcel-building\">Building</label>\n\t\t\t\t\t\t<div class=\"col-sm-10\">\n\t\t\t\t\t\t\t<select (change)=\"getSuites(1)\" id=\"parcel-building\" name=\"create_parcel[building]\" class=\"form-control\">\n\t\t\t\t\t\t\t\t<option *ngFor=\"let build of buildings\" value=\"{{build.name}}\">{{build.name}}</option>\n\t\t\t\t\t\t\t</select>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-sm-2 control-label required\" for=\"parcel-suite\">Suite</label>\n\t\t\t\t\t\t<div class=\"col-sm-10\">\n\t\t\t\t\t\t\t<select (change)=\"getResidents()\" id=\"parcel-suite\" name=\"create_parcel[suite]\" class=\"form-control select2\">\n\t\t\t\t\t\t\t\t<option *ngFor=\"let suite of suites\" value=\"{{suite.suite_number}}\">{{suite.suite_number}}</option>\n\t\t\t\t\t\t\t</select>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-sm-2 control-label required\" for=\"parcel-resident-name\">Recepient name</label>\n\t\t\t\t\t\t<div class=\"col-sm-10\">\n\t\t\t\t\t\t\t<select id=\"parcel-resident-name\" name=\"create_parcel[resident-name]\" class=\"form-control select2\" [(ngModel)]=\"parselItem.firstName\">\n\t\t\t\t\t\t\t\t<option *ngFor=\"let resident of residents\" value=\"{{resident.first_name}}\">{{resident.first_name}}</option>\n\t\t\t\t\t\t\t</select>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-sm-2 control-label required\" for=\"parcel-resident-surname\">Recepient surename</label>\n\t\t\t\t\t\t<div class=\"col-sm-10\">\n\t\t\t\t\t\t\t<select id=\"parcel-resident-surname\" name=\"create_parcel[resident-surname]\" class=\"form-control select2\" [(ngModel)]=\"parselItem.lastName\">\n\t\t\t\t\t\t\t\t<option *ngFor=\"let resident of residents\" value=\"{{resident.last_name}}\">{{resident.last_name}}</option>\n\t\t\t\t\t\t\t</select>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-sm-2 control-label required\" for=\"create_parcel_parcelPostService\">Delivered by</label>\n\t\t\t\t\t\t<div class=\"col-sm-10\">\n\t\t\t\t\t\t\t<select id=\"create_parcel_parcelPostService\" name=\"create_parcel[suite]\" class=\"form-control\">\n\t\t\t\t\t\t\t\t<option value=\"DHL\">DHL</option>\n\t\t\t\t\t\t\t\t<option value=\"SDN\">SDN</option>\n\t\t\t\t\t\t\t\t<option value=\"MVC\">MVC</option>\n\t\t\t\t\t\t\t</select>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-sm-2 control-label\" for=\"create_parcel_numberPieces\">Pieces</label>\n\t\t\t\t\t\t<div class=\"col-sm-10\">\n\t\t\t\t\t\t\t<input type=\"text\" id=\"create_parcel_numberPieces\" name=\"create_parcel[numberPieces]\" class=\"form-control\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-sm-2 control-label required\" for=\"create_parcel_parcelType\">Parcel type</label>\n\t\t\t\t\t\t<div class=\"col-sm-10\">\n\t\t\t\t\t\t\t<select id=\"create_parcel_parcelType\" name=\"create_parcel[parcelType]\" class=\"form-control\" [(ngModel)]=\"parselItem.parcelType\">\n\t\t\t\t\t\t\t\t<option value=\"1\">Letter</option>\n\t\t\t\t\t\t\t\t<option value=\"2\">Package</option>\n\t\t\t\t\t\t\t\t<option value=\"3\">Medication</option>\n\t\t\t\t\t\t\t</select>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-sm-2 control-label\" for=\"create_parcel_deliveryAddress\">Delivery address</label>\n\t\t\t\t\t\t<div class=\"col-sm-10\">\n\t\t\t\t\t\t\t<textarea id=\"create_parcel_deliveryAddress\" name=\"create_parcel[deliveryAddress]\" class=\"form-control\"></textarea>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-sm-2 control-label\" for=\"create_parcel_notes\">Notes</label>\n\t\t\t\t\t\t<div class=\"col-sm-10\">\n\t\t\t\t\t\t\t<input type=\"text\" id=\"create_parcel_notes\" name=\"create_parcel[notes]\" class=\"form-control\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-sm-2 control-label\" for=\"create_parcel_description\">Description</label>\n\t\t\t\t\t\t<div class=\"col-sm-10\">\n\t\t\t\t\t\t\t<textarea id=\"create_parcel_description\" name=\"create_parcel[description]\" class=\"form-control\"></textarea>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<div class=\"col-sm-2\"></div>\n\t\t\t\t\t\t<div class=\"col-sm-10\">\n\t\t\t\t\t\t\t<button type=\"button\"\n\t\t\t\t\t\t\t\t\tname=\"create_parcel[submit]\"\n\t\t\t\t\t\t\t\t\tclass=\"btn btn-primary btn\"\n\t\t\t\t\t\t\t\t\t(click)=\"submit()\" [innerHTML]=\"editMode ? 'Edit' : 'Save'\">\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<input type=\"hidden\" id=\"create_parcel__token\" name=\"create_parcel[_token]\">\n\t\t\t\t</form>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>\n\n"
 
 /***/ }),
 
@@ -1319,6 +1278,99 @@ webpackJsonp([2],{
 	var ErrorObservable_1 = __webpack_require__(374);
 	exports._throw = ErrorObservable_1.ErrorObservable.create;
 	//# sourceMappingURL=throw.js.map
+
+/***/ }),
+
+/***/ 423:
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var http_1 = __webpack_require__(35);
+	var Observable_1 = __webpack_require__(9);
+	__webpack_require__(141);
+	__webpack_require__(371);
+	__webpack_require__(370);
+	var url = 'http://maxtvmedia.requestumdemo.com/api';
+	var HttpService = (function () {
+	    function HttpService(http) {
+	        this.http = http;
+	    }
+	    HttpService.prototype.createAuthorizationHeader = function (headers) {
+	        headers.append('Content-Type', 'application/json;charset=utf-8');
+	        headers.append('Authorization', 'Bearer MjI2Nzc3ZTUzZTNlNjdiNmY0OGNiZmU1MTNkYmEyZTg1ZDUyODIzY2EzZjFlZDUyY2E4ZmQ4MDllNGVlYWFjNQ');
+	    };
+	    HttpService.prototype.getDataList = function () {
+	        var headers = new http_1.Headers();
+	        this.createAuthorizationHeader(headers);
+	        var options = new http_1.RequestOptions({ headers: headers });
+	        // 'http://maxtvmedia.requestumdemo.com/api/v1/parcels'
+	        return this.http.get(url + "/v1/parcels", options)
+	            .map(function (resp) { return resp.json(); })
+	            .catch(function (error) {
+	            return Observable_1.Observable.throw(error);
+	        });
+	    };
+	    HttpService.prototype.getBuilds = function () {
+	        var headers = new http_1.Headers();
+	        this.createAuthorizationHeader(headers);
+	        var options = new http_1.RequestOptions({ headers: headers });
+	        return this.http.get(url + "/v1/buildings", options)
+	            .map(function (resp) { return resp.json(); })
+	            .catch(function (error) {
+	            return Observable_1.Observable.throw(error);
+	        });
+	    };
+	    HttpService.prototype.getSuites = function (id) {
+	        var headers = new http_1.Headers();
+	        this.createAuthorizationHeader(headers);
+	        var options = new http_1.RequestOptions({ headers: headers });
+	        return this.http.get(url + "/v1/suites/building/" + id, options)
+	            .map(function (resp) { return resp.json(); })
+	            .catch(function (error) {
+	            return Observable_1.Observable.throw(error);
+	        });
+	    };
+	    HttpService.prototype.getResidents = function () {
+	        var headers = new http_1.Headers();
+	        this.createAuthorizationHeader(headers);
+	        var options = new http_1.RequestOptions({ headers: headers });
+	        return this.http.get(url + "/v1/residents", options)
+	            .map(function (resp) { return resp.json(); })
+	            .catch(function (error) {
+	            return Observable_1.Observable.throw(error);
+	        });
+	    };
+	    HttpService.prototype.addItem = function (item) {
+	        var headers = new http_1.Headers();
+	        this.createAuthorizationHeader(headers);
+	        var options = new http_1.RequestOptions({ headers: headers });
+	        return this.http.post(url + "/v1/parcels", {}, options)
+	            .map(function (resp) { return resp.json(); })
+	            .catch(function (error) {
+	            return Observable_1.Observable.throw(error);
+	        });
+	    };
+	    HttpService.prototype.editItem = function () {
+	    };
+	    HttpService = __decorate([
+	        core_1.Injectable(), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof http_1.Http !== 'undefined' && http_1.Http) === 'function' && _a) || Object])
+	    ], HttpService);
+	    return HttpService;
+	    var _a;
+	}());
+	exports.HttpService = HttpService;
+	
 
 /***/ })
 

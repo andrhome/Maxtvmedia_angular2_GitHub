@@ -1,25 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { ParselsListHttpService } from "./parsels-list-http.service";
+import { HttpService } from "../../../services/http-services.service";
 import { ParselType } from "../../../assets/types/parsel-type";
 import { AddingFormComponent } from '../../../components/adding-form-component/adding-form.component';
 
 @Component({
     selector: 'parselsListView',
     templateUrl: 'parsels-list.template.html',
-    providers: [ParselsListHttpService, AddingFormComponent]
+    providers: [HttpService, AddingFormComponent]
 })
 export class ParselsListComponent implements OnInit {
     parselsList: ParselType[] = [];
     error: any;
 
-    constructor(private http: ParselsListHttpService) {}
+    constructor(private http: HttpService) {}
 
     ngOnInit() {
         this.initParselsList();
     }
 
     initParselsList: Function = function () {
-        this.http.getData().subscribe(
+        this.http.getDataList().subscribe(
             data => { this.parselsList = data; console.log(data); },
             error => { this.error = error; console.error(error); }
         );
