@@ -7,7 +7,6 @@ import {ParselType} from '../../assets/types/parsel-type';
 })
 export class AddingFormComponent {
     @Input() title: string = '';
-    @Input() className: string = '';
     @Input() editMode: boolean = false;
     @Input() editItemIndex: number;
     @Input() parselItem: ParselType = new ParselType();
