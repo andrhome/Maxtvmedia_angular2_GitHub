@@ -5,7 +5,7 @@ webpackJsonp([2],{
 
 	"use strict";
 	var platform_browser_dynamic_1 = __webpack_require__(95);
-	var app_module_1 = __webpack_require__(155);
+	var app_module_1 = __webpack_require__(156);
 	/*
 	 * Bootstrap Angular app with a top level NgModule
 	 */
@@ -86,7 +86,99 @@ webpackJsonp([2],{
 
 /***/ }),
 
+/***/ 97:
+/***/ (function(module, exports) {
+
+	"use strict";
+	var ParselType = (function () {
+	    function ParselType() {
+	    }
+	    return ParselType;
+	}());
+	exports.ParselType = ParselType;
+	
+
+/***/ }),
+
 /***/ 98:
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var parsel_type_1 = __webpack_require__(97);
+	var AddingFormComponent = (function () {
+	    function AddingFormComponent() {
+	        this.title = '';
+	        this.className = '';
+	        this.editMode = false;
+	        this.parselItem = new parsel_type_1.ParselType();
+	        this.onSubmit = new core_1.EventEmitter();
+	        this.isShow = false;
+	    }
+	    AddingFormComponent.prototype.show = function () {
+	        this.isShow = true;
+	    };
+	    AddingFormComponent.prototype.hide = function () {
+	        this.isShow = false;
+	    };
+	    AddingFormComponent.prototype.submit = function () {
+	        if (this.editMode) {
+	            this.onSubmit.emit({ index: this.editItemIndex, item: this.parselItem });
+	        }
+	        else {
+	            this.onSubmit.emit({ item: this.parselItem });
+	        }
+	        this.hide();
+	    };
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', String)
+	    ], AddingFormComponent.prototype, "title", void 0);
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', String)
+	    ], AddingFormComponent.prototype, "className", void 0);
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', Boolean)
+	    ], AddingFormComponent.prototype, "editMode", void 0);
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', Number)
+	    ], AddingFormComponent.prototype, "editItemIndex", void 0);
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', (typeof (_a = typeof parsel_type_1.ParselType !== 'undefined' && parsel_type_1.ParselType) === 'function' && _a) || Object)
+	    ], AddingFormComponent.prototype, "parselItem", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', (typeof (_b = typeof core_1.EventEmitter !== 'undefined' && core_1.EventEmitter) === 'function' && _b) || Object)
+	    ], AddingFormComponent.prototype, "onSubmit", void 0);
+	    AddingFormComponent = __decorate([
+	        core_1.Component({
+	            selector: 'adding-form',
+	            template: __webpack_require__(355)
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], AddingFormComponent);
+	    return AddingFormComponent;
+	    var _a, _b;
+	}());
+	exports.AddingFormComponent = AddingFormComponent;
+	
+
+/***/ }),
+
+/***/ 99:
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -117,7 +209,7 @@ webpackJsonp([2],{
 
 /***/ }),
 
-/***/ 99:
+/***/ 100:
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -148,7 +240,7 @@ webpackJsonp([2],{
 
 /***/ }),
 
-/***/ 100:
+/***/ 101:
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -162,7 +254,7 @@ webpackJsonp([2],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(3);
-	var get_http_service_1 = __webpack_require__(103);
+	var get_http_service_1 = __webpack_require__(104);
 	var parsel_type_1 = __webpack_require__(169);
 	var ParselTypeComponent = (function () {
 	    function ParselTypeComponent(httpService) {
@@ -180,7 +272,6 @@ webpackJsonp([2],{
 	    };
 	    ParselTypeComponent.prototype.saveParselType = function (parselType) {
 	        this.parsels.push(new parsel_type_1.ParselType(parselType));
-	        console.log(this.parsels);
 	        this.parselTypeName = '';
 	        this.createConditions = false;
 	    };
@@ -200,7 +291,7 @@ webpackJsonp([2],{
 
 /***/ }),
 
-/***/ 101:
+/***/ 102:
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -215,35 +306,22 @@ webpackJsonp([2],{
 	};
 	var core_1 = __webpack_require__(3);
 	var parsels_list_http_service_1 = __webpack_require__(170);
-	var adding_form_component_1 = __webpack_require__(423);
+	var adding_form_component_1 = __webpack_require__(98);
 	var ParselsListComponent = (function () {
 	    function ParselsListComponent(http) {
 	        this.http = http;
 	        this.parselsList = [];
-	        this.editMode = false;
-	        this.popupMode = false;
 	        this.initParselsList = function () {
 	            var _this = this;
-	            this.http.getData().subscribe(function (data) { return _this.parselsList = data; }, function (error) { _this.error = error; console.log(error); });
+	            this.http.getData().subscribe(function (data) { return _this.parselsList = data; }, function (error) { _this.error = error; console.error(error); });
 	        };
 	    }
 	    ParselsListComponent.prototype.ngOnInit = function () {
 	        this.initParselsList();
 	    };
-	    ParselsListComponent.prototype.showAddingForm = function () {
-	        this.isShow = true;
-	    };
-	    ParselsListComponent.prototype.hideAddingForm = function () {
-	        this.isShow = false;
-	    };
-	    // setNewParsel() {
-	    //     this.newParselItem = null;
-	    // }
-	    // Adding new parsel
-	    ParselsListComponent.prototype.addIncomingParsel = function () {
-	        // this.parselsList.push(item);
-	        console.log();
-	        this.hideAddingForm();
+	    ParselsListComponent.prototype.addIncomingParsel = function (item) {
+	        this.parselsList.push(item);
+	        console.log(item);
 	    };
 	    ParselsListComponent = __decorate([
 	        core_1.Component({
@@ -261,7 +339,7 @@ webpackJsonp([2],{
 
 /***/ }),
 
-/***/ 102:
+/***/ 103:
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -275,7 +353,7 @@ webpackJsonp([2],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(3);
-	var get_http_service_1 = __webpack_require__(103);
+	var get_http_service_1 = __webpack_require__(104);
 	var post_service_1 = __webpack_require__(172);
 	var PostServicesComponent = (function () {
 	    function PostServicesComponent(httpService) {
@@ -313,7 +391,7 @@ webpackJsonp([2],{
 
 /***/ }),
 
-/***/ 103:
+/***/ 104:
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -347,7 +425,7 @@ webpackJsonp([2],{
 
 /***/ }),
 
-/***/ 155:
+/***/ 156:
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -362,11 +440,11 @@ webpackJsonp([2],{
 	};
 	var core_1 = __webpack_require__(3);
 	var router_1 = __webpack_require__(46);
-	var app_1 = __webpack_require__(157);
+	var app_1 = __webpack_require__(158);
 	var common_1 = __webpack_require__(43);
 	var platform_browser_1 = __webpack_require__(16);
 	var http_1 = __webpack_require__(35);
-	var app_routes_1 = __webpack_require__(156);
+	var app_routes_1 = __webpack_require__(157);
 	var common_2 = __webpack_require__(43);
 	// App views
 	var main_view_module_1 = __webpack_require__(166);
@@ -413,15 +491,15 @@ webpackJsonp([2],{
 
 /***/ }),
 
-/***/ 156:
+/***/ 157:
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var main_view_component_1 = __webpack_require__(98);
-	var minor_view_component_1 = __webpack_require__(99);
-	var parsel_type_component_1 = __webpack_require__(100);
-	var post_services_component_1 = __webpack_require__(102);
-	var parsels_list_component_1 = __webpack_require__(101);
+	var main_view_component_1 = __webpack_require__(99);
+	var minor_view_component_1 = __webpack_require__(100);
+	var parsel_type_component_1 = __webpack_require__(101);
+	var post_services_component_1 = __webpack_require__(103);
+	var parsels_list_component_1 = __webpack_require__(102);
 	exports.ROUTES = [
 	    // Main redirect
 	    { path: '', redirectTo: 'mainView', pathMatch: 'full' },
@@ -438,7 +516,7 @@ webpackJsonp([2],{
 
 /***/ }),
 
-/***/ 157:
+/***/ 158:
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -489,14 +567,6 @@ webpackJsonp([2],{
 
 /***/ }),
 
-/***/ 158:
-/***/ (function(module, exports) {
-
-	"use strict";
-
-
-/***/ }),
-
 /***/ 159:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -511,10 +581,13 @@ webpackJsonp([2],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(3);
-	var parsel_type_1 = __webpack_require__(158);
+	var parsel_type_1 = __webpack_require__(97);
 	var ListComponent = (function () {
 	    function ListComponent() {
 	    }
+	    ListComponent.prototype.editParselItem = function (index, updatedItem) {
+	        this.dataList[index] = updatedItem;
+	    };
 	    __decorate([
 	        core_1.Input(), 
 	        __metadata('design:type', (typeof (_a = typeof parsel_type_1.ParselType !== 'undefined' && parsel_type_1.ParselType) === 'function' && _a) || Object)
@@ -763,7 +836,7 @@ webpackJsonp([2],{
 	};
 	var core_1 = __webpack_require__(3);
 	var platform_browser_1 = __webpack_require__(16);
-	var main_view_component_ts_1 = __webpack_require__(98);
+	var main_view_component_ts_1 = __webpack_require__(99);
 	var MainViewModule = (function () {
 	    function MainViewModule() {
 	    }
@@ -796,7 +869,7 @@ webpackJsonp([2],{
 	};
 	var core_1 = __webpack_require__(3);
 	var platform_browser_1 = __webpack_require__(16);
-	var minor_view_component_1 = __webpack_require__(99);
+	var minor_view_component_1 = __webpack_require__(100);
 	var MinorViewModule = (function () {
 	    function MinorViewModule() {
 	    }
@@ -830,7 +903,7 @@ webpackJsonp([2],{
 	var core_1 = __webpack_require__(3);
 	var platform_browser_1 = __webpack_require__(16);
 	var forms_1 = __webpack_require__(54);
-	var parsel_type_component_1 = __webpack_require__(100);
+	var parsel_type_component_1 = __webpack_require__(101);
 	var http_1 = __webpack_require__(35);
 	var ParselTypeModule = (function () {
 	    function ParselTypeModule() {
@@ -880,7 +953,7 @@ webpackJsonp([2],{
 	var core_1 = __webpack_require__(3);
 	var http_1 = __webpack_require__(35);
 	var Observable_1 = __webpack_require__(9);
-	__webpack_require__(140);
+	__webpack_require__(141);
 	__webpack_require__(371);
 	__webpack_require__(370);
 	var ParselsListHttpService = (function () {
@@ -889,7 +962,6 @@ webpackJsonp([2],{
 	    }
 	    ParselsListHttpService.prototype.createAuthorizationHeader = function (headers) {
 	        headers.append('Content-Type', 'application/json;charset=utf-8');
-	        headers.append('Access-Control-Allow-Origin', '*');
 	        headers.append('Authorization', 'Bearer MGFlYjViOWRhNTQ2YjliY2VmOGJlOTUxNzdhMWEzYTlkNjA1M2Q1YjZkY2FhZjI0MzViYjFkODU3YTE1N2NlZg');
 	    };
 	    ParselsListHttpService.prototype.getData = function () {
@@ -940,11 +1012,11 @@ webpackJsonp([2],{
 	var common_1 = __webpack_require__(43);
 	var platform_browser_1 = __webpack_require__(16);
 	var forms_1 = __webpack_require__(54);
-	var parsels_list_component_1 = __webpack_require__(101);
+	var parsels_list_component_1 = __webpack_require__(102);
 	var http_1 = __webpack_require__(35);
 	var router_1 = __webpack_require__(46);
 	var list_component_1 = __webpack_require__(159);
-	var adding_form_component_1 = __webpack_require__(423);
+	var adding_form_component_1 = __webpack_require__(98);
 	var ParselsListModule = (function () {
 	    function ParselsListModule() {
 	    }
@@ -1003,7 +1075,7 @@ webpackJsonp([2],{
 	var core_1 = __webpack_require__(3);
 	var platform_browser_1 = __webpack_require__(16);
 	var forms_1 = __webpack_require__(54);
-	var post_services_component_1 = __webpack_require__(102);
+	var post_services_component_1 = __webpack_require__(103);
 	var http_1 = __webpack_require__(35);
 	var PostServicesModule = (function () {
 	    function PostServicesModule() {
@@ -1060,14 +1132,14 @@ webpackJsonp([2],{
 /***/ 355:
 /***/ (function(module, exports) {
 
-	module.exports = "<div class=\"ibox float-e-margins adding-form-wrapper\" *ngIf=\"isShow\">\n    <div class=\"ibox-content\">\n        <form name=\"create_parcel\" method=\"\" class=\"form-horizontal\">\n            <div class=\"form-group\">\n                <label class=\"col-sm-2 control-label required\" for=\"parcel-building\">Building</label>\n                <div class=\"col-sm-10\">\n                    <select id=\"parcel-building\" name=\"create_parcel[building]\" class=\"form-control\">\n                        <option value=\"1\">B1</option>\n                        <option value=\"2\">B2</option>\n                        <option value=\"3\">B3</option>\n                    </select>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <label class=\"col-sm-2 control-label required\" for=\"parcel-suite\">Suite</label>\n                <div class=\"col-sm-10\">\n                    <select id=\"parcel-suite\" name=\"create_parcel[suite]\" class=\"form-control select2\">\n                        <option value=\"1\">1000</option>\n                        <option value=\"2\">1001</option>\n                        <option value=\"3\">1002</option>\n                    </select>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <label class=\"col-sm-2 control-label required\" for=\"parcel-resident-name\">Recepient name</label>\n                <div class=\"col-sm-10\">\n                    <select id=\"parcel-resident-name\" name=\"create_parcel[resident-name]\" class=\"form-control\">\n                        <option value=\"Vin Diesel\">Vin</option>\n                        <option value=\"Jenifer Lopez\">Jenifer</option>\n                        <option value=\"Will Smith\">Will</option>\n                    </select>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <label class=\"col-sm-2 control-label required\" for=\"parcel-resident-surname\">Recepient surename</label>\n                <div class=\"col-sm-10\">\n                    <select id=\"parcel-resident-surname\" name=\"create_parcel[resident-surname]\" class=\"form-control\">\n                        <option value=\"Vin Diesel\">Disel</option>\n                        <option value=\"Jenifer Lopez\">Lopez</option>\n                        <option value=\"Will Smith\">Smith</option>\n                    </select>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <label class=\"col-sm-2 control-label required\" for=\"create_parcel_parcelPostService\">Delivered by</label>\n                <div class=\"col-sm-10\">\n                    <select id=\"create_parcel_parcelPostService\" name=\"create_parcel[suite]\" class=\"form-control\">\n                        <option value=\"DHL\">DHL</option>\n                        <option value=\"SDN\">SDN</option>\n                        <option value=\"MVC\">MVC</option>\n                    </select>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <label class=\"col-sm-2 control-label\" for=\"create_parcel_numberPieces\">Pieces</label>\n                <div class=\"col-sm-10\">\n                    <input type=\"text\" id=\"create_parcel_numberPieces\" name=\"create_parcel[numberPieces]\" class=\"form-control\">\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <label class=\"col-sm-2 control-label required\" for=\"create_parcel_parcelType\">Parcel type</label>\n                <div class=\"col-sm-10\">\n                    <select id=\"create_parcel_parcelType\" name=\"create_parcel[parcelType]\" class=\"form-control\">\n                        <option value=\"1\">Letter</option>\n                        <option value=\"2\">Package</option>\n                        <option value=\"3\">Medication</option>\n                    </select>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <label class=\"col-sm-2 control-label\" for=\"create_parcel_deliveryAddress\">Delivery address</label>\n                <div class=\"col-sm-10\">\n                    <textarea id=\"create_parcel_deliveryAddress\" name=\"create_parcel[deliveryAddress]\" class=\"form-control\"></textarea>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <label class=\"col-sm-2 control-label\" for=\"create_parcel_notes\">Notes</label>\n                <div class=\"col-sm-10\">\n                    <input type=\"text\" id=\"create_parcel_notes\" name=\"create_parcel[notes]\" class=\"form-control\">\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <label class=\"col-sm-2 control-label\" for=\"create_parcel_description\">Description</label>\n                <div class=\"col-sm-10\">\n                    <textarea id=\"create_parcel_description\" name=\"create_parcel[description]\" class=\"form-control\"></textarea>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <div class=\"col-sm-2\"></div>\n                <div class=\"col-sm-10\">\n                    <button type=\"button\"\n                            id=\"create_parcel_submit\"\n                            name=\"create_parcel[submit]\"\n                            class=\"btn btn-primary btn\"\n                            (click)=\"submit()\">Save</button>\n                </div>\n            </div>\n            <input type=\"hidden\" id=\"create_parcel__token\" name=\"create_parcel[_token]\">\n        </form>\n    </div>\n</div>\n"
+	module.exports = "<button type=\"button\" class=\"btn btn-primary\" (click)=\"show()\" [innerHTML]=\"title\"></button>\n\n<div class=\"ibox float-e-margins adding-form-wrapper\" *ngIf=\"isShow\">\n\t<div class=\"ibox-content\">\n\t\t<form name=\"create_parcel\" method=\"\" class=\"form-horizontal\">\n\t\t\t<div class=\"form-group\">\n\t\t\t\t<label class=\"col-sm-2 control-label required\" for=\"parcel-building\">Building</label>\n\t\t\t\t<div class=\"col-sm-10\">\n\t\t\t\t\t<select id=\"parcel-building\" name=\"create_parcel[building]\" class=\"form-control\">\n\t\t\t\t\t\t<option value=\"1\">B1</option>\n\t\t\t\t\t\t<option value=\"2\">B2</option>\n\t\t\t\t\t\t<option value=\"3\">B3</option>\n\t\t\t\t\t</select>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class=\"form-group\">\n\t\t\t\t<label class=\"col-sm-2 control-label required\" for=\"parcel-suite\">Suite</label>\n\t\t\t\t<div class=\"col-sm-10\">\n\t\t\t\t\t<select id=\"parcel-suite\" name=\"create_parcel[suite]\" class=\"form-control select2\">\n\t\t\t\t\t\t<option value=\"1\">1000</option>\n\t\t\t\t\t\t<option value=\"2\">1001</option>\n\t\t\t\t\t\t<option value=\"3\">1002</option>\n\t\t\t\t\t</select>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class=\"form-group\">\n\t\t\t\t<label class=\"col-sm-2 control-label required\" for=\"parcel-resident-name\">Recepient name</label>\n\t\t\t\t<div class=\"col-sm-10\">\n\t\t\t\t\t<input type=\"text\" id=\"parcel-resident-name\" name=\"create_parcel[resident-name]\" class=\"form-control\" [(ngModel)]=\"parselItem.firstName\"/>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class=\"form-group\">\n\t\t\t\t<label class=\"col-sm-2 control-label required\" for=\"parcel-resident-surname\">Recepient surename</label>\n\t\t\t\t<div class=\"col-sm-10\">\n\t\t\t\t\t<input type=\"text\" id=\"parcel-resident-surname\" name=\"create_parcel[resident-surname]\" class=\"form-control\" [(ngModel)]=\"parselItem.lastName\"/>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class=\"form-group\">\n\t\t\t\t<label class=\"col-sm-2 control-label required\" for=\"create_parcel_parcelPostService\">Delivered by</label>\n\t\t\t\t<div class=\"col-sm-10\">\n\t\t\t\t\t<select id=\"create_parcel_parcelPostService\" name=\"create_parcel[suite]\" class=\"form-control\">\n\t\t\t\t\t\t<option value=\"DHL\">DHL</option>\n\t\t\t\t\t\t<option value=\"SDN\">SDN</option>\n\t\t\t\t\t\t<option value=\"MVC\">MVC</option>\n\t\t\t\t\t</select>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class=\"form-group\">\n\t\t\t\t<label class=\"col-sm-2 control-label\" for=\"create_parcel_numberPieces\">Pieces</label>\n\t\t\t\t<div class=\"col-sm-10\">\n\t\t\t\t\t<input type=\"text\" id=\"create_parcel_numberPieces\" name=\"create_parcel[numberPieces]\" class=\"form-control\">\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class=\"form-group\">\n\t\t\t\t<label class=\"col-sm-2 control-label required\" for=\"create_parcel_parcelType\">Parcel type</label>\n\t\t\t\t<div class=\"col-sm-10\">\n\t\t\t\t\t<select id=\"create_parcel_parcelType\" name=\"create_parcel[parcelType]\" class=\"form-control\" [(ngModel)]=\"parselItem.parcelType\">\n\t\t\t\t\t\t<option value=\"1\">Letter</option>\n\t\t\t\t\t\t<option value=\"2\">Package</option>\n\t\t\t\t\t\t<option value=\"3\">Medication</option>\n\t\t\t\t\t</select>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class=\"form-group\">\n\t\t\t\t<label class=\"col-sm-2 control-label\" for=\"create_parcel_deliveryAddress\">Delivery address</label>\n\t\t\t\t<div class=\"col-sm-10\">\n\t\t\t\t\t<textarea id=\"create_parcel_deliveryAddress\" name=\"create_parcel[deliveryAddress]\" class=\"form-control\"></textarea>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class=\"form-group\">\n\t\t\t\t<label class=\"col-sm-2 control-label\" for=\"create_parcel_notes\">Notes</label>\n\t\t\t\t<div class=\"col-sm-10\">\n\t\t\t\t\t<input type=\"text\" id=\"create_parcel_notes\" name=\"create_parcel[notes]\" class=\"form-control\">\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class=\"form-group\">\n\t\t\t\t<label class=\"col-sm-2 control-label\" for=\"create_parcel_description\">Description</label>\n\t\t\t\t<div class=\"col-sm-10\">\n\t\t\t\t\t<textarea id=\"create_parcel_description\" name=\"create_parcel[description]\" class=\"form-control\"></textarea>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class=\"form-group\">\n\t\t\t\t<div class=\"col-sm-2\"></div>\n\t\t\t\t<div class=\"col-sm-10\">\n\t\t\t\t\t<button type=\"button\"\n\t\t\t\t\t\t\t\t\tname=\"create_parcel[submit]\"\n\t\t\t\t\t\t\t\t\tclass=\"btn btn-primary btn\"\n\t\t\t\t\t\t\t\t\t(click)=\"submit()\" [innerHTML]=\"editMode ? 'Edit' : 'Save'\">\n\t\t\t\t\t</button>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<input type=\"hidden\" id=\"create_parcel__token\" name=\"create_parcel[_token]\">\n\t\t</form>\n\t</div>\n</div>\n"
 
 /***/ }),
 
 /***/ 356:
 /***/ (function(module, exports) {
 
-	module.exports = "<table class=\"table\">\n    <thead>\n    <tr>\n        <th>#</th>\n        <th>Recepient name</th>\n        <th>Recepient surname</th>\n        <th>Received</th>\n        <th>Parcel Type</th>\n        <th>Delivered by</th>\n        <th>Picked up</th>\n        <th>Pieces</th>\n        <th>Status</th>\n        <th></th>\n    </tr>\n    </thead>\n    <tbody *ngIf=\"error\">\n    <tr>\n        <td colspan=\"7\">\n            <div class=\"alert alert-danger\"><strong>Error:</strong> {{error}}</div>\n        </td>\n    </tr>\n    </tbody>\n    <tbody *ngIf=\"!error\">\n    <tr *ngFor=\"let item of dataList; let i = index;\">\n        <td>{{i + 1}}</td>\n        <td>{{item.firstName}}</td>\n        <td>{{item.lastName}}</td>\n        <td>{{item.createdAt | date:'shortDate'}}</td>\n        <td>{{item.parcelType}}</td>\n        <td>{{item.parcelPostService}}</td>\n        <td>...</td>\n        <td>{{item.numberPieces}}</td>\n        <td>{{item.status}}</td>\n        <!--<td>-->\n            <!--<template [ngIf]=\"item.status == 'Picked up'\">-->\n                <!--<span class=\"label label-primary\">{{item.status}}</span>-->\n            <!--</template>-->\n            <!--<template [ngIf]=\"item.status == 'Received'\">-->\n                <!--<span class=\"label label-info\">{{item.status}}</span>-->\n            <!--</template>-->\n        <!--</td>-->\n        <td>\n            <button type=\"button\" class=\"btn btn-info\" data-toggle=\"modal\" data-target=\"#editIncominModal\" (click)=\"setCurrentEditParsel(item.id)\"><i class=\"fa fa-paste\"></i>Edit</button>\n            <div class=\"btn-group\">\n                <button data-toggle=\"dropdown\" class=\"btn btn-default dropdown-toggle\" aria-expanded=\"false\">Action <span class=\"caret\"></span></button>\n                <ul class=\"dropdown-menu\">\n                    <li><a href=\"#\" data-id=\"\" data-action=\"pick_up\" data-title=\"\" data-toggle=\"modal\" data-target=\"#parcel_action_modal\">Pick Up</a></li>\n                    <li><a href=\"#\" data-id=\"\" data-action=\"return\" data-title=\"\" data-toggle=\"modal\" data-target=\"#parcel_action_modal\">Return</a></li>\n                </ul>\n            </div>\n        </td>\n    </tr>\n    </tbody>\n</table>\n"
+	module.exports = "<table class=\"table\">\n    <thead>\n    <tr>\n        <th>#</th>\n        <th>Recepient name</th>\n        <th>Recepient surname</th>\n        <th>Received</th>\n        <th>Parcel Type</th>\n        <th>Delivered by</th>\n        <th>Picked up</th>\n        <th>Pieces</th>\n        <th>Status</th>\n        <th></th>\n    </tr>\n    </thead>\n    <tbody *ngIf=\"error\">\n    <tr>\n        <td colspan=\"7\">\n            <div class=\"alert alert-danger\"><strong>Error:</strong> {{error}}</div>\n        </td>\n    </tr>\n    </tbody>\n    <tbody *ngIf=\"!error\">\n    <tr *ngFor=\"let item of dataList; let i = index;\">\n        <td>{{i + 1}}</td>\n        <td>{{item.firstName}}</td>\n        <td>{{item.lastName}}</td>\n        <td>{{item.createdAt | date:'shortDate'}}</td>\n        <td>{{item.parcelType}}</td>\n        <td>{{item.parcelPostService}}</td>\n        <td>...</td>\n        <td>{{item.numberPieces}}</td>\n        <td>{{item.status}}</td>\n        <!--<td>-->\n            <!--<template [ngIf]=\"item.status == 'Picked up'\">-->\n                <!--<span class=\"label label-primary\">{{item.status}}</span>-->\n            <!--</template>-->\n            <!--<template [ngIf]=\"item.status == 'Received'\">-->\n                <!--<span class=\"label label-info\">{{item.status}}</span>-->\n            <!--</template>-->\n        <!--</td>-->\n        <td>\n            <adding-form [title]=\"'<i class=\\'fa fa-paste\\'></i>Edit'\" [editMode]=\"true\" [editItemIndex]=\"i\" [parselItem]=\"item\" (onSubmit)=\"editParselItem($event)\"></adding-form>\n            <div class=\"btn-group\">\n                <button data-toggle=\"dropdown\" class=\"btn btn-default dropdown-toggle\" aria-expanded=\"false\">Action <span class=\"caret\"></span></button>\n                <ul class=\"dropdown-menu\">\n                    <li><a href=\"#\" data-id=\"\" data-action=\"pick_up\" data-title=\"\" data-toggle=\"modal\" data-target=\"#parcel_action_modal\">Pick Up</a></li>\n                    <li><a href=\"#\" data-id=\"\" data-action=\"return\" data-title=\"\" data-toggle=\"modal\" data-target=\"#parcel_action_modal\">Return</a></li>\n                </ul>\n            </div>\n        </td>\n    </tr>\n    </tbody>\n</table>\n"
 
 /***/ }),
 
@@ -1116,7 +1188,7 @@ webpackJsonp([2],{
 /***/ 363:
 /***/ (function(module, exports) {
 
-	module.exports = "<div class=\"row wrapper border-bottom white-bg page-heading\">\n    <div class=\"col-sm-4\">\n        <h2>Parsels List</h2>\n        <ol class=\"breadcrumb\">\n            <li>\n                <a href=\"/\">This is</a>\n            </li>\n            <li class=\"active\">\n                <strong>Breadcrumb</strong>\n            </li>\n        </ol>\n    </div>\n</div>\n<div class=\"wrapper wrapper-content parsels-list-wrapper\">\n    <div class=\"tabs-container\">\n        <ul class=\"nav nav-tabs\">\n            <li class=\"active\"><a data-toggle=\"tab\" href=\"#parcels-tabs-incoming\">Incoming</a></li>\n            <li class=\"\"><a data-toggle=\"tab\" href=\"#parcels-tabs-outgoing\">Outgoing</a></li>\n        </ul>\n        <div class=\"tab-content\">\n            <div id=\"parcels-tabs-incoming\" class=\"tab-pane active\">\n                <div class=\"panel-body\">\n                    <div class=\"ibox float-e-margins\">\n                        <div class=\"ibox-title\">\n                            <div class=\"ibox-tools\">\n                                <button type=\"button\" class=\"btn btn-primary\" (click)=\"showAddingForm()\">Create an Incoming Parcel</button>\n                            </div>\n                        </div>\n                        <div class=\"ibox-content\">\n                            <list-comp [dataList]=\"parselsList\" [error]=\"error\"></list-comp>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div id=\"parcels-tabs-outgoing\" class=\"tab-pane\">\n                <div class=\"panel-body\">\n                    <div class=\"ibox-title\">\n                        <div class=\"ibox-tools\">\n                            <a href=\"#\" class=\"btn btn-primary\">Create an Outgoing Parcel</a>\n                        </div>\n                    </div>\n                    <div class=\"ibox-content\">\n                        <!--<h1>NgIf Directive</h1>-->\n                        <!--<div *ngIf=\"conditions; then thenBlock else elseBlock\">-->\n                            <!--<template #thenBlock>Then block</template>-->\n                            <!--<template #elseBlock>Else block</template>-->\n                        <!--</div>-->\n\n                        <list-comp [dataList]=\"parselsList\"></list-comp>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n\n    <!-- Create Incommin Parsel form -->\n    <adding-form (onShow)=\"showAddingForm()\" [isShow]=\"isShow\" (onHide)=\"addIncomingParsel()\"></adding-form>\n</div>\n\n<div class=\"modal fade\" id=\"parcel_action_modal\" tabindex=\"-1\" role=\"dialog\">\n    <div class=\"modal-dialog\" role=\"document\">\n        <div class=\"modal-content\">\n            <div class=\"modal-header\">\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>\n                <h4 class=\"modal-title\" id=\"parcel_action_modal_label\"></h4>\n            </div>\n            <div class=\"modal-body\">\n                <div class=\"alert hide\"></div>\n                <div class=\"custom-body\"></div>\n            </div>\n            <div class=\"modal-footer\">\n                <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Cancel</button>\n                <button type=\"button\" class=\"btn btn-primary form-submit\">Submit</button>\n            </div>\n        </div>\n    </div>\n</div>\n\n"
+	module.exports = "<div class=\"row wrapper border-bottom white-bg page-heading\">\n    <div class=\"col-sm-4\">\n        <h2>Parsels List</h2>\n        <ol class=\"breadcrumb\">\n            <li>\n                <a href=\"/\">This is</a>\n            </li>\n            <li class=\"active\">\n                <strong>Breadcrumb</strong>\n            </li>\n        </ol>\n    </div>\n</div>\n<div class=\"wrapper wrapper-content parsels-list-wrapper\">\n    <div class=\"tabs-container\">\n        <ul class=\"nav nav-tabs\">\n            <li class=\"active\"><a data-toggle=\"tab\" href=\"#parcels-tabs-incoming\">Incoming</a></li>\n            <li class=\"\"><a data-toggle=\"tab\" href=\"#parcels-tabs-outgoing\">Outgoing</a></li>\n        </ul>\n        <div class=\"tab-content\">\n            <div id=\"parcels-tabs-incoming\" class=\"tab-pane active\">\n                <div class=\"panel-body\">\n                    <div class=\"ibox float-e-margins\">\n                        <div class=\"ibox-title\">\n                            <div class=\"ibox-tools\">\n                                <!-- Create Incommin Parsel form -->\n                                <adding-form [title]=\"'Create an Incoming Parcel'\" (onSubmit)=\"addIncomingParsel($event)\"></adding-form>\n                            </div>\n                        </div>\n                        <div class=\"ibox-content\">\n                            <list-comp [dataList]=\"parselsList\" [error]=\"error\"></list-comp>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div id=\"parcels-tabs-outgoing\" class=\"tab-pane\">\n                <div class=\"panel-body\">\n                    <div class=\"ibox-title\">\n                        <div class=\"ibox-tools\">\n                            <a href=\"#\" class=\"btn btn-primary\">Create an Outgoing Parcel</a>\n                        </div>\n                    </div>\n                    <div class=\"ibox-content\">\n                        <!--<h1>NgIf Directive</h1>-->\n                        <!--<div *ngIf=\"conditions; then thenBlock else elseBlock\">-->\n                            <!--<template #thenBlock>Then block</template>-->\n                            <!--<template #elseBlock>Else block</template>-->\n                        <!--</div>-->\n\n                        <list-comp [dataList]=\"parselsList\"></list-comp>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n\n<div class=\"modal fade\" id=\"parcel_action_modal\" tabindex=\"-1\" role=\"dialog\">\n    <div class=\"modal-dialog\" role=\"document\">\n        <div class=\"modal-content\">\n            <div class=\"modal-header\">\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>\n                <h4 class=\"modal-title\" id=\"parcel_action_modal_label\"></h4>\n            </div>\n            <div class=\"modal-body\">\n                <div class=\"alert hide\"></div>\n                <div class=\"custom-body\"></div>\n            </div>\n            <div class=\"modal-footer\">\n                <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Cancel</button>\n                <button type=\"button\" class=\"btn btn-primary form-submit\">Submit</button>\n            </div>\n        </div>\n    </div>\n</div>\n\n"
 
 /***/ }),
 
@@ -1143,7 +1215,7 @@ webpackJsonp([2],{
 
 	"use strict";
 	var Observable_1 = __webpack_require__(9);
-	var catch_1 = __webpack_require__(146);
+	var catch_1 = __webpack_require__(147);
 	Observable_1.Observable.prototype.catch = catch_1._catch;
 	Observable_1.Observable.prototype._catch = catch_1._catch;
 	//# sourceMappingURL=catch.js.map
@@ -1245,68 +1317,6 @@ webpackJsonp([2],{
 	var ErrorObservable_1 = __webpack_require__(374);
 	exports._throw = ErrorObservable_1.ErrorObservable.create;
 	//# sourceMappingURL=throw.js.map
-
-/***/ }),
-
-/***/ 423:
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var AddingFormComponent = (function () {
-	    function AddingFormComponent() {
-	        this.isShow = false;
-	        this.onShow = new core_1.EventEmitter();
-	    }
-	    AddingFormComponent.prototype.onSubmitCallback = function () { };
-	    AddingFormComponent.prototype.show = function () {
-	        this.onShow.emit();
-	        this.isShow = true;
-	    };
-	    // public show() {
-	    //     this.isShow = true;
-	    // }
-	    AddingFormComponent.prototype.hide = function () {
-	        this.isShow = false;
-	    };
-	    AddingFormComponent.prototype.submit = function () {
-	        this.onSubmitCallback();
-	        this.hide();
-	    };
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', Function), 
-	        __metadata('design:paramtypes', []), 
-	        __metadata('design:returntype', void 0)
-	    ], AddingFormComponent.prototype, "onSubmitCallback", null);
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', Boolean)
-	    ], AddingFormComponent.prototype, "isShow", void 0);
-	    __decorate([
-	        core_1.Output(), 
-	        __metadata('design:type', Object)
-	    ], AddingFormComponent.prototype, "onShow", void 0);
-	    AddingFormComponent = __decorate([
-	        core_1.Component({
-	            selector: 'adding-form',
-	            template: __webpack_require__(355)
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], AddingFormComponent);
-	    return AddingFormComponent;
-	}());
-	exports.AddingFormComponent = AddingFormComponent;
-	
 
 /***/ })
 

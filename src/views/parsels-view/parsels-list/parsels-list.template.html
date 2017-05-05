@@ -23,7 +23,8 @@
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
                             <div class="ibox-tools">
-                                <button type="button" class="btn btn-primary" (click)="showAddingForm()">Create an Incoming Parcel</button>
+                                <!-- Create Incommin Parsel form -->
+                                <adding-form [title]="'Create an Incoming Parcel'" (onSubmit)="addIncomingParsel($event)"></adding-form>
                             </div>
                         </div>
                         <div class="ibox-content">
@@ -52,9 +53,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Create Incommin Parsel form -->
-    <adding-form (onShow)="showAddingForm()" [isShow]="isShow" (onHide)="addIncomingParsel()"></adding-form>
 </div>
 
 <div class="modal fade" id="parcel_action_modal" tabindex="-1" role="dialog">

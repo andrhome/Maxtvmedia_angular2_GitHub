@@ -9,17 +9,10 @@ import { AddingFormComponent } from '../../../components/adding-form-component/a
     providers: [ParselsListHttpService, AddingFormComponent]
 })
 export class ParselsListComponent implements OnInit {
-
-    constructor(private http: ParselsListHttpService) {}
-
     parselsList: ParselType[] = [];
     error: any;
-    isShow: boolean;
-    newParselItem: ParselType;
-    currentItem: ParselType;
-    editParselId: number;
-    editMode: boolean = false;
-    popupMode: boolean = false;
+
+    constructor(private http: ParselsListHttpService) {}
 
     ngOnInit() {
         this.initParselsList();
@@ -28,45 +21,12 @@ export class ParselsListComponent implements OnInit {
     initParselsList: Function = function () {
         this.http.getData().subscribe(
             data => this.parselsList = data,
-            error => { this.error = error; console.log(error) }
+            error => { this.error = error; console.error(error) }
         );
     };
 
-    showAddingForm() {
-        this.isShow = true;
+    addIncomingParsel(item: ParselType) {
+        this.parselsList.push(item);
+        console.log(item);
     }
-
-    hideAddingForm() {
-        this.isShow = false;
-    }
-
-
-    // setNewParsel() {
-    //     this.newParselItem = null;
-    // }
-
-    // Adding new parsel
-    addIncomingParsel() {
-        // this.parselsList.push(item);
-        console.log();
-        this.hideAddingForm();
-    }
-    //
-    // // Update current edit parsel
-    // setCurrentEditParsel(index: number) {
-    //     this.editMode = true;
-    //
-    //     this.currentItem = Object.assign({}, this.parselsList.find((item) => {
-    //         return item.id === index;
-    //     }));
-    //     this.editParselId = index;
-    // }
-    //
-    // // Save changes for current parsel
-    // editIncominParsel() {
-    //     this.popupMode = false;
-    //     this.parselsList[this.editParselId - 1] = this.currentItem;
-    //     console.log('Current Item: ', this.currentItem);
-    //     console.log('ParselList obj: ', this.parselsList[this.editParselId - 1]);
-    // }
 }
