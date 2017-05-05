@@ -11,7 +11,7 @@
         </ol>
     </div>
 </div>
-<div class="wrapper wrapper-content">
+<div class="wrapper wrapper-content parsels-list-wrapper">
     <div class="tabs-container">
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#parcels-tabs-incoming">Incoming</a></li>
@@ -23,11 +23,11 @@
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
                             <div class="ibox-tools">
-                                <button type="button" class="btn btn-primary" (click)="showAddingPopup()">Create an Incoming Parcel</button>
+                                <button type="button" class="btn btn-primary" (click)="showAddingForm()">Create an Incoming Parcel</button>
                             </div>
                         </div>
                         <div class="ibox-content">
-                            <list-comp [dataList]="parselsList"></list-comp>
+                            <list-comp [dataList]="parselsList" [error]="error"></list-comp>
                         </div>
                     </div>
                 </div>
@@ -52,10 +52,10 @@
             </div>
         </div>
     </div>
-</div>
 
-<!-- Create Incommin Parsel modal -->
-<adding-form></adding-form>
+    <!-- Create Incommin Parsel form -->
+    <adding-form (onShow)="showAddingForm()" [isShow]="isShow" (onHide)="addIncomingParsel()"></adding-form>
+</div>
 
 <div class="modal fade" id="parcel_action_modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">

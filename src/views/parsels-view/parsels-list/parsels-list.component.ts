@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ParselsListHttpService } from "./parsels-list-http.service";
 import { ParselType } from "../../../assets/types/parsel-type";
-import { AddingFormComponent } from '../../../components/adding-form-component/addin-form.component';
+import { AddingFormComponent } from '../../../components/adding-form-component/adding-form.component';
 
 @Component({
     selector: 'parselsListView',
@@ -14,6 +14,7 @@ export class ParselsListComponent implements OnInit {
 
     parselsList: ParselType[] = [];
     error: any;
+    isShow: boolean;
     newParselItem: ParselType;
     currentItem: ParselType;
     editParselId: number;
@@ -31,8 +32,12 @@ export class ParselsListComponent implements OnInit {
         );
     };
 
-    showAddingPopup() {
+    showAddingForm() {
+        this.isShow = true;
+    }
 
+    hideAddingForm() {
+        this.isShow = false;
     }
 
 
@@ -40,16 +45,12 @@ export class ParselsListComponent implements OnInit {
     //     this.newParselItem = null;
     // }
 
-    // togglePopupMode() {
-    //     this.popupMode = true;
-    // }
-    //
-    // // Adding new parsel
-    // addIncomingParsel(item) {
-    //     this.popupMode = false;
-    //     // this.parselsList.push(item);
-    //     console.log(item);
-    // }
+    // Adding new parsel
+    addIncomingParsel() {
+        // this.parselsList.push(item);
+        console.log();
+        this.hideAddingForm();
+    }
     //
     // // Update current edit parsel
     // setCurrentEditParsel(index: number) {

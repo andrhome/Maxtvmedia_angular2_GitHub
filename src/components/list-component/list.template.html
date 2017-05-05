@@ -2,8 +2,10 @@
     <thead>
     <tr>
         <th>#</th>
-        <th>Recepient</th>
+        <th>Recepient name</th>
+        <th>Recepient surname</th>
         <th>Received</th>
+        <th>Parcel Type</th>
         <th>Delivered by</th>
         <th>Picked up</th>
         <th>Pieces</th>
@@ -21,19 +23,22 @@
     <tbody *ngIf="!error">
     <tr *ngFor="let item of dataList; let i = index;">
         <td>{{i + 1}}</td>
-        <td>{{item.recepient}}</td>
-        <td>{{item.received}}</td>
-        <td>{{item.deliveredby}}</td>
-        <td>{{item.pickedup}}</td>
-        <td>{{item.pieces}}</td>
-        <td>
-            <template [ngIf]="item.status == 'Picked up'">
-                <span class="label label-primary">{{item.status}}</span>
-            </template>
-            <template [ngIf]="item.status == 'Received'">
-                <span class="label label-info">{{item.status}}</span>
-            </template>
-        </td>
+        <td>{{item.firstName}}</td>
+        <td>{{item.lastName}}</td>
+        <td>{{item.createdAt | date:'shortDate'}}</td>
+        <td>{{item.parcelType}}</td>
+        <td>{{item.parcelPostService}}</td>
+        <td>...</td>
+        <td>{{item.numberPieces}}</td>
+        <td>{{item.status}}</td>
+        <!--<td>-->
+            <!--<template [ngIf]="item.status == 'Picked up'">-->
+                <!--<span class="label label-primary">{{item.status}}</span>-->
+            <!--</template>-->
+            <!--<template [ngIf]="item.status == 'Received'">-->
+                <!--<span class="label label-info">{{item.status}}</span>-->
+            <!--</template>-->
+        <!--</td>-->
         <td>
             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#editIncominModal" (click)="setCurrentEditParsel(item.id)"><i class="fa fa-paste"></i>Edit</button>
             <div class="btn-group">

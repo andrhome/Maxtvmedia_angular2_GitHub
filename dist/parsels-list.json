@@ -1,12 +1,92 @@
 [
-  {"id": 1, "recepient": "Ava Anderson1", "received": "04.07.2017", "deliveredby": "DHL", "pickedup": "04.07.2017", "pieces": 1, "status": "Picked up"},
-  {"id": 2, "recepient": "Ava Anderson2", "received": "04.07.2017", "deliveredby": "DHL", "pickedup": "04.07.2017", "pieces": 2, "status": "Received"},
-  {"id": 3, "recepient": "Ava Anderson3", "received": "04.07.2017", "deliveredby": "DHL", "pickedup": "04.07.2017", "pieces": 4, "status": "Picked up"},
-  {"id": 4, "recepient": "Ava Anderson4", "received": "04.07.2017", "deliveredby": "DHL", "pickedup": "04.07.2017", "pieces": 3, "status": "Picked up"},
-  {"id": 5, "recepient": "Ava Anderson5", "received": "04.07.2017", "deliveredby": "DHL", "pickedup": "04.07.2017", "pieces": 2, "status": "Received"},
-  {"id": 6, "recepient": "Ava Anderson6", "received": "04.07.2017", "deliveredby": "DHL", "pickedup": "04.07.2017", "pieces": 1, "status": "Received"},
-  {"id": 7, "recepient": "Ava Anderson7", "received": "04.07.2017", "deliveredby": "DHL", "pickedup": "04.07.2017", "pieces": 5, "status": "Picked up"},
-  {"id": 8, "recepient": "Ava Anderson8", "received": "04.07.2017", "deliveredby": "DHL", "pickedup": "04.07.2017", "pieces": 6, "status": "Received"},
-  {"id": 9, "recepient": "Ava Anderson9", "received": "04.07.2017", "deliveredby": "DHL", "pickedup": "04.07.2017", "pieces": 1, "status": "Picked up"},
-  {"id": 10, "recepient": "Ava Anderson10", "received": "04.07.2017", "deliveredby": "DHL", "pickedup": "04.07.2017", "pieces": 3, "status": "Picked up"}
+  {
+    "id": "1",
+    "createdAt": "2017-04-07T16:55:54+0300",
+    "numberPieces": "4",
+    "status": 4,
+    "firstName": "Ava",
+    "lastName": "Anderson",
+    "parcelType": "Envelope",
+    "parcelPostService": "DHL"
+  },
+  {
+    "id": "2",
+    "createdAt": "2017-04-07T16:55:55+0300",
+    "numberPieces": "4",
+    "status": 4,
+    "firstName": "Ava",
+    "lastName": "Anderson",
+    "parcelType": "Envelope",
+    "parcelPostService": "DHL"
+  },
+  {
+    "id": "3",
+    "createdAt": "2017-04-07T16:56:30+0300",
+    "numberPieces": "asdfgh",
+    "status": 4,
+    "firstName": "Penelope",
+    "lastName": "Allen",
+    "parcelType": "Letter",
+    "parcelPostService": "DHL"
+  },
+  {
+    "id": "4",
+    "createdAt": "2017-04-07T16:56:44+0300",
+    "numberPieces": "a",
+    "status": 4,
+    "firstName": "Sophia",
+    "lastName": "Harris",
+    "parcelType": "Letter",
+    "parcelPostService": "DHL"
+  },
+  {
+    "id": "5",
+    "createdAt": "2017-04-07T16:56:44+0300",
+    "numberPieces": "a",
+    "status": 4,
+    "firstName": "Sophia",
+    "lastName": "Harris",
+    "parcelType": "Letter",
+    "parcelPostService": "DHL"
+  },
+  {
+    "id": "6",
+    "createdAt": "2017-04-07T16:57:04+0300",
+    "numberPieces": "asdfg",
+    "status": 1,
+    "firstName": "Alice",
+    "lastName": "White",
+    "parcelType": "Letter",
+    "parcelPostService": "DHL"
+  },
+  {
+    "id": "7",
+    "createdAt": "2017-04-07T16:57:05+0300",
+    "numberPieces": "asdfg",
+    "status": 1,
+    "firstName": "Alice",
+    "lastName": "White",
+    "parcelType": "Letter",
+    "parcelPostService": "DHL"
+  },
+  {
+    "id": "9",
+    "createdAt": "2017-04-07T18:57:20+0300",
+    "numberPieces": "5",
+    "status": 1,
+    "firstName": "Isabella",
+    "lastName": "Williams",
+    "parcelType": "Dry cleaning",
+    "parcelPostService": "DHL"
+  },
+  {
+    "id": "10",
+    "createdAt": "2017-04-07T18:57:56+0300",
+    "numberPieces": "10",
+    "status": 4,
+    "firstName": "Camila",
+    "lastName": "Allen",
+    "parcelType": "Letter",
+    "parcelPostService": "DHL"
+  }
 ]

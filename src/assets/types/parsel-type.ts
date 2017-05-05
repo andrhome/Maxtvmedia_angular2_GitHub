@@ -1,9 +1,10 @@
 export interface ParselType {
     id: number,
-    recepient: string,
-    received: string,
-    deliveredby: string,
-    pickedup: string,
-    pieces: [number, string],
-    status: string
+    firstName: string,
+    lastName: string,
+    createdAt: string,
+    parcelType: string,
+    parcelPostService: string,
+    numberPieces: [number, string],
+    status: [number, string]
 }

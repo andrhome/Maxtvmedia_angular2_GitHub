@@ -6,7 +6,7 @@ import { ParselsListComponent } from "./parsels-list.component";
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { ListComponent } from '../../../components/list-component/list.component';
-import { AddingFormComponent } from '../../../components/adding-form-component/addin-form.component'
+import { AddingFormComponent } from '../../../components/adding-form-component/adding-form.component'
 
 @NgModule({
     imports: [

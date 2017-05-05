@@ -8389,3 +8389,16 @@ body.md-skin {
     margin: 0;
   }
 }
+
+/********************Custom styles**********************/
+.parsels-list-wrapper{
+  position: relative;
+}
+.adding-form-wrapper{
+  width: 100%;
+  height: 100%;
+  background: #f3f3f4;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
