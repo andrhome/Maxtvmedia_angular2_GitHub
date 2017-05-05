@@ -14,7 +14,6 @@ export class ParselsListHttpService {
 
     createAuthorizationHeader(headers: Headers) {
         headers.append('Content-Type', 'application/json;charset=utf-8');
-        headers.append('Access-Control-Allow-Origin', '*');
         headers.append('Authorization', 'Bearer MGFlYjViOWRhNTQ2YjliY2VmOGJlOTUxNzdhMWEzYTlkNjA1M2Q1YjZkY2FhZjI0MzViYjFkODU3YTE1N2NlZg');
     }
 

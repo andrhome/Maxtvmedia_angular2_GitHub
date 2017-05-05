@@ -28,9 +28,7 @@ export class ParselTypeComponent implements OnInit{
     parselTypeName: string;
 
     saveParselType(parselType: Object) {
-
         this.parsels.push(new ParselType(parselType));
-        console.log(this.parsels);
 
         this.parselTypeName = '';
 

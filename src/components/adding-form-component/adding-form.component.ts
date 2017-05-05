@@ -1,31 +1,40 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
+import {ParselType} from '../../assets/types/parsel-type';
 
 @Component({
     selector: 'adding-form',
     templateUrl: 'adding-form.template.html'
 })
 export class AddingFormComponent {
-    @Input() onSubmitCallback() {}
-    @Input() isShow: boolean = false;
+    @Input() title: string = '';
+    @Input() className: string = '';
+    @Input() editMode: boolean = false;
+    @Input() editItemIndex: number;
+    @Input() parselItem: ParselType = new ParselType();
 
-    constructor () { }
+    @Output() onSubmit: EventEmitter<Object> = new EventEmitter();
 
-    @Output() onShow = new EventEmitter();
-    show() {
-        this.onShow.emit();
-        this.isShow = true;
+    private isShow: boolean = false;
+
+    constructor() {
+
     }
 
-    // public show() {
-    //     this.isShow = true;
-    // }
+    public show() {
+        this.isShow = true;
+    }
 
     public hide() {
         this.isShow = false;
     }
 
-    private submit() {
-        this.onSubmitCallback();
+    public submit() {
+        if (this.editMode) {
+            this.onSubmit.emit({index: this.editItemIndex, item: this.parselItem});
+        } else {
+            this.onSubmit.emit({item: this.parselItem});
+        }
+
         this.hide();
     }
 }
