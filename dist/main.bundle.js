@@ -118,7 +118,6 @@ webpackJsonp([2],{
 	var AddingFormComponent = (function () {
 	    function AddingFormComponent() {
 	        this.title = '';
-	        this.className = '';
 	        this.editMode = false;
 	        this.parselItem = new parsel_type_1.ParselType();
 	        this.onSubmit = new core_1.EventEmitter();
@@ -143,10 +142,6 @@ webpackJsonp([2],{
 	        core_1.Input(), 
 	        __metadata('design:type', String)
 	    ], AddingFormComponent.prototype, "title", void 0);
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', String)
-	    ], AddingFormComponent.prototype, "className", void 0);
 	    __decorate([
 	        core_1.Input(), 
 	        __metadata('design:type', Boolean)
@@ -313,15 +308,18 @@ webpackJsonp([2],{
 	        this.parselsList = [];
 	        this.initParselsList = function () {
 	            var _this = this;
-	            this.http.getData().subscribe(function (data) { return _this.parselsList = data; }, function (error) { _this.error = error; console.error(error); });
+	            this.http.getData().subscribe(function (data) { _this.parselsList = data; console.log(data); }, function (error) { _this.error = error; console.error(error); });
 	        };
 	    }
 	    ParselsListComponent.prototype.ngOnInit = function () {
 	        this.initParselsList();
 	    };
 	    ParselsListComponent.prototype.addIncomingParsel = function (item) {
+	        // this.http.addItem(item).subscribe(
+	        //     data => { console.log(data); },
+	        //     error => { console.error(error); }
+	        // );
 	        this.parselsList.push(item);
-	        console.log(item);
 	    };
 	    ParselsListComponent = __decorate([
 	        core_1.Component({
@@ -962,26 +960,30 @@ webpackJsonp([2],{
 	    }
 	    ParselsListHttpService.prototype.createAuthorizationHeader = function (headers) {
 	        headers.append('Content-Type', 'application/json;charset=utf-8');
-	        headers.append('Authorization', 'Bearer MGFlYjViOWRhNTQ2YjliY2VmOGJlOTUxNzdhMWEzYTlkNjA1M2Q1YjZkY2FhZjI0MzViYjFkODU3YTE1N2NlZg');
+	        headers.append('Authorization', 'Bearer MmM2YzIzYmU4NTFkMWVhMGNiZDEyNTllNzYxNzY0OWIxODg2OWEyNjg4ZjYwYzc2ZjFkMThmZTljMjVkYjQxNA');
 	    };
 	    ParselsListHttpService.prototype.getData = function () {
 	        var headers = new http_1.Headers();
 	        this.createAuthorizationHeader(headers);
-	        console.log('Headers: ', headers);
 	        var options = new http_1.RequestOptions({ headers: headers });
 	        // 'http://maxtvmedia.requestumdemo.com/api/v1/parcels'
-	        return this.http.get('http://maxtvmedia.requestumdemo.com/parcels.json', options)
+	        return this.http.get('http://maxtvmedia.requestumdemo.com/api/v1/parcels.json', options)
 	            .map(function (resp) { return resp.json(); })
-	            .catch(function (error) { return Observable_1.Observable.throw(error); });
+	            .catch(function (error) {
+	            return Observable_1.Observable.throw(error);
+	        });
 	    };
-	    ParselsListHttpService.prototype.postData = function (obj) {
-	        var body = JSON.stringify(obj);
+	    ParselsListHttpService.prototype.addItem = function (item) {
 	        var headers = new http_1.Headers();
 	        this.createAuthorizationHeader(headers);
 	        var options = new http_1.RequestOptions({ headers: headers });
-	        return this.http.post('parsels-list.json', body, options)
+	        return this.http.post('http://maxtvmedia.requestumdemo.com/api/v1/parcels.json', {}, options)
 	            .map(function (resp) { return resp.json(); })
-	            .catch(function (error) { return Observable_1.Observable.throw(error); });
+	            .catch(function (error) {
+	            return Observable_1.Observable.throw(error);
+	        });
+	    };
+	    ParselsListHttpService.prototype.editItem = function () {
 	    };
 	    ParselsListHttpService = __decorate([
 	        core_1.Injectable(), 
@@ -1139,7 +1141,7 @@ webpackJsonp([2],{
 /***/ 356:
 /***/ (function(module, exports) {
 
-	module.exports = "<table class=\"table\">\n    <thead>\n    <tr>\n        <th>#</th>\n        <th>Recepient name</th>\n        <th>Recepient surname</th>\n        <th>Received</th>\n        <th>Parcel Type</th>\n        <th>Delivered by</th>\n        <th>Picked up</th>\n        <th>Pieces</th>\n        <th>Status</th>\n        <th></th>\n    </tr>\n    </thead>\n    <tbody *ngIf=\"error\">\n    <tr>\n        <td colspan=\"7\">\n            <div class=\"alert alert-danger\"><strong>Error:</strong> {{error}}</div>\n        </td>\n    </tr>\n    </tbody>\n    <tbody *ngIf=\"!error\">\n    <tr *ngFor=\"let item of dataList; let i = index;\">\n        <td>{{i + 1}}</td>\n        <td>{{item.firstName}}</td>\n        <td>{{item.lastName}}</td>\n        <td>{{item.createdAt | date:'shortDate'}}</td>\n        <td>{{item.parcelType}}</td>\n        <td>{{item.parcelPostService}}</td>\n        <td>...</td>\n        <td>{{item.numberPieces}}</td>\n        <td>{{item.status}}</td>\n        <!--<td>-->\n            <!--<template [ngIf]=\"item.status == 'Picked up'\">-->\n                <!--<span class=\"label label-primary\">{{item.status}}</span>-->\n            <!--</template>-->\n            <!--<template [ngIf]=\"item.status == 'Received'\">-->\n                <!--<span class=\"label label-info\">{{item.status}}</span>-->\n            <!--</template>-->\n        <!--</td>-->\n        <td>\n            <adding-form [title]=\"'<i class=\\'fa fa-paste\\'></i>Edit'\" [editMode]=\"true\" [editItemIndex]=\"i\" [parselItem]=\"item\" (onSubmit)=\"editParselItem($event)\"></adding-form>\n            <div class=\"btn-group\">\n                <button data-toggle=\"dropdown\" class=\"btn btn-default dropdown-toggle\" aria-expanded=\"false\">Action <span class=\"caret\"></span></button>\n                <ul class=\"dropdown-menu\">\n                    <li><a href=\"#\" data-id=\"\" data-action=\"pick_up\" data-title=\"\" data-toggle=\"modal\" data-target=\"#parcel_action_modal\">Pick Up</a></li>\n                    <li><a href=\"#\" data-id=\"\" data-action=\"return\" data-title=\"\" data-toggle=\"modal\" data-target=\"#parcel_action_modal\">Return</a></li>\n                </ul>\n            </div>\n        </td>\n    </tr>\n    </tbody>\n</table>\n"
+	module.exports = "<table class=\"table\">\n    <thead>\n    <tr>\n        <th>#</th>\n        <th>Recepient name</th>\n        <th>Recepient surname</th>\n        <th>Received</th>\n        <th>Parcel Type</th>\n        <th>Delivered by</th>\n        <th>Picked up</th>\n        <th>Pieces</th>\n        <th>Status</th>\n        <th></th>\n    </tr>\n    </thead>\n    <tbody *ngIf=\"error\">\n    <tr>\n        <td colspan=\"7\">\n            <div class=\"alert alert-danger\"><strong>Error:</strong> {{error}}</div>\n        </td>\n    </tr>\n    </tbody>\n    <tbody *ngIf=\"!error\">\n    <tr *ngFor=\"let item of dataList; let i = index;\">\n        <td>{{i + 1}}</td>\n        <td>{{item.firstName}}</td>\n        <td>{{item.lastName}}</td>\n        <td>{{item.createdAt | date:'shortDate'}}</td>\n        <td>{{item.parcelType}}</td>\n        <td>{{item.parcelPostService}}</td>\n        <td>...</td>\n        <td>{{item.numberPieces}}</td>\n        <td>{{item.status}}</td>\n        <!--<td>-->\n            <!--<template [ngIf]=\"item.status == 'Picked up'\">-->\n                <!--<span class=\"label label-primary\">{{item.status}}</span>-->\n            <!--</template>-->\n            <!--<template [ngIf]=\"item.status == 'Received'\">-->\n                <!--<span class=\"label label-info\">{{item.status}}</span>-->\n            <!--</template>-->\n        <!--</td>-->\n        <td>\n            <adding-form [title]=\"'<i class=\\'fa fa-paste\\'></i>Edit'\" [editMode]=\"true\" [editItemIndex]=\"i\" [parselItem]=\"item\" (onSubmit)=\"editParselItem($event.index, $event.item)\"></adding-form>\n            <div class=\"btn-group\">\n                <button data-toggle=\"dropdown\" class=\"btn btn-default dropdown-toggle\" aria-expanded=\"false\">Action <span class=\"caret\"></span></button>\n                <ul class=\"dropdown-menu\">\n                    <li><a href=\"#\" data-id=\"\" data-action=\"pick_up\" data-title=\"\" data-toggle=\"modal\" data-target=\"#parcel_action_modal\">Pick Up</a></li>\n                    <li><a href=\"#\" data-id=\"\" data-action=\"return\" data-title=\"\" data-toggle=\"modal\" data-target=\"#parcel_action_modal\">Return</a></li>\n                </ul>\n            </div>\n        </td>\n    </tr>\n    </tbody>\n</table>\n"
 
 /***/ }),
 
@@ -1188,7 +1190,7 @@ webpackJsonp([2],{
 /***/ 363:
 /***/ (function(module, exports) {
 
-	module.exports = "<div class=\"row wrapper border-bottom white-bg page-heading\">\n    <div class=\"col-sm-4\">\n        <h2>Parsels List</h2>\n        <ol class=\"breadcrumb\">\n            <li>\n                <a href=\"/\">This is</a>\n            </li>\n            <li class=\"active\">\n                <strong>Breadcrumb</strong>\n            </li>\n        </ol>\n    </div>\n</div>\n<div class=\"wrapper wrapper-content parsels-list-wrapper\">\n    <div class=\"tabs-container\">\n        <ul class=\"nav nav-tabs\">\n            <li class=\"active\"><a data-toggle=\"tab\" href=\"#parcels-tabs-incoming\">Incoming</a></li>\n            <li class=\"\"><a data-toggle=\"tab\" href=\"#parcels-tabs-outgoing\">Outgoing</a></li>\n        </ul>\n        <div class=\"tab-content\">\n            <div id=\"parcels-tabs-incoming\" class=\"tab-pane active\">\n                <div class=\"panel-body\">\n                    <div class=\"ibox float-e-margins\">\n                        <div class=\"ibox-title\">\n                            <div class=\"ibox-tools\">\n                                <!-- Create Incommin Parsel form -->\n                                <adding-form [title]=\"'Create an Incoming Parcel'\" (onSubmit)=\"addIncomingParsel($event)\"></adding-form>\n                            </div>\n                        </div>\n                        <div class=\"ibox-content\">\n                            <list-comp [dataList]=\"parselsList\" [error]=\"error\"></list-comp>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div id=\"parcels-tabs-outgoing\" class=\"tab-pane\">\n                <div class=\"panel-body\">\n                    <div class=\"ibox-title\">\n                        <div class=\"ibox-tools\">\n                            <a href=\"#\" class=\"btn btn-primary\">Create an Outgoing Parcel</a>\n                        </div>\n                    </div>\n                    <div class=\"ibox-content\">\n                        <!--<h1>NgIf Directive</h1>-->\n                        <!--<div *ngIf=\"conditions; then thenBlock else elseBlock\">-->\n                            <!--<template #thenBlock>Then block</template>-->\n                            <!--<template #elseBlock>Else block</template>-->\n                        <!--</div>-->\n\n                        <list-comp [dataList]=\"parselsList\"></list-comp>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n\n<div class=\"modal fade\" id=\"parcel_action_modal\" tabindex=\"-1\" role=\"dialog\">\n    <div class=\"modal-dialog\" role=\"document\">\n        <div class=\"modal-content\">\n            <div class=\"modal-header\">\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>\n                <h4 class=\"modal-title\" id=\"parcel_action_modal_label\"></h4>\n            </div>\n            <div class=\"modal-body\">\n                <div class=\"alert hide\"></div>\n                <div class=\"custom-body\"></div>\n            </div>\n            <div class=\"modal-footer\">\n                <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Cancel</button>\n                <button type=\"button\" class=\"btn btn-primary form-submit\">Submit</button>\n            </div>\n        </div>\n    </div>\n</div>\n\n"
+	module.exports = "<div class=\"row wrapper border-bottom white-bg page-heading\">\n    <div class=\"col-sm-4\">\n        <h2>Parsels List</h2>\n        <ol class=\"breadcrumb\">\n            <li>\n                <a href=\"/\">This is</a>\n            </li>\n            <li class=\"active\">\n                <strong>Breadcrumb</strong>\n            </li>\n        </ol>\n    </div>\n</div>\n<div class=\"wrapper wrapper-content parsels-list-wrapper\">\n    <div class=\"tabs-container\">\n        <ul class=\"nav nav-tabs\">\n            <li class=\"active\"><a data-toggle=\"tab\" href=\"#parcels-tabs-incoming\">Incoming</a></li>\n            <li class=\"\"><a data-toggle=\"tab\" href=\"#parcels-tabs-outgoing\">Outgoing</a></li>\n        </ul>\n        <div class=\"tab-content\">\n            <div id=\"parcels-tabs-incoming\" class=\"tab-pane active\">\n                <div class=\"panel-body\">\n                    <div class=\"ibox float-e-margins\">\n                        <div class=\"ibox-title\">\n                            <div class=\"ibox-tools\">\n                                <!-- Create Incommin Parsel form -->\n                                <adding-form [title]=\"'Create an Incoming Parcel'\" (onSubmit)=\"addIncomingParsel($event.item)\"></adding-form>\n                            </div>\n                        </div>\n                        <div class=\"ibox-content\">\n                            <list-comp [dataList]=\"parselsList\" [error]=\"error\"></list-comp>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div id=\"parcels-tabs-outgoing\" class=\"tab-pane\">\n                <div class=\"panel-body\">\n                    <div class=\"ibox-title\">\n                        <div class=\"ibox-tools\">\n                            <a href=\"#\" class=\"btn btn-primary\">Create an Outgoing Parcel</a>\n                        </div>\n                    </div>\n                    <div class=\"ibox-content\">\n                        <!--<h1>NgIf Directive</h1>-->\n                        <!--<div *ngIf=\"conditions; then thenBlock else elseBlock\">-->\n                            <!--<template #thenBlock>Then block</template>-->\n                            <!--<template #elseBlock>Else block</template>-->\n                        <!--</div>-->\n\n                        <list-comp [dataList]=\"parselsList\"></list-comp>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n\n<div class=\"modal fade\" id=\"parcel_action_modal\" tabindex=\"-1\" role=\"dialog\">\n    <div class=\"modal-dialog\" role=\"document\">\n        <div class=\"modal-content\">\n            <div class=\"modal-header\">\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>\n                <h4 class=\"modal-title\" id=\"parcel_action_modal_label\"></h4>\n            </div>\n            <div class=\"modal-body\">\n                <div class=\"alert hide\"></div>\n                <div class=\"custom-body\"></div>\n            </div>\n            <div class=\"modal-footer\">\n                <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Cancel</button>\n                <button type=\"button\" class=\"btn btn-primary form-submit\">Submit</button>\n            </div>\n        </div>\n    </div>\n</div>\n\n"
 
 /***/ }),
 

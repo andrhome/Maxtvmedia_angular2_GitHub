@@ -40,7 +40,7 @@
             <!--</template>-->
         <!--</td>-->
         <td>
-            <adding-form [title]="'<i class=\'fa fa-paste\'></i>Edit'" [editMode]="true" [editItemIndex]="i" [parselItem]="item" (onSubmit)="editParselItem($event)"></adding-form>
+            <adding-form [title]="'<i class=\'fa fa-paste\'></i>Edit'" [editMode]="true" [editItemIndex]="i" [parselItem]="item" (onSubmit)="editParselItem($event.index, $event.item)"></adding-form>
             <div class="btn-group">
                 <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" aria-expanded="false">Action <span class="caret"></span></button>
                 <ul class="dropdown-menu">

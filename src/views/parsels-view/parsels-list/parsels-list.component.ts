@@ -20,13 +20,16 @@ export class ParselsListComponent implements OnInit {
 
     initParselsList: Function = function () {
         this.http.getData().subscribe(
-            data => this.parselsList = data,
-            error => { this.error = error; console.error(error) }
+            data => { this.parselsList = data; console.log(data); },
+            error => { this.error = error; console.error(error); }
         );
     };
 
     addIncomingParsel(item: ParselType) {
+        // this.http.addItem(item).subscribe(
+        //     data => { console.log(data); },
+        //     error => { console.error(error); }
+        // );
         this.parselsList.push(item);
-        console.log(item);
     }
 }

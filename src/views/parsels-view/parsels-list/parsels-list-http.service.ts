@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Http, Headers, RequestOptions} from '@angular/http';
-import { Response } from '@angular/http';
-import { ParselType } from '../../../assets/types/parsel-type';
-import { Observable } from 'rxjs/Observable';
+import {Response} from '@angular/http';
+import {ParselType} from '../../../assets/types/parsel-type';
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
@@ -10,37 +10,53 @@ import 'rxjs/add/observable/throw';
 @Injectable()
 export class ParselsListHttpService {
 
-    constructor(private http: Http) { }
+    constructor(private http: Http) {
+    }
 
     createAuthorizationHeader(headers: Headers) {
         headers.append('Content-Type', 'application/json;charset=utf-8');
-        headers.append('Authorization', 'Bearer MGFlYjViOWRhNTQ2YjliY2VmOGJlOTUxNzdhMWEzYTlkNjA1M2Q1YjZkY2FhZjI0MzViYjFkODU3YTE1N2NlZg');
+        headers.append('Authorization', 'Bearer MmM2YzIzYmU4NTFkMWVhMGNiZDEyNTllNzYxNzY0OWIxODg2OWEyNjg4ZjYwYzc2ZjFkMThmZTljMjVkYjQxNA');
     }
 
-    getData() : Observable<ParselType[]>{
+    getData(): Observable<ParselType[]> {
 
         let headers = new Headers();
         this.createAuthorizationHeader(headers);
-        console.log('Headers: ', headers);
 
-        let options = new RequestOptions({ headers: headers });
+        let options = new RequestOptions({headers: headers});
 
         // 'http://maxtvmedia.requestumdemo.com/api/v1/parcels'
-        return this.http.get('http://maxtvmedia.requestumdemo.com/parcels.json', options)
+        return this.http.get('http://maxtvmedia.requestumdemo.com/api/v1/parcels.json', options)
             .map((resp: Response) => resp.json())
-            .catch((error: any) => { return Observable.throw(error) });
+            .catch((error: any) => {
+                return Observable.throw(error)
+            });
     }
 
-    postData(obj: ParselType) : Observable<ParselType[]>{
-        const body = JSON.stringify(obj);
-
+    addItem(item: ParselType): Observable<ParselType> {
         let headers = new Headers();
         this.createAuthorizationHeader(headers);
 
-        let options = new RequestOptions({ headers: headers });
+        let options = new RequestOptions({headers: headers});
 
-        return this.http.post('parsels-list.json', body, options)
+        return this.http.post('http://maxtvmedia.requestumdemo.com/api/v1/parcels.json', {
+            // suite: ,
+            // resident: ,
+            // parcelPostService: ,
+            // numberPieces: ,
+            // parcelType: ,
+            // deliveryAddress: ,
+            // notes: ,
+            // inOut: ,
+            // description: ,
+        }, options)
             .map((resp: Response) => resp.json())
-            .catch((error: any) => { return Observable.throw(error) });
+            .catch((error: any) => {
+                return Observable.throw(error)
+            });
+    }
+
+    editItem() {
+
     }
 }
