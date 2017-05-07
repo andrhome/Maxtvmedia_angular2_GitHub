@@ -3,8 +3,10 @@ import {ParselType} from '../../assets/types/parsel-type';
 import {HttpService} from "../../services/http-services.service";
 
 @Component({
+    // moduleId: module.id,
     selector: 'adding-form',
     templateUrl: 'adding-form.template.html'
+    // styleUrls: ['adding-form.style.css']
 })
 export class AddingFormComponent {
     @Input() title: string = '';
