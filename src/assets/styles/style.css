@@ -8405,6 +8405,7 @@ body.md-skin {
 .adding-form{
   max-width: 530px;
   max-height: 100%;
+  background: #fff;
   overflow-y: auto;
   margin: 0 auto;
   position: relative;

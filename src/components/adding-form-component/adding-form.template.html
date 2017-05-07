@@ -8,16 +8,16 @@
 					<div class="form-group">
 						<label class="col-sm-4 control-label required" for="parcel-building">Building</label>
 						<div class="col-sm-8">
-							<select (change)="getSuites(1)" id="parcel-building" name="create_parcel[building]" class="form-control">
-								<option *ngFor="let build of buildings" value="{{build.name}}">{{build.name}}</option>
+							<select (change)="changeBuilding(buildId)" id="parcel-building" name="create_parcel[building]" [value]="buildId" class="form-control" [(ngModel)]="buildId">
+								<option *ngFor="let build of buildings" value="{{build.id}}">{{build.name}}</option>
 							</select>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-4 control-label required" for="parcel-suite">Suite</label>
 						<div class="col-sm-8">
-							<select (change)="getResidents()" id="parcel-suite" name="create_parcel[suite]" class="form-control select2">
-								<option *ngFor="let suite of suites" value="{{suite.suite_number}}">{{suite.suite_number}}</option>
+							<select (change)="changeSuite(suiteId)" id="parcel-suite" name="create_parcel[suite]" class="form-control select2" [(ngModel)]="suiteId">
+								<option *ngFor="let suite of suites" value="{{suite.id}}">{{suite.suite_number}}</option>
 							</select>
 						</div>
 					</div>

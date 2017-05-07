@@ -19,6 +19,8 @@ export class AddingFormComponent {
     buildings: Object = [];
     suites: Object = [];
     residents: Object = [];
+    buildId: number;
+    suiteId: number;
 
     private isShow: boolean = false;
 
@@ -30,12 +32,18 @@ export class AddingFormComponent {
         this.http.getBuilds().subscribe(
             data => {
                 this.buildings = data;
+                console.log('Buildings: ', this.buildings);
+                this.buildId = this.buildings[0].id;
+                // console.log('this.buildId: ', this.buildId);
 
-                this.http.getSuites(this.buildings[0].id).subscribe(
+                this.http.getSuites(this.buildId).subscribe(
                     data => {
                         this.suites = data;
+                        console.log('Suites: ', this.suites);
+                        this.suiteId = this.suites[0].id;
+                        // console.log('this.suiteId: ', this.suiteId);
 
-                        this.http.getResidents().subscribe(
+                        this.http.getResidents(this.suiteId).subscribe(
                             data => {
                                 this.residents = data;
                                 console.log('Residents: ', this.residents);
@@ -47,11 +55,29 @@ export class AddingFormComponent {
         );
     }
 
-    // getSuites() {
-    //     this.http.getSuites().subscribe(
-    //         data => { this.suites = data; console.log(data); }
-    //     );
-    // }
+    changeBuilding(id: number) {
+        console.log('Build ID: ', id);
+        // this.http.getSuites(id).subscribe(
+        //     data => {
+        //         this.suites = data;
+        //
+        //         this.http.getResidents(this.suites[0].id).subscribe(
+        //             data => {
+        //                 this.residents = data;
+        //             }
+        //         )
+        //     }
+        // );
+    }
+
+    changeSuite(id: number) {
+        console.log('Suite ID: ', id);
+        // this.http.getResidents(id).subscribe(
+        //     data => {
+        //         this.residents = data;
+        //     }
+        // )
+    }
 
     public hide() {
         this.isShow = false;
