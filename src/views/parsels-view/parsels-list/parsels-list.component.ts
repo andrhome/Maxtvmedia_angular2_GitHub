@@ -9,6 +9,8 @@ const BUILDINGS_URL: string = `${BASE_URL}/v1/buildings`;
 const SUITES_URL: string = `${BASE_URL}/v1/suites`;
 const RESIDENTS_URL: string = `${BASE_URL}/v1/residents`;
 
+let token: string = null;
+
 @Component({
     selector: 'parselsListView',
     templateUrl: 'parsels-list.template.html',
@@ -27,25 +29,20 @@ export class ParselsListComponent implements OnInit {
     constructor(private http: HttpService) {}
 
     ngOnInit() {
-        this.initParselsList();
+        if (token) {
+            this.initParselsList();
 
-        this.http.getData(BUILDINGS_URL).subscribe(
-            data => {
-                this.buildingsData.buildings = data;
-            }
-        );
-
-        this.http.getData(SUITES_URL).subscribe(
-            data => {
-                this.buildingsData.suites = data;
-            }
-        );
-
-        this.http.getData(RESIDENTS_URL).subscribe(
-            data => {
-                this.buildingsData.residents = data;
-            }
-        )
+            this.initData();
+        } else {
+            this.http.getToken().subscribe(
+                data => {
+                    token = data.access_token;
+                    this.http.setToken(token);
+                    this.initParselsList();
+                    this.initData();
+                }
+            );
+        }
     }
 
     initParselsList: Function = function () {
@@ -63,5 +60,25 @@ export class ParselsListComponent implements OnInit {
             },
             error => { console.error(error); }
         );
+    }
+
+    private initData() {
+        this.http.getData(BUILDINGS_URL).subscribe(
+            data => {
+                this.buildingsData.buildings = data;
+            }
+        );
+
+        this.http.getData(SUITES_URL).subscribe(
+            data => {
+                this.buildingsData.suites = data;
+            }
+        );
+
+        this.http.getData(RESIDENTS_URL).subscribe(
+            data => {
+                this.buildingsData.residents = data;
+            }
+        )
     }
 }
