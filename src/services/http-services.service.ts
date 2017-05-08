@@ -8,22 +8,17 @@ import 'rxjs/add/observable/throw';
 
 const BASE_URL: string = 'http://maxtvmedia.requestumdemo.com/api';
 
+// let token: string = 'Bearer MjI2Nzc3ZTUzZTNlNjdiNmY0OGNiZmU1MTNkYmEyZTg1ZDUyODIzY2EzZjFlZDUyY2E4ZmQ4MDllNGVlYWFjNQ';
+let headers: Headers = new Headers();
+
 @Injectable()
 export class HttpService {
 
-    constructor(private http: Http) { }
-
-    createAuthorizationHeader(headers: Headers) {
-        headers.append('Content-Type', 'application/json;charset=utf-8');
-        headers.append('Authorization', 'Bearer MjI2Nzc3ZTUzZTNlNjdiNmY0OGNiZmU1MTNkYmEyZTg1ZDUyODIzY2EzZjFlZDUyY2E4ZmQ4MDllNGVlYWFjNQ');
+    constructor(private http: Http) {
     }
 
     getData(url: string) {
-        let headers = new Headers();
-        this.createAuthorizationHeader(headers);
-
         let options = new RequestOptions({headers: headers});
-
         return this.http.get(url, options)
             .map((resp: Response) => resp.json())
             .catch((error: any) => {
@@ -32,9 +27,6 @@ export class HttpService {
     }
 
     addItem(data) {
-        let headers = new Headers();
-        this.createAuthorizationHeader(headers);
-
         let options = new RequestOptions({headers: headers});
 
         return this.http.post(`${BASE_URL}/v1/parcels`, {
@@ -52,6 +44,19 @@ export class HttpService {
             .catch((error: any) => {
                 return Observable.throw(error)
             });
+    }
+
+    getToken() {
+        return this.http.post(`${BASE_URL}/security/login`, {
+            email: 'admin',
+            password: '123456'
+        })
+            .map((res: Response) => res.json());
+    }
+
+    setToken(token) {
+        token = `Bearer ${token}`;
+        headers.append('Authorization', token);
     }
 
     editItem() {
