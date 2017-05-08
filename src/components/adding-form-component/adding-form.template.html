@@ -40,7 +40,7 @@
 					<div class="form-group">
 						<label class="col-sm-4 control-label required" for="create_parcel_parcelPostService">Delivered by</label>
 						<div class="col-sm-8">
-							<select id="create_parcel_parcelPostService" name="create_parcel[suite]" class="form-control">
+							<select id="create_parcel_parcelPostService" name="create_parcel[suite]" class="form-control" [(ngModel)]="parselItem.parcelPostService">
 								<option value="DHL">DHL</option>
 								<option value="SDN">SDN</option>
 								<option value="MVC">MVC</option>
@@ -50,7 +50,7 @@
 					<div class="form-group">
 						<label class="col-sm-4 control-label" for="create_parcel_numberPieces">Pieces</label>
 						<div class="col-sm-8">
-							<input type="text" id="create_parcel_numberPieces" name="create_parcel[numberPieces]" class="form-control">
+							<input type="text" id="create_parcel_numberPieces" name="create_parcel[numberPieces]" class="form-control" [(ngModel)]="parselItem.numberPieces">
 						</div>
 					</div>
 					<div class="form-group">
@@ -66,19 +66,19 @@
 					<div class="form-group">
 						<label class="col-sm-4 control-label" for="create_parcel_deliveryAddress">Delivery address</label>
 						<div class="col-sm-8">
-							<textarea id="create_parcel_deliveryAddress" name="create_parcel[deliveryAddress]" class="form-control"></textarea>
+							<textarea id="create_parcel_deliveryAddress" name="create_parcel[deliveryAddress]" class="form-control" [(ngModel)]="parselItem.deliveryAddress"></textarea>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-4 control-label" for="create_parcel_notes">Notes</label>
 						<div class="col-sm-8">
-							<input type="text" id="create_parcel_notes" name="create_parcel[notes]" class="form-control">
+							<input type="text" id="create_parcel_notes" name="create_parcel[notes]" class="form-control" [(ngModel)]="parselItem.notes">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-4 control-label" for="create_parcel_description">Description</label>
 						<div class="col-sm-8">
-							<textarea id="create_parcel_description" name="create_parcel[description]" class="form-control"></textarea>
+							<textarea id="create_parcel_description" name="create_parcel[description]" class="form-control" [(ngModel)]="parselItem.description"></textarea>
 						</div>
 					</div>
 					<div class="form-group">

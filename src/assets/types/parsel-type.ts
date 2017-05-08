@@ -4,7 +4,10 @@ export class ParselType {
     lastName: string;
     createdAt: string;
     parcelType: string;
+    deliveryAddress: string;
     parcelPostService: string;
     numberPieces: [number, string];
-    status: [number, string]
+    status: [number, string];
+    notes: string;
+    description: string;
 }
