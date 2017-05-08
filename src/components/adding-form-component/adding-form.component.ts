@@ -26,8 +26,6 @@ export class AddingFormComponent {
     suites: Object[] = [];
     residents: Object[] = [];
 
-    currentDate: string;
-
     private isShow: boolean = false;
 
     constructor(private http: HttpService) {  }
@@ -47,12 +45,11 @@ export class AddingFormComponent {
     }
 
     public setDate() {
-        let date = new Date();
-        let day = date.getDate();
-        let month = date.getMonth();
-        let year = date.getFullYear();
-        this.currentDate = `${day}/${month}/${year}`;
-        return this.currentDate;
+        let date = new Date(),
+            day = date.getDate(),
+            month = date.getMonth(),
+            year = date.getFullYear();
+        return `${day}/${month}/${year}`;
     }
 
     public submit() {
