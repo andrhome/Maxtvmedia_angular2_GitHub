@@ -61,13 +61,13 @@ export class HttpService {
             });
     }
 
-    getResidents() {
+    getResidents(id: number) {
         let headers = new Headers();
         this.createAuthorizationHeader(headers);
 
         let options = new RequestOptions({headers: headers});
 
-        return this.http.get(`${url}/v1/residents`, options)
+        return this.http.get(`${url}/v1/suites/residents/${id}`, options)
             .map((resp: Response) => resp.json())
             .catch((error: any) => {
                 return Observable.throw(error);

@@ -1,45 +1,45 @@
 <button type="button" class="btn btn-primary" (click)="show()" [innerHTML]="title"></button>
 
-<div class="adding-form-wrapper clearfix" *ngIf="isShow">
-	<div class="col-md-6">
+<div class="adding-form-wrapper" *ngIf="isShow">
+	<div class="adding-form">
 		<div class="ibox float-e-margins">
 			<div class="ibox-content">
 				<form name="create_parcel" method="" class="form-horizontal">
 					<div class="form-group">
-						<label class="col-sm-2 control-label required" for="parcel-building">Building</label>
-						<div class="col-sm-10">
-							<select (change)="getSuites(1)" id="parcel-building" name="create_parcel[building]" class="form-control">
-								<option *ngFor="let build of buildings" value="{{build.name}}">{{build.name}}</option>
+						<label class="col-sm-4 control-label required" for="parcel-building">Building</label>
+						<div class="col-sm-8">
+							<select (change)="changeBuilding(currentBuildId)" id="parcel-building" name="create_parcel[building]" class="form-control" [(ngModel)]="currentBuildId">
+								<option *ngFor="let build of buildings" value="{{build.id}}">{{build.name}}</option>
 							</select>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-2 control-label required" for="parcel-suite">Suite</label>
-						<div class="col-sm-10">
-							<select (change)="getResidents()" id="parcel-suite" name="create_parcel[suite]" class="form-control select2">
-								<option *ngFor="let suite of suites" value="{{suite.suite_number}}">{{suite.suite_number}}</option>
+						<label class="col-sm-4 control-label required" for="parcel-suite">Suite</label>
+						<div class="col-sm-8">
+							<select (change)="changeSuite(currentSuitedId)" id="parcel-suite" name="create_parcel[suite]" class="form-control select2" [(ngModel)]="currentSuitedId">
+								<option *ngFor="let suite of suites" value="{{suite.id}}">{{suite.suite_number}}</option>
 							</select>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-2 control-label required" for="parcel-resident-name">Recepient name</label>
-						<div class="col-sm-10">
+						<label class="col-sm-4 control-label required" for="parcel-resident-name">Recepient name</label>
+						<div class="col-sm-8">
 							<select id="parcel-resident-name" name="create_parcel[resident-name]" class="form-control select2" [(ngModel)]="parselItem.firstName">
 								<option *ngFor="let resident of residents" value="{{resident.first_name}}">{{resident.first_name}}</option>
 							</select>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-2 control-label required" for="parcel-resident-surname">Recepient surename</label>
-						<div class="col-sm-10">
+						<label class="col-sm-4 control-label required" for="parcel-resident-surname">Recepient surename</label>
+						<div class="col-sm-8">
 							<select id="parcel-resident-surname" name="create_parcel[resident-surname]" class="form-control select2" [(ngModel)]="parselItem.lastName">
 								<option *ngFor="let resident of residents" value="{{resident.last_name}}">{{resident.last_name}}</option>
 							</select>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-2 control-label required" for="create_parcel_parcelPostService">Delivered by</label>
-						<div class="col-sm-10">
+						<label class="col-sm-4 control-label required" for="create_parcel_parcelPostService">Delivered by</label>
+						<div class="col-sm-8">
 							<select id="create_parcel_parcelPostService" name="create_parcel[suite]" class="form-control">
 								<option value="DHL">DHL</option>
 								<option value="SDN">SDN</option>
@@ -48,14 +48,14 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-2 control-label" for="create_parcel_numberPieces">Pieces</label>
-						<div class="col-sm-10">
+						<label class="col-sm-4 control-label" for="create_parcel_numberPieces">Pieces</label>
+						<div class="col-sm-8">
 							<input type="text" id="create_parcel_numberPieces" name="create_parcel[numberPieces]" class="form-control">
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-2 control-label required" for="create_parcel_parcelType">Parcel type</label>
-						<div class="col-sm-10">
+						<label class="col-sm-4 control-label required" for="create_parcel_parcelType">Parcel type</label>
+						<div class="col-sm-8">
 							<select id="create_parcel_parcelType" name="create_parcel[parcelType]" class="form-control" [(ngModel)]="parselItem.parcelType">
 								<option value="1">Letter</option>
 								<option value="2">Package</option>
@@ -64,29 +64,34 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-2 control-label" for="create_parcel_deliveryAddress">Delivery address</label>
-						<div class="col-sm-10">
+						<label class="col-sm-4 control-label" for="create_parcel_deliveryAddress">Delivery address</label>
+						<div class="col-sm-8">
 							<textarea id="create_parcel_deliveryAddress" name="create_parcel[deliveryAddress]" class="form-control"></textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-2 control-label" for="create_parcel_notes">Notes</label>
-						<div class="col-sm-10">
+						<label class="col-sm-4 control-label" for="create_parcel_notes">Notes</label>
+						<div class="col-sm-8">
 							<input type="text" id="create_parcel_notes" name="create_parcel[notes]" class="form-control">
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-2 control-label" for="create_parcel_description">Description</label>
-						<div class="col-sm-10">
+						<label class="col-sm-4 control-label" for="create_parcel_description">Description</label>
+						<div class="col-sm-8">
 							<textarea id="create_parcel_description" name="create_parcel[description]" class="form-control"></textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<div class="col-sm-2"></div>
-						<div class="col-sm-10">
+						<div class="col-sm-3 col-sm-offset-7">
 							<button type="button"
 									name="create_parcel[submit]"
-									class="btn btn-primary btn"
+									class="btn btn-default"
+									(click)="hide()">Cancel</button>
+						</div>
+						<div class="col-sm-2">
+							<button type="button"
+									name="create_parcel[submit]"
+									class="btn btn-primary"
 									(click)="submit()" [innerHTML]="editMode ? 'Edit' : 'Save'">
 							</button>
 						</div>
@@ -96,5 +101,6 @@
 			</div>
 		</div>
 	</div>
+	<div class="overlay" (click)="hide()"></div>
 </div>
 
