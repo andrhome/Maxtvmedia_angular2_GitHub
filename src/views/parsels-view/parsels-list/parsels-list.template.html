@@ -24,7 +24,7 @@
                         <div class="ibox-title">
                             <div class="ibox-tools">
                                 <!-- Create Incommin Parsel form -->
-                                <adding-form [title]="'Create an Incoming Parcel'" (onSubmit)="addIncomingParsel($event.item)"></adding-form>
+                                <adding-form [title]="'Create an Incoming Parcel'" [buildingsData]="buildingsData" (onSubmit)="addIncomingParsel($event.item)"></adding-form>
                             </div>
                         </div>
                         <div class="ibox-content">
@@ -41,12 +41,6 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <!--<h1>NgIf Directive</h1>-->
-                        <!--<div *ngIf="conditions; then thenBlock else elseBlock">-->
-                            <!--<template #thenBlock>Then block</template>-->
-                            <!--<template #elseBlock>Else block</template>-->
-                        <!--</div>-->
-
                         <list-comp [dataList]="parselsList"></list-comp>
                     </div>
                 </div>

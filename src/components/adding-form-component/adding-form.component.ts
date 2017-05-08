@@ -2,6 +2,8 @@ import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {ParselType} from '../../assets/types/parsel-type';
 import {HttpService} from "../../services/http-services.service";
 
+const BASE_URL: string = 'http://maxtvmedia.requestumdemo.com/api';
+
 @Component({
     // moduleId: module.id,
     selector: 'adding-form',
@@ -14,69 +16,29 @@ export class AddingFormComponent {
     @Input() editItemIndex: number;
     @Input() parselItem: ParselType = new ParselType();
 
+    @Input() buildingsData: any = {};
+
     @Output() onSubmit: EventEmitter<Object> = new EventEmitter();
 
-    buildings: Object = [];
-    suites: Object = [];
-    residents: Object = [];
-    currentBuildId: number;
-    currentSuitedId: number;
+    currentBuild: any = {};
+    currentSuite: any = {};
+
+    suites: Object[] = [];
+    residents: Object[] = [];
 
     private isShow: boolean = false;
 
-    constructor(private http: HttpService) {}
+    constructor(private http: HttpService) {
+    }
 
     public show() {
         this.isShow = true;
 
-        this.http.getBuilds().subscribe(
-            data => {
-                this.buildings = data;
-                console.log('Buildings: ', this.buildings);
-                this.currentBuildId = this.buildings[0].id;
-                // console.log('this.buildId: ', this.buildId);
-
-                this.http.getSuites(this.currentBuildId).subscribe(
-                    data => {
-                        this.suites = data;
-                        console.log('Suites: ', this.suites);
-                        this.currentSuitedId = this.suites[0].id;
-                        // console.log('this.suiteId: ', this.suiteId);
-
-                        this.http.getResidents(this.currentSuitedId).subscribe(
-                            data => {
-                                this.residents = data;
-                                console.log('Residents: ', this.residents);
-                            }
-                        )
-                    }
-                );
-            }
-        );
-    }
-
-    changeBuilding(id: number) {
-        console.log('Build ID: ', id);
-        this.http.getSuites(id).subscribe(
-            data => {
-                this.suites = data;
-
-                this.http.getResidents(this.suites[0].id).subscribe(
-                    data => {
-                        this.residents = data;
-                    }
-                )
-            }
-        );
-    }
-
-    changeSuite(id: number) {
-        console.log('Suite ID: ', id);
-        this.http.getResidents(id).subscribe(
-            data => {
-                this.residents = data;
-            }
-        )
+        if (this.editMode) {
+            this.initEditMode();
+        } else {
+            this.initAddMode();
+        }
     }
 
     public hide() {
@@ -87,9 +49,47 @@ export class AddingFormComponent {
         if (this.editMode) {
             this.onSubmit.emit({index: this.editItemIndex, item: this.parselItem});
         } else {
-            this.onSubmit.emit({item: this.parselItem});
+            this.onSubmit.emit({
+
+            });
         }
 
         this.hide();
+    }
+
+    private initEditMode() {
+        console.log(this.parselItem);
+    }
+
+    private initAddMode() {
+        this.currentBuild = this.buildingsData.buildings[0];
+
+        this.suites = this.getSuitesByBuildingId(this.currentBuild.id);
+
+        this.currentSuite = this.suites[0];
+
+        this.getResidentsBySuiteIdAndInit(this.currentSuite.id);
+    }
+
+    private getSuitesByBuildingId(buildingId) {
+        let result = [];
+
+        this.buildingsData.suites.forEach((item) => {
+            if (item.building === buildingId) {
+                result.push(item);
+            }
+        });
+
+        return result;
+    }
+
+    private getResidentsBySuiteIdAndInit(suiteId) {
+        const RESIDENTS_URL: string = `${BASE_URL}/v1/suites/residents/${suiteId}`;
+
+        this.http.getData(RESIDENTS_URL).subscribe(
+            data => {
+                this.residents = data;
+            }
+        );
     }
 }

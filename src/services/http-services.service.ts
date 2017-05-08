@@ -1,17 +1,15 @@
 import {Injectable} from '@angular/core';
 import {Http, Headers, RequestOptions} from '@angular/http';
 import {Response} from '@angular/http';
-import {ParselType} from '../assets/types/parsel-type';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
-const url: string = 'http://maxtvmedia.requestumdemo.com/api';
+const BASE_URL: string = 'http://maxtvmedia.requestumdemo.com/api';
 
 @Injectable()
 export class HttpService {
-
 
     constructor(private http: Http) { }
 
@@ -20,76 +18,35 @@ export class HttpService {
         headers.append('Authorization', 'Bearer MjI2Nzc3ZTUzZTNlNjdiNmY0OGNiZmU1MTNkYmEyZTg1ZDUyODIzY2EzZjFlZDUyY2E4ZmQ4MDllNGVlYWFjNQ');
     }
 
-    getDataList(): Observable<ParselType[]> {
-
+    getData(url: string) {
         let headers = new Headers();
         this.createAuthorizationHeader(headers);
 
         let options = new RequestOptions({headers: headers});
 
-        // 'http://maxtvmedia.requestumdemo.com/api/v1/parcels'
-        return this.http.get(`${url}/v1/parcels`, options)
+        return this.http.get(url, options)
             .map((resp: Response) => resp.json())
             .catch((error: any) => {
                 return Observable.throw(error);
             });
     }
 
-    getBuilds() {
+    addItem(data) {
         let headers = new Headers();
         this.createAuthorizationHeader(headers);
 
         let options = new RequestOptions({headers: headers});
 
-        return this.http.get(`${url}/v1/buildings`, options)
-            .map((resp: Response) => resp.json())
-            .catch((error: any) => {
-                return Observable.throw(error);
-            });
-    }
-
-    getSuites(id: number) {
-        let headers = new Headers();
-        this.createAuthorizationHeader(headers);
-
-        let options = new RequestOptions({headers: headers});
-
-        return this.http.get(`${url}/v1/suites/building/${id}`, options)
-            .map((resp: Response) => resp.json())
-            .catch((error: any) => {
-                return Observable.throw(error);
-            });
-    }
-
-    getResidents(id: number) {
-        let headers = new Headers();
-        this.createAuthorizationHeader(headers);
-
-        let options = new RequestOptions({headers: headers});
-
-        return this.http.get(`${url}/v1/suites/residents/${id}`, options)
-            .map((resp: Response) => resp.json())
-            .catch((error: any) => {
-                return Observable.throw(error);
-            });
-    }
-
-    addItem(item: ParselType): Observable<ParselType> {
-        let headers = new Headers();
-        this.createAuthorizationHeader(headers);
-
-        let options = new RequestOptions({headers: headers});
-
-        return this.http.post(`${url}/v1/parcels`, {
-            // suite: ,
-            // resident: ,
-            // parcelPostService: ,
-            // numberPieces: ,
-            // parcelType: ,
-            // deliveryAddress: ,
-            // notes: ,
-            // inOut: ,
-            // description: ,
+        return this.http.post(`${BASE_URL}/v1/parcels`, {
+            suite: data.suite,
+            resident: data.resident,
+            parcelPostService: data.parcelPostService,
+            numberPieces: data.numberPieces,
+            parcelType: data.parcelType,
+            deliveryAddress: data.deliveryAddress,
+            notes: data.notes,
+            inOut: data.inOut,
+            description: data.description,
         }, options)
             .map((resp: Response) => resp.json())
             .catch((error: any) => {
