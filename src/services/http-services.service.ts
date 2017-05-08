@@ -46,7 +46,7 @@ export class HttpService {
             deliveryAddress: data.deliveryAddress,
             notes: data.notes,
             inOut: data.inOut,
-            description: data.description,
+            description: data.description
         }, options)
             .map((resp: Response) => resp.json())
             .catch((error: any) => {

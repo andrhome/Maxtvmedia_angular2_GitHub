@@ -26,10 +26,11 @@ export class AddingFormComponent {
     suites: Object[] = [];
     residents: Object[] = [];
 
+    currentDate: string;
+
     private isShow: boolean = false;
 
-    constructor(private http: HttpService) {
-    }
+    constructor(private http: HttpService) {  }
 
     public show() {
         this.isShow = true;
@@ -45,12 +46,30 @@ export class AddingFormComponent {
         this.isShow = false;
     }
 
+    public setDate() {
+        let date = new Date();
+        let day = date.getDate();
+        let month = date.getMonth();
+        let year = date.getFullYear();
+        this.currentDate = `${day}/${month}/${year}`;
+        return this.currentDate;
+    }
+
     public submit() {
         if (this.editMode) {
             this.onSubmit.emit({index: this.editItemIndex, item: this.parselItem});
         } else {
             this.onSubmit.emit({
-
+                suite: this.currentSuite.id,
+                resident: this.parselItem.firstName + ' ' + this.parselItem.lastName,
+                receivedBy: this.setDate(),
+                parcelPostService: this.parselItem.parcelPostService,
+                numberPieces: this.parselItem.numberPieces,
+                parcelType: this.parselItem.parcelType,
+                deliveryAddress: this.parselItem.deliveryAddress,
+                notes: this.parselItem.notes,
+                inOut: true,
+                description: this.parselItem.description
             });
         }
 
