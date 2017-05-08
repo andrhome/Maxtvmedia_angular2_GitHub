@@ -9,6 +9,8 @@ const BUILDINGS_URL: string = `${BASE_URL}/v1/buildings`;
 const SUITES_URL: string = `${BASE_URL}/v1/suites`;
 const RESIDENTS_URL: string = `${BASE_URL}/v1/residents`;
 
+let token: string = null;
+
 @Component({
     selector: 'parselsListView',
     templateUrl: 'parsels-list.template.html',
@@ -27,8 +29,39 @@ export class ParselsListComponent implements OnInit {
     constructor(private http: HttpService) {}
 
     ngOnInit() {
-        this.initParselsList();
+        if (token) {
+            this.initParselsList();
 
+            this.initData();
+        } else {
+            this.http.getToken().subscribe(
+                data => {
+                    token = data.access_token;
+                    this.http.setToken(token);
+                    this.initParselsList();
+                    this.initData();
+                }
+            );
+        }
+    }
+
+    initParselsList: Function = function () {
+        this.http.getData(PARSELS_URL).subscribe(
+            data => { this.parselsList = data; console.log(data); },
+            error => { this.error = error; console.error(error); }
+        );
+    };
+
+    addIncomingParsel(item) {
+        this.http.addItem(item).subscribe(
+            data => {
+                console.log(data, 'data');
+            },
+            error => { console.error(error); }
+        );
+    }
+
+    private initData() {
         this.http.getData(BUILDINGS_URL).subscribe(
             data => {
                 this.buildingsData.buildings = data;
@@ -46,21 +79,5 @@ export class ParselsListComponent implements OnInit {
                 this.buildingsData.residents = data;
             }
         )
-    }
-
-    initParselsList: Function = function () {
-        this.http.getData(PARSELS_URL).subscribe(
-            data => { this.parselsList = data; console.log(data); },
-            error => { this.error = error; console.error(error); }
-        );
-    };
-
-    addIncomingParsel(item) {
-        this.http.addItem(item).subscribe(
-            data => {
-                console.log(data, 'data');
-            },
-            error => { console.error(error); }
-        );
     }
 }
