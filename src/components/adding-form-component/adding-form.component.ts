@@ -62,13 +62,12 @@ export class AddingFormComponent {
             this.onSubmit.emit({
                 suite: this.currentSuite.id,
                 resident: this.parselItem.firstName + ' ' + this.parselItem.lastName,
-                receivedBy: this.setDate(),
                 parcelPostService: this.parselItem.parcelPostService,
                 numberPieces: this.parselItem.numberPieces,
                 parcelType: this.parselItem.parcelType,
                 deliveryAddress: this.parselItem.deliveryAddress,
                 notes: this.parselItem.notes,
-                inOut: true,
+                inOut: 0,
                 description: this.parselItem.description
             });
         }
