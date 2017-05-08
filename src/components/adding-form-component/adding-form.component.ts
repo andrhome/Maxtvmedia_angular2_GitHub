@@ -19,8 +19,8 @@ export class AddingFormComponent {
     buildings: Object = [];
     suites: Object = [];
     residents: Object = [];
-    buildId: number;
-    suiteId: number;
+    currentBuildId: number;
+    currentSuitedId: number;
 
     private isShow: boolean = false;
 
@@ -33,17 +33,17 @@ export class AddingFormComponent {
             data => {
                 this.buildings = data;
                 console.log('Buildings: ', this.buildings);
-                this.buildId = this.buildings[0].id;
+                this.currentBuildId = this.buildings[0].id;
                 // console.log('this.buildId: ', this.buildId);
 
-                this.http.getSuites(this.buildId).subscribe(
+                this.http.getSuites(this.currentBuildId).subscribe(
                     data => {
                         this.suites = data;
                         console.log('Suites: ', this.suites);
-                        this.suiteId = this.suites[0].id;
+                        this.currentSuitedId = this.suites[0].id;
                         // console.log('this.suiteId: ', this.suiteId);
 
-                        this.http.getResidents(this.suiteId).subscribe(
+                        this.http.getResidents(this.currentSuitedId).subscribe(
                             data => {
                                 this.residents = data;
                                 console.log('Residents: ', this.residents);
@@ -57,26 +57,26 @@ export class AddingFormComponent {
 
     changeBuilding(id: number) {
         console.log('Build ID: ', id);
-        // this.http.getSuites(id).subscribe(
-        //     data => {
-        //         this.suites = data;
-        //
-        //         this.http.getResidents(this.suites[0].id).subscribe(
-        //             data => {
-        //                 this.residents = data;
-        //             }
-        //         )
-        //     }
-        // );
+        this.http.getSuites(id).subscribe(
+            data => {
+                this.suites = data;
+
+                this.http.getResidents(this.suites[0].id).subscribe(
+                    data => {
+                        this.residents = data;
+                    }
+                )
+            }
+        );
     }
 
     changeSuite(id: number) {
         console.log('Suite ID: ', id);
-        // this.http.getResidents(id).subscribe(
-        //     data => {
-        //         this.residents = data;
-        //     }
-        // )
+        this.http.getResidents(id).subscribe(
+            data => {
+                this.residents = data;
+            }
+        )
     }
 
     public hide() {
