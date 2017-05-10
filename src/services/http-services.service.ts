@@ -5,8 +5,7 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-
-const BASE_URL: string = 'http://maxtvmedia.requestumdemo.com/api';
+import {GlobalVariables} from "../app/global-variables";
 
 // let token: string = 'Bearer MjI2Nzc3ZTUzZTNlNjdiNmY0OGNiZmU1MTNkYmEyZTg1ZDUyODIzY2EzZjFlZDUyY2E4ZmQ4MDllNGVlYWFjNQ';
 let headers: Headers = new Headers();
@@ -29,7 +28,7 @@ export class HttpService {
     addItem(data) {
         let options = new RequestOptions({headers: headers});
 
-        return this.http.post(`${BASE_URL}/v1/parcels`, {
+        return this.http.post(`${GlobalVariables.BASE_URL}/v1/parcels`, {
             suite: data.suite,
             resident: data.resident,
             parcelPostService: data.parcelPostService,
@@ -49,7 +48,7 @@ export class HttpService {
     getToken() {
     	  let userData = JSON.parse(window.sessionStorage.getItem('user-data'));
 
-        return this.http.post(`${BASE_URL}/security/login`, {
+        return this.http.post(`${GlobalVariables.BASE_URL}/security/login`, {
             email: userData.email,
             password: userData.password
         })

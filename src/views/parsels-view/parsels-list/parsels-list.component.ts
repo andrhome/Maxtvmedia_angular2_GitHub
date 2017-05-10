@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { HttpService } from "../../../services/http-services.service";
 import { ParselType } from "../../../assets/types/parsel-type";
 import { AddingFormComponent } from '../../../components/adding-form-component/adding-form.component';
-
-const BASE_URL: string = 'http://maxtvmedia.requestumdemo.com/api';
-const PARSELS_URL: string = `${BASE_URL}/v1/parcels`;
-const BUILDINGS_URL: string = `${BASE_URL}/v1/buildings`;
-const SUITES_URL: string = `${BASE_URL}/v1/suites`;
-const RESIDENTS_URL: string = `${BASE_URL}/v1/residents`;
+import { GlobalVariables } from "../../../app/global-variables";
 
 let token: string = null;
+
+const PARSELS_URL: string = `${GlobalVariables.BASE_URL}/v1/parcels`;
+const BUILDINGS_URL: string = `${GlobalVariables.BASE_URL}/v1/buildings`;
+const SUITES_URL: string = `${GlobalVariables.BASE_URL}/v1/suites`;
+const RESIDENTS_URL: string = `${GlobalVariables.BASE_URL}/v1/residents`;
 
 @Component({
     selector: 'parselsListView',
