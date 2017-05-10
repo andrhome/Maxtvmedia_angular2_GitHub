@@ -24,8 +24,8 @@
 					<div class="form-group">
 						<label class="col-sm-4 control-label required" for="parcel-resident-name">Recepient name</label>
 						<div class="col-sm-8">
-							<select id="parcel-resident-name" name="create_parcel[resident-name]" class="form-control select2" [(ngModel)]="parselItem.firstName">
-								<option *ngFor="let resident of residents" value="{{resident.first_name}}">{{resident.first_name}}</option>
+							<select id="parcel-resident-name" name="create_parcel[resident-name]" class="form-control select2" [(ngModel)]="parselItem.id">
+								<option *ngFor="let resident of residents" value="{{resident.id}}">{{resident.first_name}}</option>
 							</select>
 						</div>
 					</div>
