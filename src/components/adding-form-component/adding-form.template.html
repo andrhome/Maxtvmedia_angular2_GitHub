@@ -40,10 +40,8 @@
 					<div class="form-group">
 						<label class="col-sm-4 control-label required" for="create_parcel_parcelPostService">Delivered by</label>
 						<div class="col-sm-8">
-							<select id="create_parcel_parcelPostService" name="create_parcel[suite]" class="form-control" [(ngModel)]="parselItem.parcelPostService">
-								<option value="DHL">DHL</option>
-								<option value="SDN">SDN</option>
-								<option value="MVC">MVC</option>
+							<select id="create_parcel_parcelPostService" name="create_parcel[suite]" class="form-control" [(ngModel)]="postserviceId">
+								<option *ngFor="let postservice of buildingsData.postservices" value="{{postservice.id}}">{{postservice.name}}</option>
 							</select>
 						</div>
 					</div>
@@ -56,10 +54,8 @@
 					<div class="form-group">
 						<label class="col-sm-4 control-label required" for="create_parcel_parcelType">Parcel type</label>
 						<div class="col-sm-8">
-							<select id="create_parcel_parcelType" name="create_parcel[parcelType]" class="form-control" [(ngModel)]="parselItem.parcelType">
-								<option value="1">Letter</option>
-								<option value="2">Package</option>
-								<option value="3">Medication</option>
+							<select id="create_parcel_parcelType" name="create_parcel[parcelType]" class="form-control" [(ngModel)]="parcelTypeId">
+								<option *ngFor="let parseltype of buildingsData.parseltypes" value="{{parseltype.id}}">{{parseltype.name}}</option>
 							</select>
 						</div>
 					</div>
