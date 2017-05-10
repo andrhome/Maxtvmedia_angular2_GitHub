@@ -24,6 +24,8 @@ export class AddingFormComponent {
 
     suites: Object[] = [];
     residents: Object[] = [];
+    postserviceId: number;
+    parcelTypeId: number;
 
     private isShow: boolean = false;
 
@@ -58,9 +60,9 @@ export class AddingFormComponent {
             this.onSubmit.emit({
                 suite: this.currentSuite.id,
                 resident: this.parselItem.firstName + ' ' + this.parselItem.lastName,
-                parcelPostService: this.parselItem.parcelPostService,
+                parcelPostService: this.postserviceId,
                 numberPieces: this.parselItem.numberPieces,
-                parcelType: this.parselItem.parcelType,
+                parcelType: this.parcelTypeId,
                 deliveryAddress: this.parselItem.deliveryAddress,
                 notes: this.parselItem.notes,
                 inOut: 0,

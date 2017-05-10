@@ -29,15 +29,18 @@ export class HttpService {
         let options = new RequestOptions({headers: headers});
 
         return this.http.post(`${GlobalVariables.BASE_URL}/v1/parcels`, {
-            suite: data.suite,
-            resident: data.resident,
-            parcelPostService: data.parcelPostService,
-            numberPieces: data.numberPieces,
-            parcelType: data.parcelType,
-            deliveryAddress: data.deliveryAddress,
-            notes: data.notes,
-            inOut: data.inOut,
-            description: data.description
+            post: {
+                suite: data.suite,
+                resident: data.resident,
+                parcelPostService: data.parcelPostService,
+                numberPieces: data.numberPieces,
+                parcelType: data.parcelType,
+                deliveryAddress: data.deliveryAddress,
+                notes: data.notes,
+                inOut: data.inOut,
+                description: data.description
+            }
+
         }, options)
             .map((resp: Response) => resp.json())
             .catch((error: any) => {
