@@ -57,7 +57,6 @@ export class ParselsListComponent implements OnInit {
     };
 
     addIncomingParsel(item) {
-        console.log('ITEM: ', item);
         this.http.addItem(item).subscribe(
             data => {
                 console.log(data, 'data');
@@ -94,7 +93,6 @@ export class ParselsListComponent implements OnInit {
         this.http.getData(PARSELTYPES_URL).subscribe(
             data => {
                 this.buildingsData.parseltypes = data;
-                console.log('this.parseltypes: ', this.buildingsData.parseltypes);
             }
         );
     }

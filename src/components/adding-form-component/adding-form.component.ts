@@ -58,15 +58,17 @@ export class AddingFormComponent {
             this.onSubmit.emit({index: this.editItemIndex, item: this.parselItem});
         } else {
             this.onSubmit.emit({
-                suite: this.currentSuite.id,
-                resident: this.parselItem.firstName + ' ' + this.parselItem.lastName,
-                parcelPostService: this.postserviceId,
-                numberPieces: this.parselItem.numberPieces,
-                parcelType: this.parcelTypeId,
-                deliveryAddress: this.parselItem.deliveryAddress,
-                notes: this.parselItem.notes,
-                inOut: 0,
-                description: this.parselItem.description
+                post: {
+                    suite: this.currentSuite.id,
+                    resident: this.parselItem.id,
+                    parcelPostService: this.postserviceId,
+                    numberPieces: this.parselItem.numberPieces,
+                    parcelType: this.parcelTypeId,
+                    deliveryAddress: this.parselItem.deliveryAddress,
+                    notes: this.parselItem.notes,
+                    inOut: 0,
+                    description: this.parselItem.description
+                }
             });
         }
 
