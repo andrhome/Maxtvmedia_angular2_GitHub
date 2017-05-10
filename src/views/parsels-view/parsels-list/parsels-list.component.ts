@@ -10,6 +10,8 @@ const PARSELS_URL: string = `${GlobalVariables.BASE_URL}/v1/parcels`;
 const BUILDINGS_URL: string = `${GlobalVariables.BASE_URL}/v1/buildings`;
 const SUITES_URL: string = `${GlobalVariables.BASE_URL}/v1/suites`;
 const RESIDENTS_URL: string = `${GlobalVariables.BASE_URL}/v1/residents`;
+const POSTSERVICES_URL: string = `${GlobalVariables.BASE_URL}/v1/post-services`;
+const PARSELTYPES_URL: string = `${GlobalVariables.BASE_URL}/v1/parcel-types`;
 
 @Component({
     selector: 'parselsListView',
@@ -24,6 +26,8 @@ export class ParselsListComponent implements OnInit {
         buildings: [],
         suites: [],
         residents: [],
+        postservices: [],
+        parseltypes: []
     };
 
     constructor(private http: HttpService) {}
@@ -79,6 +83,19 @@ export class ParselsListComponent implements OnInit {
             data => {
                 this.buildingsData.residents = data;
             }
-        )
+        );
+
+        this.http.getData(POSTSERVICES_URL).subscribe(
+            data => {
+                this.buildingsData.postservices = data;
+            }
+        );
+
+        this.http.getData(PARSELTYPES_URL).subscribe(
+            data => {
+                this.buildingsData.parseltypes = data;
+                console.log('this.parseltypes: ', this.buildingsData.parseltypes);
+            }
+        );
     }
 }
