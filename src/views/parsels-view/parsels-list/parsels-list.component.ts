@@ -57,6 +57,7 @@ export class ParselsListComponent implements OnInit {
     };
 
     addIncomingParsel(item) {
+        console.log('ITEM: ', item);
         this.http.addItem(item).subscribe(
             data => {
                 console.log(data, 'data');

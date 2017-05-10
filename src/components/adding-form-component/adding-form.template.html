@@ -22,21 +22,21 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-4 control-label required" for="parcel-resident-name">Recepient name</label>
+						<label class="col-sm-4 control-label required" for="parcel-resident-name">Recepient</label>
 						<div class="col-sm-8">
 							<select id="parcel-resident-name" name="create_parcel[resident-name]" class="form-control select2" [(ngModel)]="parselItem.id">
-								<option *ngFor="let resident of residents" value="{{resident.id}}">{{resident.first_name}}</option>
+								<option *ngFor="let resident of residents" value="{{resident.id}}">{{resident.first_name + ' ' + resident.last_name}}</option>
 							</select>
 						</div>
 					</div>
-					<div class="form-group">
-						<label class="col-sm-4 control-label required" for="parcel-resident-surname">Recepient surename</label>
-						<div class="col-sm-8">
-							<select id="parcel-resident-surname" name="create_parcel[resident-surname]" class="form-control select2" [(ngModel)]="parselItem.lastName">
-								<option *ngFor="let resident of residents" value="{{resident.last_name}}">{{resident.last_name}}</option>
-							</select>
-						</div>
-					</div>
+					<!--<div class="form-group">-->
+						<!--<label class="col-sm-4 control-label required" for="parcel-resident-surname">Recepient surename</label>-->
+						<!--<div class="col-sm-8">-->
+							<!--<select id="parcel-resident-surname" name="create_parcel[resident-surname]" class="form-control select2" [(ngModel)]="parselItem.lastName">-->
+								<!--<option *ngFor="let resident of residents" value="{{resident.last_name}}">{{resident.last_name}}</option>-->
+							<!--</select>-->
+						<!--</div>-->
+					<!--</div>-->
 					<div class="form-group">
 						<label class="col-sm-4 control-label required" for="create_parcel_parcelPostService">Delivered by</label>
 						<div class="col-sm-8">
