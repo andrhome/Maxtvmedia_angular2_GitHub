@@ -47,9 +47,11 @@ export class HttpService {
     }
 
     getToken() {
+    	  let userData = JSON.parse(window.sessionStorage.getItem('user-data'));
+
         return this.http.post(`${BASE_URL}/security/login`, {
-            email: 'admin',
-            password: '123456'
+            email: userData.email,
+            password: userData.password
         })
             .map((res: Response) => res.json());
     }

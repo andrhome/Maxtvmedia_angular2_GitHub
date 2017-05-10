@@ -8,12 +8,16 @@ export class LogInComponent {
 	constructor() {
 	}
 
-	userEmail: string = 'test@test.com';
-	userPassword: string = '12345';
+	userEmail: string = 'admin';
+	userPassword: string = '123456';
 
-	public submitLoginForm(e) {
-		e.preventDefault();
+	public submitLoginForm() {
+		//TODO: Try to login user
 		this.saveUserData(this.userEmail, this.userPassword);
+		//TODO: If user login correct redirect on home page
+		if (true) {
+			this.redirectOnHomePage();
+		}
 	}
 
 	private saveUserData(email, password) {
