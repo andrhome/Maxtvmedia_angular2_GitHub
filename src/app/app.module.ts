@@ -1,7 +1,8 @@
 import {NgModule} from '@angular/core'
+import {FormsModule} from '@angular/forms';
 import {RouterModule} from "@angular/router";
 import {AppComponent} from "./app";
-import { CommonModule } from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {BrowserModule} from "@angular/platform-browser";
 import {HttpModule} from "@angular/http";
 import {ROUTES} from "./app.routes";
@@ -15,38 +16,39 @@ import {PostServicesModule} from "../views/parsels-view/post-services/post-servi
 import {ParselsListModule} from "../views/parsels-view/parsels-list/parsels-list.module";
 import {LogInModule} from "../views/login-view/login.module";
 
-
 // App modules/components
 import {NavigationModule} from "../views/common/navigation/navigation.module";
 import {FooterModule} from "../views/common/footer/footer.module";
 import {TopnavbarModule} from "../views/common/topnavbar/topnavbar.module";
 
 @NgModule({
-    declarations: [AppComponent],
-    imports     : [
+	declarations: [AppComponent],
+	imports: [
 
-        // Angular modules
-        CommonModule,
-        BrowserModule,
-        HttpModule,
+		// Angular modules
+		CommonModule,
+		BrowserModule,
+		HttpModule,
 
-        // Views
-        MainViewModule,
-        MinorViewModule,
-        ParselTypeModule,
-        PostServicesModule,
-        ParselsListModule,
-        LogInModule,
+		// Views
+		MainViewModule,
+		MinorViewModule,
+		ParselTypeModule,
+		PostServicesModule,
+		ParselsListModule,
+		LogInModule,
 
-        // Modules
-        NavigationModule,
-        FooterModule,
-        TopnavbarModule,
+		// Modules
+		NavigationModule,
+		FooterModule,
+		TopnavbarModule,
+		FormsModule,
 
-        RouterModule.forRoot(ROUTES)
-    ],
-    providers   : [{provide: LocationStrategy, useClass: HashLocationStrategy}],
-    bootstrap   : [AppComponent]
+		RouterModule.forRoot(ROUTES)
+	],
+	providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
+	bootstrap: [AppComponent]
 })
 
-export class AppModule {}
+export class AppModule {
+}

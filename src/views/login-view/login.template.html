@@ -1,1 +1,14 @@
 <h1>Log In</h1>
+
+<form>
+    <label for="email">
+        <span>Email:</span>
+    </label>
+    <input type="text" id="email" name="email" [(ngModel)]="userEmail" required>
+    {{userEmail}}
+    <label for="password">
+        <span>Password:</span>
+    </label>
+    <input type="password" id="password" name="password" [(ngModel)]="userPassword" required>
+    <input type="submit" value="Submit" (click)="submitLoginForm()">
+</form>
