@@ -28,20 +28,7 @@ export class HttpService {
     addItem(data) {
         let options = new RequestOptions({headers: headers});
 
-        return this.http.post(`${GlobalVariables.BASE_URL}/v1/parcels`, {
-            post: {
-                suite: data.suite,
-                resident: data.resident,
-                parcelPostService: data.parcelPostService,
-                numberPieces: data.numberPieces,
-                parcelType: data.parcelType,
-                deliveryAddress: data.deliveryAddress,
-                notes: data.notes,
-                inOut: data.inOut,
-                description: data.description
-            }
-
-        }, options)
+        return this.http.post(`${GlobalVariables.BASE_URL}/v1/parcels`, data, options)
             .map((resp: Response) => resp.json())
             .catch((error: any) => {
                 return Observable.throw(error)
