@@ -1,8 +1,7 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {ParselType} from '../../assets/types/parsel-type';
 import {HttpService} from "../../services/http-services.service";
-
-const BASE_URL: string = 'http://maxtvmedia.requestumdemo.com/api';
+import {GlobalVariables} from "../../app/global-variables";
 
 @Component({
     // moduleId: module.id,
@@ -99,7 +98,7 @@ export class AddingFormComponent {
     }
 
     private getResidentsBySuiteIdAndInit(suiteId) {
-        const RESIDENTS_URL: string = `${BASE_URL}/v1/suites/residents/${suiteId}`;
+        const RESIDENTS_URL: string = `${GlobalVariables.BASE_URL}/v1/suites/residents/${suiteId}`;
 
         this.http.getData(RESIDENTS_URL).subscribe(
             data => {
