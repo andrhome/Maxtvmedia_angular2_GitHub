@@ -13,6 +13,7 @@ import {MinorViewModule} from "../views/minor-view/minor-view.module";
 import {ParselTypeModule} from "../views/parsels-view/parsel-type/parsel-type.module";
 import {PostServicesModule} from "../views/parsels-view/post-services/post-services.module";
 import {ParselsListModule} from "../views/parsels-view/parsels-list/parsels-list.module";
+import {LogInModule} from "../views/login-view/login.module";
 
 
 // App modules/components
@@ -35,6 +36,7 @@ import {TopnavbarModule} from "../views/common/topnavbar/topnavbar.module";
         ParselTypeModule,
         PostServicesModule,
         ParselsListModule,
+        LogInModule,
 
         // Modules
         NavigationModule,
