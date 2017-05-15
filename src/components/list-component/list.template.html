@@ -2,8 +2,7 @@
     <thead>
     <tr>
         <th>#</th>
-        <th>Recepient name</th>
-        <th>Recepient surname</th>
+        <th>Recipient</th>
         <th>Received</th>
         <th>Parcel Type</th>
         <th>Delivered by</th>
@@ -23,8 +22,7 @@
     <tbody *ngIf="!error">
     <tr *ngFor="let item of dataList; let i = index;">
         <td>{{i + 1}}</td>
-        <td>{{item.firstName}}</td>
-        <td>{{item.lastName}}</td>
+        <td>{{item.firstName + ' ' + item.lastName}}</td>
         <td>{{item.createdAt | date: 'dd/MM/yyyy'}}</td>
         <td>{{item.parcelType}}</td>
         <td>{{item.parcelPostService}}</td>
@@ -40,7 +38,13 @@
             <!--</template>-->
         <!--</td>-->
         <td>
-            <adding-form [title]="'<i class=\'fa fa-paste\'></i>Edit'" [editMode]="true" [editItemIndex]="i" [parselItem]="item" (onSubmit)="editParselItem($event.index, $event.item)"></adding-form>
+            <adding-form
+                    [title]="'<i class=\'fa fa-paste\'></i>Edit'"
+                    [editMode]="true"
+                    [parselItem]="item"
+                    (onSubmit)="editParselItem($event)">
+            </adding-form>
+
             <div class="btn-group">
                 <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" aria-expanded="false">Action <span class="caret"></span></button>
                 <ul class="dropdown-menu">

@@ -1,6 +1,6 @@
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-sm-4">
-        <h2>Parsels List</h2>
+        <h2>Parcels List</h2>
         <ol class="breadcrumb">
             <li>
                 <a href="/">This is</a>
@@ -24,11 +24,13 @@
                         <div class="ibox-title">
                             <div class="ibox-tools">
                                 <!-- Create Incommin Parsel form -->
-                                <adding-form [title]="'Create an Incoming Parcel'" [buildingsData]="buildingsData" (onSubmit)="addIncomingParsel($event)"></adding-form>
+                                <adding-form
+                                        [title]="'Create an Incoming Parcel'"
+                                        (onSubmit)="addIncomingParsel($event)"></adding-form>
                             </div>
                         </div>
                         <div class="ibox-content">
-                            <list-comp [dataList]="parselsList" [error]="error"></list-comp>
+                            <list-comp [dataList]="parselsList" [error]="error" (onInitList)="initParselsList()"></list-comp>
                         </div>
                     </div>
                 </div>
@@ -41,7 +43,7 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <list-comp [dataList]="parselsList"></list-comp>
+                        <!--<list-comp [dataList]="parselsList"></list-comp>-->
                     </div>
                 </div>
             </div>

@@ -13,9 +13,9 @@ export const ROUTES:Routes = [
     // App views
     {path: 'mainView', component: mainViewComponent},
     {path: 'minorView', component: minorViewComponent},
-    {path: 'parselTypeView', component: ParselTypeComponent},
+    {path: 'parcelTypeView', component: ParselTypeComponent},
     {path: 'postServicesView', component: PostServicesComponent},
-    {path: 'parselsListView', component: ParselsListComponent},
+    {path: 'parcelsListView', component: ParselsListComponent},
     {path: 'login', component: LogInComponent},
 
     // Handle all other routes

@@ -3,7 +3,7 @@ import { Response } from '@angular/http';
 import { ParselType } from "./parsel-type";
 
 @Component({
-    selector: 'parselTypeView',
+    selector: 'parcelTypeView',
     templateUrl: 'parsel-type.template.html',
 })
 export class ParselTypeComponent implements OnInit{

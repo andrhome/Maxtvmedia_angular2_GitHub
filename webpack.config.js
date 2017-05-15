@@ -1,7 +1,7 @@
 var webpack = require('webpack');
 var path    = require('path');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 // Webpack Config
 var webpackConfig = {
@@ -24,7 +24,10 @@ var webpackConfig = {
         }),
         new webpack.DefinePlugin({
             "require.specified": "require.resolve"
-        })
+        }),
+        new CopyWebpackPlugin([
+              { from: './src/index.html' }
+          ])
     ],
 
     module: {
@@ -65,7 +68,6 @@ var webpackConfig = {
     }
 
 };
-
 
 // Our Webpack Defaults
 var defaultConfig = {

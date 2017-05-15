@@ -1,14 +1,13 @@
 import {Injectable} from '@angular/core';
-import {Http, Headers, RequestOptions} from '@angular/http';
-import {Response} from '@angular/http';
+import {Http, Headers, RequestOptions, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import {GlobalVariables} from "../app/global-variables";
 
-// let token: string = 'Bearer MjI2Nzc3ZTUzZTNlNjdiNmY0OGNiZmU1MTNkYmEyZTg1ZDUyODIzY2EzZjFlZDUyY2E4ZmQ4MDllNGVlYWFjNQ';
 let headers: Headers = new Headers();
+let options = new RequestOptions({headers: headers});
 
 @Injectable()
 export class HttpService {
@@ -17,7 +16,10 @@ export class HttpService {
     }
 
     getData(url: string) {
-        let options = new RequestOptions({headers: headers});
+        if (!headers.get('Authorization')) {
+            this.setToken(window.sessionStorage.getItem('token'));
+        }
+
         return this.http.get(url, options)
             .map((resp: Response) => resp.json())
             .catch((error: any) => {
@@ -25,24 +27,28 @@ export class HttpService {
             });
     }
 
-    addItem(data) {
-        let options = new RequestOptions({headers: headers});
-
-        return this.http.post(`${GlobalVariables.BASE_URL}/v1/parcels`, data, options)
+    getSuitesByBuildId(id: number) {
+        return this.http.get(`${GlobalVariables.BASE_URL}/v1/suites/building/${id}`, options)
             .map((resp: Response) => resp.json())
             .catch((error: any) => {
-                return Observable.throw(error)
+                return Observable.throw(error);
             });
     }
 
-    getToken() {
-    	  let userData = JSON.parse(window.sessionStorage.getItem('user-data'));
+    getResidentsBySuiteId(id: number) {
+        return this.http.get(`${GlobalVariables.BASE_URL}/v1/suites/residents/${id}`, options)
+            .map((resp: Response) => resp.json())
+            .catch((error: any) => {
+                return Observable.throw(error);
+            });
+    }
 
-        return this.http.post(`${GlobalVariables.BASE_URL}/security/login`, {
-            email: userData.email,
-            password: userData.password
-        })
-            .map((res: Response) => res.json());
+    addItem(data) {
+        if (!headers.get('Authorization')) {
+            this.setToken(window.sessionStorage.getItem('token'));
+        }
+
+        return this.http.post(`${GlobalVariables.BASE_URL}/v1/parcels`, data, options);
     }
 
     setToken(token) {
@@ -50,7 +56,16 @@ export class HttpService {
         headers.append('Authorization', token);
     }
 
-    editItem() {
+    getToken(email, password) {
+        return this.http.post(`${GlobalVariables.BASE_URL}/security/login`, {email, password})
+            .map((res: Response) => res.json());
+    }
 
+    editItem(id, data) {
+        if (!headers.get('Authorization')) {
+            this.setToken(window.sessionStorage.getItem('token'));
+        }
+
+        return this.http.patch(`${GlobalVariables.BASE_URL}/v1/parcels/${id}`, data, options);
     }
 }

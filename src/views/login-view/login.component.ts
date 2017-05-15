@@ -1,32 +1,39 @@
 import {Component} from '@angular/core';
+import {HttpService} from "../../services/http-services.service";
 
 @Component({
-	selector: 'login',
-	templateUrl: 'login.template.html'
+    selector: 'login',
+    templateUrl: 'login.template.html',
+    providers: [HttpService]
 })
 export class LogInComponent {
-	constructor() {
-	}
+    constructor(private http: HttpService) {
+    }
 
-	userEmail: string = 'admin';
-	userPassword: string = '123456';
+    public userEmail: string = 'admin';
+    public userPassword: string = '123456';
 
-	public submitLoginForm() {
-		//TODO: Try to login user
-		this.saveUserData(this.userEmail, this.userPassword);
-		//TODO: If user login correct redirect on home page
-		if (true) {
-			this.redirectOnHomePage();
-		}
-	}
+    public submitLoginForm() {
+        this.http.getToken(this.userEmail, this.userPassword).subscribe(
+            data => {
+                if (data.access_token) {
+                    let token = data.access_token;
 
-	private saveUserData(email, password) {
-		//TODO: Password shod be encrypted
-		window.sessionStorage.setItem('user-data', JSON.stringify({email, password}));
-	}
+                    window.sessionStorage.setItem('token', token);
 
-	private redirectOnHomePage() {
-		const HOME_PAGE = '/';
-		location.href = HOME_PAGE;
-	}
+                    this.http.setToken(token);
+
+                    this.redirectOnHomePage();
+                } else {
+                    //TODO: Throw an error
+                }
+            }
+        );
+    }
+
+    private redirectOnHomePage() {
+        const HOME_PAGE = '/';
+        location.href = HOME_PAGE;
+    }
+
 }

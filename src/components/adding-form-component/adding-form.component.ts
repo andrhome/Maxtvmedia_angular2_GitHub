@@ -3,111 +3,256 @@ import {ParselType} from '../../assets/types/parsel-type';
 import {HttpService} from "../../services/http-services.service";
 import {GlobalVariables} from "../../app/global-variables";
 
+const BUILDINGS_URL: string = `${GlobalVariables.BASE_URL}/v1/buildings`;
+const SUITES_URL: string = `${GlobalVariables.BASE_URL}/v1/suites`;
+const RESIDENTS_URL: string = `${GlobalVariables.BASE_URL}/v1/residents`;
+const RESIDENTS_BY_SUITE_URL: string = `${GlobalVariables.BASE_URL}/v1/suites/residents`;
+const POSTSERVICES_URL: string = `${GlobalVariables.BASE_URL}/v1/post-services`;
+const PARSELTYPES_URL: string = `${GlobalVariables.BASE_URL}/v1/parcel-types`;
+
 @Component({
-    // moduleId: module.id,
-    selector: 'adding-form',
-    templateUrl: 'adding-form.template.html'
-    // styleUrls: ['adding-form.style.css']
+	selector: 'adding-form',
+	templateUrl: 'adding-form.template.html'
 })
 export class AddingFormComponent {
-    @Input() title: string = '';
-    @Input() editMode: boolean = false;
-    @Input() editItemIndex: number;
-    @Input() parselItem: ParselType = new ParselType();
+	@Input() title: string = '';
+	@Input() editMode: boolean = false;
+	@Input() parselItem: ParselType = new ParselType();
+	@Output() onSubmit: EventEmitter<Object> = new EventEmitter();
 
-    @Input() buildingsData: any = {};
+	private isShow: boolean = false;
 
-    @Output() onSubmit: EventEmitter<Object> = new EventEmitter();
+	buildingsData: any = {
+		buildings: [],
+		suites: [],
+		residents: [],
+		postservices: [],
+		parseltypes: []
+	};
 
-    currentBuild: any = {};
-    currentSuite: any = {};
+	currentBuild: any = {};
+	currentSuite: any = {};
+	currentResident: any = {};
+	currentPostservices: any = {};
+	currentParcelType: any = {};
 
-    suites: Object[] = [];
-    residents: Object[] = [];
-    postserviceId: number;
-    parcelTypeId: number;
+	constructor(private http: HttpService) {
+	}
 
-    private isShow: boolean = false;
+	public show() {
+		this.isShow = true;
 
-    constructor(private http: HttpService) {  }
+		if (this.editMode) {
+			this.initEditMode();
+		} else {
+			this.initAddMode();
+		}
+	}
 
-    public show() {
-        this.isShow = true;
+	public hide() {
+		this.isShow = false;
+	}
 
-        if (this.editMode) {
-            this.initEditMode();
-        } else {
-            this.initAddMode();
-        }
-    }
+	public submit() {
+		if (this.editMode) {
+			this.onSubmit.emit({
+				id: this.parselItem.id,
+				item: {
+					patch: {
+						suite: this.currentSuite.id,
+						resident: this.currentResident.id,
+						parcelPostService: this.currentPostservices.id,
+						numberPieces: this.parselItem.numberPieces,
+						parcelType: this.currentParcelType.id,
+						deliveryAddress: this.parselItem.deliveryAddress,
+						notes: this.parselItem.notes,
+						inOut: 0,
+						description: this.parselItem.description
+					}
+				}
+			});
+		} else {
+			this.onSubmit.emit({
+				post: {
+					suite: this.currentSuite.id,
+					resident: this.currentResident.id,
+					parcelPostService: this.currentPostservices.id,
+					numberPieces: this.parselItem.numberPieces,
+					parcelType: this.currentParcelType.id,
+					deliveryAddress: this.parselItem.deliveryAddress,
+					notes: this.parselItem.notes,
+					inOut: 0,
+					description: this.parselItem.description
+				}
+			});
+		}
 
-    public hide() {
-        this.isShow = false;
-    }
+		this.hide();
+	}
 
-    public setDate() {
-        let date = new Date(),
-            day = date.getDate(),
-            month = date.getMonth(),
-            year = date.getFullYear();
-        return `${day}/${month}/${year}`;
-    }
+	private initEditMode() {
+		this.http.getData(`${GlobalVariables.BASE_URL}/v1/parcels/${this.parselItem.id}`).subscribe(
+			parcelsResult => {
+				// Set delivery address
+				this.parselItem.deliveryAddress = parcelsResult.delivery_address;
 
-    public submit() {
-        if (this.editMode) {
-            this.onSubmit.emit({index: this.editItemIndex, item: this.parselItem});
-        } else {
-            this.onSubmit.emit({
-                post: {
-                    suite: this.currentSuite.id,
-                    resident: this.parselItem.id,
-                    parcelPostService: this.postserviceId,
-                    numberPieces: this.parselItem.numberPieces,
-                    parcelType: this.parcelTypeId,
-                    deliveryAddress: this.parselItem.deliveryAddress,
-                    notes: this.parselItem.notes,
-                    inOut: 0,
-                    description: this.parselItem.description
-                }
-            });
-        }
+				// Set pieces number
+				this.parselItem.numberPieces = parcelsResult.number_pieces;
 
-        this.hide();
-    }
+				// Set notes
+				this.parselItem.notes = parcelsResult.notes;
 
-    private initEditMode() {
-        console.log(this.parselItem);
-    }
+				// Set description
+				this.parselItem.description = parcelsResult.description;
 
-    private initAddMode() {
-        this.currentBuild = this.buildingsData.buildings[0];
+				// Get parcel type
+				this.getParselTypes((parselTypesData) => {
+					// Set current parcel type
+					this.currentParcelType = parselTypesData.find((item) => {
+						return parcelsResult.parcel_type.id == item.id;
+					});
+				});
 
-        this.suites = this.getSuitesByBuildingId(this.currentBuild.id);
+				// Get post services
+				this.getPostServices((postServicesData) => {
+					// Set current post services
+					this.currentPostservices = postServicesData.find((item) => {
+						return parcelsResult.parcel_post_service.id == item.id;
+					});
+				});
 
-        this.currentSuite = this.suites[0];
+				// Get buildings
+				this.http.getData(BUILDINGS_URL).subscribe(
+					buildingsResult => {
+						// Set buildings list
+						this.buildingsData.buildings = buildingsResult;
 
-        this.getResidentsBySuiteIdAndInit(this.currentSuite.id);
-    }
+						// Get current suite
+						this.http.getData(`${GlobalVariables.BASE_URL}/v1/suites/${parcelsResult.suite}`).subscribe(
+							suiteResult => {
+								// Set current build
+								console.log(this.buildingsData.buildings);
+								this.currentBuild = this.buildingsData.buildings.find((item) => {
+									return suiteResult.building == item.id;
+								});
 
-    private getSuitesByBuildingId(buildingId) {
-        let result = [];
+								this.http.getData(SUITES_URL + `/building/${this.currentBuild.id}`).subscribe(
+									suiteListResult => {
+										this.buildingsData.suites = suiteListResult;
 
-        this.buildingsData.suites.forEach((item) => {
-            if (item.building === buildingId) {
-                result.push(item);
-            }
-        });
+										// Set current suite
+										this.currentSuite = this.buildingsData.suites.find((item) => {
+											return suiteResult.id == item.id;
+										});
 
-        return result;
-    }
+										// Get residents list
+										this.http.getData(RESIDENTS_BY_SUITE_URL + `/${this.currentSuite.id}`).subscribe(
+											residentsResult => {
+												this.buildingsData.residents = residentsResult;
 
-    private getResidentsBySuiteIdAndInit(suiteId) {
-        const RESIDENTS_URL: string = `${GlobalVariables.BASE_URL}/v1/suites/residents/${suiteId}`;
+												// Set current resident
+												this.currentResident = this.buildingsData.residents.find((item) => {
+													return parcelsResult.resident.id == item.id;
+												});
+											}
+										);
+									}
+								);
+							}
+						);
+					}
+				);
+			}
+		);
+	}
 
-        this.http.getData(RESIDENTS_URL).subscribe(
-            data => {
-                this.residents = data;
-            }
-        );
-    }
+	private initAddMode() {
+		this.http.getData(BUILDINGS_URL).subscribe(
+			data => {
+				this.buildingsData.buildings = data;
+
+				this.currentBuild = this.buildingsData.buildings[0];
+
+				this.http.getData(SUITES_URL + `/building/${this.currentBuild.id}`).subscribe(
+					data => {
+						this.buildingsData.suites = data;
+
+						this.currentSuite = this.buildingsData.suites[0];
+
+						this.http.getData(RESIDENTS_BY_SUITE_URL + `/${this.currentSuite.id}`).subscribe(
+							data => {
+								this.buildingsData.residents = data;
+
+								this.currentResident = this.buildingsData.residents[0];
+							}
+						);
+					}
+				);
+			}
+		);
+
+		this.getPostServices((data) => {
+			this.currentPostservices = data[0];
+		});
+
+		this.getParselTypes((data) => {
+			this.currentParcelType = data[0];
+		});
+	}
+
+	private getParselTypes(callback: Function) {
+		this.http.getData(PARSELTYPES_URL).subscribe(
+			data => {
+				this.buildingsData.parseltypes = data;
+
+				if (callback) {
+					callback(data);
+				}
+			}
+		);
+	}
+
+	private getPostServices(callback: Function) {
+		this.http.getData(POSTSERVICES_URL).subscribe(
+			data => {
+				this.buildingsData.postservices = data;
+
+				if (callback) {
+					callback(data);
+				}
+			}
+		);
+	}
+
+	changeBuilding(newBuild) {
+		this.http.getData(SUITES_URL + `/building/${newBuild.id}`).subscribe(
+			suiteListResult => {
+				this.buildingsData.suites = suiteListResult;
+
+				// Set current suite
+				this.currentSuite = this.buildingsData.suites[0];
+
+				// Get residents list
+				this.http.getData(RESIDENTS_BY_SUITE_URL + `/${this.currentSuite.id}`).subscribe(
+					residentsResult => {
+						this.buildingsData.residents = residentsResult;
+
+						// Set current resident
+						this.currentResident = this.buildingsData.residents[0];
+					}
+				);
+			}
+		);
+	}
+
+	changeSuite(newSuite) {
+		this.http.getData(RESIDENTS_BY_SUITE_URL + `/${newSuite.id}`).subscribe(
+			residentsResult => {
+				this.buildingsData.residents = residentsResult;
+
+				// Set current resident
+				this.currentResident = this.buildingsData.residents[0];
+			}
+		);
+	}
 }
